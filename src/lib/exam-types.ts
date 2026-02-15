@@ -23,6 +23,8 @@ export type DropZone = {
   id: string;
   label: string;
   accepts: string[];
+  rect?: Rect;
+  pageIndex?: number;
 };
 
 export type ChoiceOption = {

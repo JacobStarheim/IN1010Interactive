@@ -62,42 +62,84 @@
             "label": "Plass 1",
             "accepts": [
               "q1_main"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.13,
+              "y": 0.318,
+              "w": 0.293,
+              "h": 0.028
+            }
           },
           {
             "id": "q1_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q1_decl"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.166,
+              "y": 0.354,
+              "w": 0.293,
+              "h": 0.028
+            }
           },
           {
             "id": "q1_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q1_new"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.166,
+              "y": 0.389,
+              "w": 0.293,
+              "h": 0.028
+            }
           },
           {
             "id": "q1_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q1_assign"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.166,
+              "y": 0.425,
+              "w": 0.293,
+              "h": 0.028
+            }
           },
           {
             "id": "q1_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q1_read"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.166,
+              "y": 0.461,
+              "w": 0.293,
+              "h": 0.028
+            }
           },
           {
             "id": "q1_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q1_print"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.166,
+              "y": 0.496,
+              "w": 0.293,
+              "h": 0.028
+            }
           }
         ]
       }
