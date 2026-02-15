@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { PageImageStack } from "@/components/exam/page-image-stack";
 import type { DragAssignments, DragCheckResult } from "@/lib/interaction";
@@ -16,6 +16,20 @@ import styles from "@/components/exam/question-workspace.module.css";
 type Props = {
   examId: string;
   question: QuestionManifest;
+};
+
+type ChoiceMarkKind = "text" | "circle";
+
+type ChoiceMark = {
+  id: string;
+  pageIndex: number;
+  kind: ChoiceMarkKind;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  text: string;
+  checked: boolean;
 };
 
 const storageKey = (kind: string, examId: string, questionId: string) =>
@@ -45,6 +59,9 @@ export function QuestionWorkspace({ examId, question }: Props) {
   const [zoneStatus, setZoneStatus] = useState<Record<string, "correct" | "wrong" | "empty">>(
     {}
   );
+  const [choiceTool, setChoiceTool] = useState<"none" | "text" | "circle">("none");
+  const [choiceMarks, setChoiceMarks] = useState<ChoiceMark[]>([]);
+  const choiceMarkIdRef = useRef(0);
 
   const options = useMemo(() => question.interaction?.options ?? [], [question.interaction?.options]);
   const allowMultiple = question.interaction?.allowMultiple ?? true;
@@ -136,6 +153,29 @@ export function QuestionWorkspace({ examId, question }: Props) {
     if (savedCode) {
       setCodeText(savedCode);
     }
+
+    const savedChoiceMarks = storage.getItem(storageKey("choice-overlay", examId, question.id));
+    if (savedChoiceMarks) {
+      try {
+        const parsed = JSON.parse(savedChoiceMarks) as ChoiceMark[];
+        setChoiceMarks(parsed);
+        const maxId = parsed.reduce((max, mark) => {
+          const value = Number(mark.id.replace("mark-", ""));
+          if (Number.isFinite(value) && value > max) {
+            return value;
+          }
+          return max;
+        }, 0);
+        choiceMarkIdRef.current = maxId;
+      } catch {
+        setChoiceMarks([]);
+        choiceMarkIdRef.current = 0;
+      }
+    } else {
+      setChoiceMarks([]);
+      choiceMarkIdRef.current = 0;
+    }
+    setChoiceTool("none");
   }, [dropZones, examId, question.id]);
 
   useEffect(() => {
@@ -173,9 +213,113 @@ export function QuestionWorkspace({ examId, question }: Props) {
     storage.setItem(storageKey("code", examId, question.id), codeText);
   }, [codeText, examId, question.id]);
 
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage) {
+      return;
+    }
+    storage.setItem(
+      storageKey("choice-overlay", examId, question.id),
+      JSON.stringify(choiceMarks)
+    );
+  }, [choiceMarks, examId, question.id]);
+
   const assignedItemIds = useMemo(() => {
     return new Set(Object.values(assignments).filter(Boolean));
   }, [assignments]);
+  const choiceMarksByPage = useMemo(() => {
+    const grouped: Record<number, ChoiceMark[]> = {};
+    choiceMarks.forEach((mark) => {
+      if (!grouped[mark.pageIndex]) {
+        grouped[mark.pageIndex] = [];
+      }
+      grouped[mark.pageIndex].push(mark);
+    });
+    return grouped;
+  }, [choiceMarks]);
+
+  const clamp = (value: number, min: number, max: number) => {
+    if (value < min) {
+      return min;
+    }
+    if (value > max) {
+      return max;
+    }
+    return value;
+  };
+
+  const createChoiceMark = (pageIndex: number, x: number, y: number, kind: ChoiceMarkKind) => {
+    choiceMarkIdRef.current += 1;
+    const id = `mark-${choiceMarkIdRef.current}`;
+
+    if (kind === "text") {
+      const w = 0.17;
+      const h = 0.042;
+      return {
+        id,
+        pageIndex,
+        kind,
+        x: clamp(x - w / 2, 0, 1 - w),
+        y: clamp(y - h / 2, 0, 1 - h),
+        w,
+        h,
+        text: "",
+        checked: false,
+      } satisfies ChoiceMark;
+    }
+
+    const w = 0.03;
+    const h = 0.03;
+    return {
+      id,
+      pageIndex,
+      kind,
+      x: clamp(x - w / 2, 0, 1 - w),
+      y: clamp(y - h / 2, 0, 1 - h),
+      w,
+      h,
+      text: "",
+      checked: true,
+    } satisfies ChoiceMark;
+  };
+
+  const addChoiceMarkAt = (pageIndex: number, x: number, y: number) => {
+    if (choiceTool === "none") {
+      return;
+    }
+    const newMark = createChoiceMark(pageIndex, x, y, choiceTool);
+    setChoiceMarks((current) => [...current, newMark]);
+    setFeedback("");
+  };
+
+  const updateChoiceMarkText = (id: string, text: string) => {
+    setChoiceMarks((current) =>
+      current.map((mark) => (mark.id === id ? { ...mark, text } : mark))
+    );
+  };
+
+  const toggleChoiceCircle = (id: string) => {
+    setChoiceMarks((current) =>
+      current.map((mark) =>
+        mark.id === id && mark.kind === "circle"
+          ? { ...mark, checked: !mark.checked }
+          : mark
+      )
+    );
+  };
+
+  const removeChoiceMark = (id: string) => {
+    setChoiceMarks((current) => current.filter((mark) => mark.id !== id));
+  };
+
+  const clearChoiceMarks = () => {
+    setChoiceMarks([]);
+    setFeedback("");
+  };
+
+  const undoChoiceMark = () => {
+    setChoiceMarks((current) => current.slice(0, -1));
+  };
 
   const placeItem = (zoneId: string, itemId: string) => {
     setZoneStatus({});
@@ -349,6 +493,115 @@ export function QuestionWorkspace({ examId, question }: Props) {
     );
   };
 
+  const renderChoiceOverlayViewer = () => {
+    return (
+      <div className={styles.overlayStack}>
+        {question.promptPages.map((page, pageIndex) => {
+          const marksOnPage = choiceMarksByPage[pageIndex] ?? [];
+
+          return (
+            <figure key={`${page}-${pageIndex}`} className={styles.overlayFigure}>
+              <img
+                src={page}
+                alt={`Oppgaveside ${pageIndex + 1}`}
+                className={styles.overlayImage}
+                loading={pageIndex === 0 ? "eager" : "lazy"}
+              />
+              <div
+                className={`${styles.overlayLayer} ${styles.choiceOverlayLayer} ${
+                  choiceTool !== "none" ? styles.choiceOverlayLayerActiveTool : ""
+                }`}
+                onClick={(event) => {
+                  if (choiceTool === "none") {
+                    return;
+                  }
+                  const bounds = event.currentTarget.getBoundingClientRect();
+                  const x = (event.clientX - bounds.left) / bounds.width;
+                  const y = (event.clientY - bounds.top) / bounds.height;
+                  addChoiceMarkAt(pageIndex, x, y);
+                }}
+              >
+                {marksOnPage.map((mark) => {
+                  if (mark.kind === "text") {
+                    return (
+                      <div
+                        key={mark.id}
+                        className={styles.choiceMarkText}
+                        style={{
+                          left: `${mark.x * 100}%`,
+                          top: `${mark.y * 100}%`,
+                          width: `${mark.w * 100}%`,
+                          height: `${mark.h * 100}%`,
+                        }}
+                      >
+                        <input
+                          type="text"
+                          className={styles.choiceMarkInput}
+                          value={mark.text}
+                          onClick={(event) => event.stopPropagation()}
+                          onChange={(event) => updateChoiceMarkText(mark.id, event.target.value)}
+                          placeholder="Skriv..."
+                          aria-label="Tekstfelt i oppgave"
+                        />
+                        <button
+                          type="button"
+                          className={styles.choiceMarkRemove}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            removeChoiceMark(mark.id);
+                          }}
+                          aria-label="Fjern tekstfelt"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div
+                      key={mark.id}
+                      className={styles.choiceMarkCircleWrap}
+                      style={{
+                        left: `${mark.x * 100}%`,
+                        top: `${mark.y * 100}%`,
+                        width: `${mark.w * 100}%`,
+                        height: `${mark.h * 100}%`,
+                      }}
+                    >
+                      <button
+                        type="button"
+                        className={`${styles.choiceMarkCircle} ${
+                          mark.checked ? styles.choiceMarkCircleActive : ""
+                        }`}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          toggleChoiceCircle(mark.id);
+                        }}
+                        aria-label={mark.checked ? "Fjern markering" : "Marker sirkel"}
+                      />
+                      <button
+                        type="button"
+                        className={styles.choiceMarkRemoveMini}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          removeChoiceMark(mark.id);
+                        }}
+                        aria-label="Fjern sirkel"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </figure>
+          );
+        })}
+      </div>
+    );
+  };
+
   const renderInteraction = () => {
     if (question.type === "official-only") {
       return (
@@ -359,57 +612,116 @@ export function QuestionWorkspace({ examId, question }: Props) {
     }
 
     if (question.type === "choice-grid") {
-      if (options.length === 0) {
-        return (
-          <div className={styles.manualBlock}>
-            <p className={styles.note}>{question.interaction?.instructions}</p>
-            <label className={styles.label} htmlFor="manual-notes">
-              Egne notater
-            </label>
-            <textarea
-              id="manual-notes"
-              className={styles.textarea}
-              value={manualNotes}
-              onChange={(event) => setManualNotes(event.target.value)}
-              placeholder="Skriv din vurdering her..."
-            />
-            <div className={styles.actions}>
-              <button className={styles.secondaryButton} onClick={() => setManualNotes("")}>Nullstill notater</button>
-            </div>
-          </div>
-        );
-      }
-
       return (
-        <div>
+        <div className={styles.manualBlock}>
           <p className={styles.note}>{question.interaction?.instructions}</p>
-          <div className={styles.choiceList}>
-            {options.map((option) => {
-              const checked = selectedChoices.includes(option.id);
-              return (
-                <label key={option.id} className={styles.choiceRow}>
-                  <input
-                    type={allowMultiple ? "checkbox" : "radio"}
-                    name={`choice-${question.id}`}
-                    checked={checked}
-                    onChange={() => onChoiceToggle(option.id)}
-                  />
-                  <span>{option.label}</span>
-                </label>
-              );
-            })}
-          </div>
-          <div className={styles.actions}>
+          <div className={styles.choiceToolRow}>
             <button
-              className={styles.primaryButton}
-              disabled={!hasAutoChoice}
-              onClick={checkChoice}
+              type="button"
+              className={`${styles.choiceToolButton} ${
+                choiceTool === "text" ? styles.choiceToolButtonActive : ""
+              }`}
+              onClick={() => setChoiceTool("text")}
             >
-              Sjekk svar
+              Tekstboks
             </button>
-            <button className={styles.secondaryButton} onClick={resetChoices}>
-              Nullstill
+            <button
+              type="button"
+              className={`${styles.choiceToolButton} ${
+                choiceTool === "circle" ? styles.choiceToolButtonActive : ""
+              }`}
+              onClick={() => setChoiceTool("circle")}
+            >
+              Sirkel
             </button>
+            <button
+              type="button"
+              className={`${styles.choiceToolButton} ${
+                choiceTool === "none" ? styles.choiceToolButtonActive : ""
+              }`}
+              onClick={() => setChoiceTool("none")}
+            >
+              Peker
+            </button>
+            <button
+              type="button"
+              className={styles.choiceToolButton}
+              onClick={undoChoiceMark}
+              disabled={choiceMarks.length === 0}
+            >
+              Angre
+            </button>
+            <button
+              type="button"
+              className={styles.choiceToolButton}
+              onClick={clearChoiceMarks}
+              disabled={choiceMarks.length === 0}
+            >
+              Tøm markeringer
+            </button>
+          </div>
+          <p className={styles.choiceOverlayHint}>
+            Velg verktøy og klikk direkte i oppgavesiden for å plassere markering.
+          </p>
+
+          {options.length > 0 ? (
+            <>
+              <div className={styles.choiceList}>
+                {options.map((option) => {
+                  const checked = selectedChoices.includes(option.id);
+                  return (
+                    <label key={option.id} className={styles.choiceRow}>
+                      <input
+                        type={allowMultiple ? "checkbox" : "radio"}
+                        name={`choice-${question.id}`}
+                        checked={checked}
+                        onChange={() => onChoiceToggle(option.id)}
+                      />
+                      <span>{option.label}</span>
+                    </label>
+                  );
+                })}
+              </div>
+              <div className={styles.actions}>
+                <button
+                  className={styles.primaryButton}
+                  disabled={!hasAutoChoice}
+                  onClick={checkChoice}
+                >
+                  Sjekk svar
+                </button>
+                <button className={styles.secondaryButton} onClick={resetChoices}>
+                  Nullstill valg
+                </button>
+              </div>
+            </>
+          ) : null}
+
+          {options.length === 0 ? (
+            <>
+              <label className={styles.label} htmlFor="manual-notes">
+                Egne notater
+              </label>
+              <textarea
+                id="manual-notes"
+                className={styles.textarea}
+                value={manualNotes}
+                onChange={(event) => setManualNotes(event.target.value)}
+                placeholder="Skriv din vurdering her..."
+              />
+              <div className={styles.actions}>
+                <button
+                  className={styles.secondaryButton}
+                  onClick={() => setManualNotes("")}
+                >
+                  Nullstill notater
+                </button>
+              </div>
+            </>
+          ) : null}
+
+          <div className={styles.subtle}>
+            Markeringer lagres lokalt i nettleseren for denne oppgaven.
           </div>
         </div>
       );
@@ -520,6 +832,8 @@ export function QuestionWorkspace({ examId, question }: Props) {
         <section className={styles.viewer}>
           {question.type === "drag-drop" && !showSolution && dropZones.length > 0
             ? renderOverlayViewer()
+            : question.type === "choice-grid" && !showSolution
+            ? renderChoiceOverlayViewer()
             : (
               <PageImageStack
                 pages={showSolution ? question.solutionPages : question.promptPages}
