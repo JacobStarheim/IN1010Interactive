@@ -1,0 +1,211 @@
+{
+  "id": "v24-konte",
+  "title": "IN1010 Midtveis V24 Konte",
+  "sourcePromptPdf": "midtveis-v24-konte.pdf",
+  "sourceSolutionPdf": "midtveis-v24-konte-fasit.pdf",
+  "questionOrder": [
+    "q01",
+    "q02",
+    "q03",
+    "q04",
+    "q05",
+    "q06",
+    "q07",
+    "q08",
+    "q09",
+    "q10",
+    "q11"
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "number": 1,
+      "title": "Sett inn verdi i array",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-02.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-02.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q02",
+      "number": 2,
+      "title": "Brev-vekt program",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-03.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-03.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q03",
+      "number": 3,
+      "title": "Les og skriv ut tall",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-04.png",
+        "/assets/exams/v24-konte/prompt/page-05.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-04.png",
+        "/assets/exams/v24-konte/solution/page-05.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q04",
+      "number": 4,
+      "title": "Finn hesteeiere",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-06.png",
+        "/assets/exams/v24-konte/prompt/page-07.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-06.png",
+        "/assets/exams/v24-konte/solution/page-07.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q05",
+      "number": 5,
+      "title": "Rekursiv arraysum",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-08.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-08.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q06",
+      "number": 6,
+      "title": "Dobbeltliste-metoder",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-09.png",
+        "/assets/exams/v24-konte/prompt/page-10.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-09.png",
+        "/assets/exams/v24-konte/solution/page-10.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q07",
+      "number": 7,
+      "title": "Kaninbeholder",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-11.png",
+        "/assets/exams/v24-konte/prompt/page-12.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-11.png",
+        "/assets/exams/v24-konte/solution/page-12.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q08",
+      "number": 8,
+      "title": "Utskrift av fem tall",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-13.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-13.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q09",
+      "number": 9,
+      "title": "Bilkø-metoder",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-14.png",
+        "/assets/exams/v24-konte/prompt/page-15.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-14.png",
+        "/assets/exams/v24-konte/solution/page-15.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q10",
+      "number": 10,
+      "title": "Bokpriser",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-16.png",
+        "/assets/exams/v24-konte/prompt/page-17.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-16.png",
+        "/assets/exams/v24-konte/solution/page-17.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q11",
+      "number": 11,
+      "title": "Typer og casting",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-konte/prompt/page-18.png",
+        "/assets/exams/v24-konte/prompt/page-19.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-konte/solution/page-18.png",
+        "/assets/exams/v24-konte/solution/page-19.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    }
+  ]
+}

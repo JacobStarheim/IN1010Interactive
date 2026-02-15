@@ -1,0 +1,209 @@
+{
+  "id": "v25-midtveis",
+  "title": "IN1010 Midtveis V25",
+  "sourcePromptPdf": "in1010-v25-midtveis.pdf",
+  "sourceSolutionPdf": "in1010-v25-midtveis-fasit.pdf",
+  "questionOrder": [
+    "q01",
+    "q02",
+    "q03",
+    "q04",
+    "q05",
+    "q06",
+    "q07",
+    "q08",
+    "q09",
+    "q10",
+    "q11"
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "number": 1,
+      "title": "Tallutskrift",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-01.png",
+        "/assets/exams/v25-midtveis/prompt/page-02.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-01.png",
+        "/assets/exams/v25-midtveis/solution/page-02.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q02",
+      "number": 2,
+      "title": "Arv eller komposisjon",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-03.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-03.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q03",
+      "number": 3,
+      "title": "Fil-lesing",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-04.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-04.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q04",
+      "number": 4,
+      "title": "Hundeglam",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-05.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-05.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q05",
+      "number": 5,
+      "title": "Bileiere",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-06.png",
+        "/assets/exams/v25-midtveis/prompt/page-07.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-06.png",
+        "/assets/exams/v25-midtveis/solution/page-07.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q06",
+      "number": 6,
+      "title": "Generisk lenkeliste",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-08.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-08.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q07",
+      "number": 7,
+      "title": "Kanin-sortering",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-09.png",
+        "/assets/exams/v25-midtveis/prompt/page-10.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-09.png",
+        "/assets/exams/v25-midtveis/solution/page-10.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q08",
+      "number": 8,
+      "title": "Statiske variabler",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-11.png",
+        "/assets/exams/v25-midtveis/prompt/page-12.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-11.png",
+        "/assets/exams/v25-midtveis/solution/page-12.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q09",
+      "number": 9,
+      "title": "Dobbeltlenket Bil-liste",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-13.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-13.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q10",
+      "number": 10,
+      "title": "Typer og interfaces",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-14.png",
+        "/assets/exams/v25-midtveis/prompt/page-15.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-14.png",
+        "/assets/exams/v25-midtveis/solution/page-15.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q11",
+      "number": 11,
+      "title": "Flybilletter",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-midtveis/prompt/page-16.png",
+        "/assets/exams/v25-midtveis/prompt/page-17.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-midtveis/solution/page-16.png",
+        "/assets/exams/v25-midtveis/solution/page-17.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    }
+  ]
+}

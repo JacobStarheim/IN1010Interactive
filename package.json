@@ -1,0 +1,36 @@
+{
+  "name": "in1010-interactive",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e-lite": "vitest run tests/e2e-lite",
+    "assets:verify": "node scripts/pdf/verify-checksums.mjs",
+    "assets:render": "swift -module-cache-path /tmp/swift-module-cache scripts/pdf/render-pages.swift",
+    "manifests:generate": "node scripts/pdf/generate-manifests.mjs",
+    "manifests:validate": "node scripts/pdf/validate-manifests.mjs",
+    "prepare:data": "npm run assets:verify && npm run assets:render && npm run manifests:generate && npm run manifests:validate"
+  },
+  "dependencies": {
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "jsdom": "^28.1.0",
+    "typescript": "^5",
+    "vitest": "^4.0.18"
+  }
+}
