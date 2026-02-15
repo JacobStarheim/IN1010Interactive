@@ -20,6 +20,7 @@ npm run dev
 - `npm run assets:verify`: verifiserer SHA-256 checksums for PDF-kilder
 - `npm run assets:render`: rendrer alle PDF-sider til `public/assets/exams`
 - `npm run manifests:generate`: genererer `src/data/exams/*.json`
+- `npm run manifests:fit-rects`: finner og finjusterer drag/drop-koordinater fra fasitsider
 - `npm run manifests:validate`: sjekker manifests og at sidebilder finnes
 - `npm run prepare:data`: kjører alle stegene over
 - `npm run lint`

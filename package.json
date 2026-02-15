@@ -13,8 +13,9 @@
     "assets:verify": "node scripts/pdf/verify-checksums.mjs",
     "assets:render": "swift -module-cache-path /tmp/swift-module-cache scripts/pdf/render-pages.swift",
     "manifests:generate": "node scripts/pdf/generate-manifests.mjs",
+    "manifests:fit-rects": "node scripts/pdf/auto-fit-drag-rects.mjs",
     "manifests:validate": "node scripts/pdf/validate-manifests.mjs",
-    "prepare:data": "npm run assets:verify && npm run assets:render && npm run manifests:generate && npm run manifests:validate"
+    "prepare:data": "npm run assets:verify && npm run assets:render && npm run manifests:generate && npm run manifests:fit-rects && npm run manifests:validate"
   },
   "dependencies": {
     "next": "16.1.6",
@@ -30,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "jsdom": "^28.1.0",
+    "pngjs": "^7.0.0",
     "typescript": "^5",
     "vitest": "^4.0.18"
   }

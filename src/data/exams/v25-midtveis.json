@@ -105,56 +105,112 @@
             "label": "Plass 1",
             "accepts": [
               "q3_import"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1632,
+              "y": 0.1806,
+              "w": 0.2069,
+              "h": 0.0285
+            }
           },
           {
             "id": "q3_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q3_try"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1362,
+              "y": 0.2698,
+              "w": 0.2077,
+              "h": 0.0285
+            }
           },
           {
             "id": "q3_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q3_scanner"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2372,
+              "y": 0.303,
+              "w": 0.2077,
+              "h": 0.0285
+            }
           },
           {
             "id": "q3_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q3_file"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5248,
+              "y": 0.303,
+              "w": 0.2077,
+              "h": 0.0285
+            }
           },
           {
             "id": "q3_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q3_name"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.106,
+              "y": 0.3333,
+              "w": 0.2077,
+              "h": 0.0285
+            }
           },
           {
             "id": "q3_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q3_catch"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1581,
+              "y": 0.366,
+              "w": 0.2069,
+              "h": 0.0285
+            }
           },
           {
             "id": "q3_slot_7",
             "label": "Plass 7",
             "accepts": [
               "q3_exit"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2414,
+              "y": 0.4177,
+              "w": 0.2069,
+              "h": 0.0285
+            }
           },
           {
             "id": "q3_slot_8",
             "label": "Plass 8",
             "accepts": [
               "q3_line"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.307,
+              "y": 0.4688,
+              "w": 0.2069,
+              "h": 0.0285
+            }
           }
         ]
       }
@@ -209,49 +265,98 @@
             "label": "Plass 1",
             "accepts": [
               "q4_decl"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1463,
+              "y": 0.1622,
+              "w": 0.2178,
+              "h": 0.0285
+            }
           },
           {
             "id": "q4_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q4_new1"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1934,
+              "y": 0.1925,
+              "w": 0.217,
+              "h": 0.0285
+            }
           },
           {
             "id": "q4_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q4_new2"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1934,
+              "y": 0.2252,
+              "w": 0.217,
+              "h": 0.0285
+            }
           },
           {
             "id": "q4_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q4_copy"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1413,
+              "y": 0.2959,
+              "w": 0.2178,
+              "h": 0.0285
+            }
           },
           {
             "id": "q4_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q4_call"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1413,
+              "y": 0.3286,
+              "w": 0.2178,
+              "h": 0.0285
+            }
           },
           {
             "id": "q4_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q4_ctor"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2918,
+              "y": 0.4528,
+              "w": 0.217,
+              "h": 0.0285
+            }
           },
           {
             "id": "q4_slot_7",
             "label": "Plass 7",
             "accepts": [
               "q4_print"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4415,
+              "y": 0.4848,
+              "w": 0.2178,
+              "h": 0.0285
+            }
           }
         ]
       }
@@ -384,63 +489,126 @@
             "label": "Plass 1",
             "accepts": [
               "q9_next"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1161,
+              "y": 0.2288,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q9_fields"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1262,
+              "y": 0.2995,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q9_params"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3297,
+              "y": 0.3321,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q9_empty"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2069,
+              "y": 0.3838,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q9_always"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2069,
+              "y": 0.4355,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q9_first_prev"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2422,
+              "y": 0.4866,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_7",
             "label": "Plass 7",
             "accepts": [
               "q9_first_new"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2422,
+              "y": 0.5193,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_8",
             "label": "Plass 8",
             "accepts": [
               "q9_mid_prev"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2624,
+              "y": 0.571,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_9",
             "label": "Plass 9",
             "accepts": [
               "q9_link_back"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2624,
+              "y": 0.6227,
+              "w": 0.2288,
+              "h": 0.0285
+            }
           }
         ]
       }
