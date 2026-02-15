@@ -45,8 +45,67 @@
         "/assets/exams/v24-konte/solution/page-03.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene til riktige tomrom i programmet.",
+        "draggableItems": [
+          {
+            "id": "q2_new",
+            "label": "new Brev(19)"
+          },
+          {
+            "id": "q2_assign",
+            "label": "b2 = b1"
+          },
+          {
+            "id": "q2_print",
+            "label": "b2.finnVekt()"
+          },
+          {
+            "id": "q2_ctor",
+            "label": "vekt = v"
+          },
+          {
+            "id": "q2_ret",
+            "label": "vekt"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q2_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q2_new"
+            ]
+          },
+          {
+            "id": "q2_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q2_assign"
+            ]
+          },
+          {
+            "id": "q2_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q2_print"
+            ]
+          },
+          {
+            "id": "q2_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q2_ctor"
+            ]
+          },
+          {
+            "id": "q2_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q2_ret"
+            ]
+          }
+        ]
       }
     },
     {
@@ -63,8 +122,122 @@
         "/assets/exams/v24-konte/solution/page-05.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene inn i riktig rekkefølge.",
+        "draggableItems": [
+          {
+            "id": "q3_arr",
+            "label": "new int[10]"
+          },
+          {
+            "id": "q3_zero",
+            "label": "0"
+          },
+          {
+            "id": "q3_while",
+            "label": "antallTall < 10"
+          },
+          {
+            "id": "q3_read",
+            "label": "tastatur.nextInt()"
+          },
+          {
+            "id": "q3_break",
+            "label": "v < 0"
+          },
+          {
+            "id": "q3_store",
+            "label": "tallene[antallTall] = v"
+          },
+          {
+            "id": "q3_inc",
+            "label": "antallTall = antallTall + 1"
+          },
+          {
+            "id": "q3_for",
+            "label": "int i = antallTall-1; i >= 0; i--"
+          },
+          {
+            "id": "q3_print",
+            "label": "System.out.println"
+          },
+          {
+            "id": "q3_val",
+            "label": "tallene[i]"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q3_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q3_arr"
+            ]
+          },
+          {
+            "id": "q3_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q3_zero"
+            ]
+          },
+          {
+            "id": "q3_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q3_while"
+            ]
+          },
+          {
+            "id": "q3_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q3_read"
+            ]
+          },
+          {
+            "id": "q3_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q3_break"
+            ]
+          },
+          {
+            "id": "q3_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q3_store"
+            ]
+          },
+          {
+            "id": "q3_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q3_inc"
+            ]
+          },
+          {
+            "id": "q3_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q3_for"
+            ]
+          },
+          {
+            "id": "q3_slot_9",
+            "label": "Plass 9",
+            "accepts": [
+              "q3_print"
+            ]
+          },
+          {
+            "id": "q3_slot_10",
+            "label": "Plass 10",
+            "accepts": [
+              "q3_val"
+            ]
+          }
+        ]
       }
     },
     {
@@ -97,8 +270,34 @@
         "/assets/exams/v24-konte/solution/page-08.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Fyll inn de to manglende bitene i den rekursive summen.",
+        "draggableItems": [
+          {
+            "id": "q5_zero",
+            "label": "0"
+          },
+          {
+            "id": "q5_rec",
+            "label": "finnSum(start+1,a)"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q5_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q5_zero"
+            ]
+          },
+          {
+            "id": "q5_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q5_rec"
+            ]
+          }
+        ]
       }
     },
     {
@@ -115,8 +314,111 @@
         "/assets/exams/v24-konte/solution/page-10.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Sett inn riktig kode i hver metode.",
+        "draggableItems": [
+          {
+            "id": "q6_first_a",
+            "label": "første"
+          },
+          {
+            "id": "q6_move_first",
+            "label": "første = første.neste"
+          },
+          {
+            "id": "q6_ret_a",
+            "label": "resP.data"
+          },
+          {
+            "id": "q6_last",
+            "label": "siste"
+          },
+          {
+            "id": "q6_move_last",
+            "label": "siste = siste.forrige"
+          },
+          {
+            "id": "q6_ret_b",
+            "label": "resP.data"
+          },
+          {
+            "id": "q6_first_b",
+            "label": "første"
+          },
+          {
+            "id": "q6_loop",
+            "label": "nodeP = nodeP.neste"
+          },
+          {
+            "id": "q6_ret_c",
+            "label": "nodeP.data"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q6_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q6_first_a"
+            ]
+          },
+          {
+            "id": "q6_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q6_move_first"
+            ]
+          },
+          {
+            "id": "q6_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q6_ret_a"
+            ]
+          },
+          {
+            "id": "q6_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q6_last"
+            ]
+          },
+          {
+            "id": "q6_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q6_move_last"
+            ]
+          },
+          {
+            "id": "q6_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q6_ret_b"
+            ]
+          },
+          {
+            "id": "q6_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q6_first_b"
+            ]
+          },
+          {
+            "id": "q6_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q6_loop"
+            ]
+          },
+          {
+            "id": "q6_slot_9",
+            "label": "Plass 9",
+            "accepts": [
+              "q6_ret_c"
+            ]
+          }
+        ]
       }
     },
     {
@@ -133,8 +435,100 @@
         "/assets/exams/v24-konte/solution/page-12.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene så programmet finner eldste kanin korrekt.",
+        "draggableItems": [
+          {
+            "id": "q7_find",
+            "label": "første.letEtterEldste()"
+          },
+          {
+            "id": "q7_ctor",
+            "label": "alder = a"
+          },
+          {
+            "id": "q7_this",
+            "label": "this"
+          },
+          {
+            "id": "q7_if",
+            "label": "neste != null"
+          },
+          {
+            "id": "q7_old",
+            "label": "neste.letEtterEldste()"
+          },
+          {
+            "id": "q7_cmp",
+            "label": "gammel.alder > alder"
+          },
+          {
+            "id": "q7_set",
+            "label": "resultat = gammel"
+          },
+          {
+            "id": "q7_ret",
+            "label": "resultat"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q7_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q7_find"
+            ]
+          },
+          {
+            "id": "q7_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q7_ctor"
+            ]
+          },
+          {
+            "id": "q7_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q7_this"
+            ]
+          },
+          {
+            "id": "q7_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q7_if"
+            ]
+          },
+          {
+            "id": "q7_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q7_old"
+            ]
+          },
+          {
+            "id": "q7_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q7_cmp"
+            ]
+          },
+          {
+            "id": "q7_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q7_set"
+            ]
+          },
+          {
+            "id": "q7_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q7_ret"
+            ]
+          }
+        ]
       }
     },
     {
@@ -167,8 +561,78 @@
         "/assets/exams/v24-konte/solution/page-15.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Sett inn riktige kodelinjer i Bilkø-metodene.",
+        "draggableItems": [
+          {
+            "id": "q9_unlink",
+            "label": "b.forrige.neste = b.neste; b.neste.forrige = b.forrige;"
+          },
+          {
+            "id": "q9_nulls",
+            "label": "b.neste = null; b.forrige = null;"
+          },
+          {
+            "id": "q9_if",
+            "label": "første == null"
+          },
+          {
+            "id": "q9_first",
+            "label": "første = b;"
+          },
+          {
+            "id": "q9_link",
+            "label": "b.forrige = siste; siste.neste = b;"
+          },
+          {
+            "id": "q9_last",
+            "label": "siste = b;"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q9_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q9_unlink"
+            ]
+          },
+          {
+            "id": "q9_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q9_nulls"
+            ]
+          },
+          {
+            "id": "q9_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q9_if"
+            ]
+          },
+          {
+            "id": "q9_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q9_first"
+            ]
+          },
+          {
+            "id": "q9_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q9_link"
+            ]
+          },
+          {
+            "id": "q9_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q9_last"
+            ]
+          }
+        ]
       }
     },
     {

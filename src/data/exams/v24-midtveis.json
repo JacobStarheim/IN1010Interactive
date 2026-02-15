@@ -172,8 +172,89 @@
         "/assets/exams/v24-midtveis/solution/page-04.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene til de tomme feltene i riktig rekkefølge.",
+        "draggableItems": [
+          {
+            "id": "q3_cls",
+            "label": "MinstAv5"
+          },
+          {
+            "id": "q3_min0",
+            "label": "min = 0"
+          },
+          {
+            "id": "q3_for",
+            "label": "int i = 1; i <= 5; i++"
+          },
+          {
+            "id": "q3_read",
+            "label": "int v = tastatur.nextInt();"
+          },
+          {
+            "id": "q3_if",
+            "label": "i == 1 || v < min"
+          },
+          {
+            "id": "q3_set",
+            "label": "min = v"
+          },
+          {
+            "id": "q3_out",
+            "label": "min"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q3_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q3_cls"
+            ]
+          },
+          {
+            "id": "q3_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q3_min0"
+            ]
+          },
+          {
+            "id": "q3_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q3_for"
+            ]
+          },
+          {
+            "id": "q3_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q3_read"
+            ]
+          },
+          {
+            "id": "q3_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q3_if"
+            ]
+          },
+          {
+            "id": "q3_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q3_set"
+            ]
+          },
+          {
+            "id": "q3_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q3_out"
+            ]
+          }
+        ]
       }
     },
     {
@@ -260,8 +341,67 @@
         "/assets/exams/v24-midtveis/solution/page-13.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodebit inn i hvert tomme felt i rekursjonsoppgaven.",
+        "draggableItems": [
+          {
+            "id": "q8_if",
+            "label": "neste != null"
+          },
+          {
+            "id": "q8_rec",
+            "label": "neste.skrivRekursivt()"
+          },
+          {
+            "id": "q8_print",
+            "label": "System.out.println(data.toString())"
+          },
+          {
+            "id": "q8_start_if",
+            "label": "start != null"
+          },
+          {
+            "id": "q8_start_rec",
+            "label": "start.skrivRekursivt()"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q8_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q8_if"
+            ]
+          },
+          {
+            "id": "q8_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q8_rec"
+            ]
+          },
+          {
+            "id": "q8_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q8_print"
+            ]
+          },
+          {
+            "id": "q8_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q8_start_if"
+            ]
+          },
+          {
+            "id": "q8_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q8_start_rec"
+            ]
+          }
+        ]
       }
     },
     {
