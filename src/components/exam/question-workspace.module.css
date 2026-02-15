@@ -221,6 +221,14 @@
   pointer-events: none;
 }
 
+.choiceOverlayLayer {
+  pointer-events: auto;
+}
+
+.choiceOverlayLayerActiveTool {
+  cursor: crosshair;
+}
+
 .overlayZone {
   position: absolute;
   display: flex;
@@ -274,6 +282,111 @@
   font-size: 0.88rem;
   cursor: pointer;
   flex: 0 0 auto;
+}
+
+.choiceToolRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.choiceToolButton {
+  border: 1px solid #c6d6e2;
+  background: #fff;
+  color: #294356;
+  border-radius: 9px;
+  padding: 0.38rem 0.6rem;
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.choiceToolButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.choiceToolButtonActive {
+  border-color: #006bb0;
+  background: #eaf5fc;
+  box-shadow: 0 0 0 2px rgba(0, 107, 176, 0.12);
+}
+
+.choiceOverlayHint {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #406074;
+}
+
+.choiceMarkText {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  pointer-events: auto;
+}
+
+.choiceMarkInput {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #83afce;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.12rem 0.35rem;
+  font: inherit;
+  font-size: clamp(0.56rem, 1.1vw, 0.9rem);
+}
+
+.choiceMarkInput:focus {
+  outline: 2px solid rgba(0, 107, 176, 0.35);
+  outline-offset: 1px;
+}
+
+.choiceMarkRemove,
+.choiceMarkRemoveMini {
+  border: 1px solid #a8c3d6;
+  background: #fff;
+  color: #355269;
+  border-radius: 999px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.choiceMarkRemove {
+  width: 1.05rem;
+  height: 1.05rem;
+  font-size: 0.82rem;
+  flex: 0 0 auto;
+}
+
+.choiceMarkCircleWrap {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.choiceMarkCircle {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  border: 2px solid #6b8ea7;
+  background: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+}
+
+.choiceMarkCircleActive {
+  background:
+    radial-gradient(circle at center, #1f7dbb 0, #1f7dbb 42%, transparent 44%),
+    rgba(255, 255, 255, 0.95);
+  border-color: #1f7dbb;
+}
+
+.choiceMarkRemoveMini {
+  position: absolute;
+  top: -0.42rem;
+  right: -0.42rem;
+  width: 0.88rem;
+  height: 0.88rem;
+  font-size: 0.72rem;
 }
 
 .label {
