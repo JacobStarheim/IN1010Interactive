@@ -1,0 +1,27 @@
+.info {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.jumpCard {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.jumpLink {
+  border: 1px solid #bfd4e2;
+  background: #f2f8fc;
+  border-radius: 999px;
+  padding: 0.26rem 0.62rem;
+  font-size: 0.85rem;
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.onlyLinkWrap {
+  margin-top: 0.75rem;
+}
