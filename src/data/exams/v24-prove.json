@@ -213,42 +213,84 @@
             "label": "Scanner tastatur = ...",
             "accepts": [
               "new_scanner"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.111,
+              "y": 0.2906,
+              "w": 0.3061,
+              "h": 0.0285
+            }
           },
           {
             "id": "slot_prompt",
             "label": "System.out.print(...)",
             "accepts": [
               "prompt"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2893,
+              "y": 0.3232,
+              "w": 0.3053,
+              "h": 0.0285
+            }
           },
           {
             "id": "slot_read",
             "label": "int svar = ...",
             "accepts": [
               "next_int"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2725,
+              "y": 0.3565,
+              "w": 0.3061,
+              "h": 0.0285
+            }
           },
           {
             "id": "slot_if",
             "label": "if (...)",
             "accepts": [
               "valid_if"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2136,
+              "y": 0.3892,
+              "w": 0.3053,
+              "h": 0.0285
+            }
           },
           {
             "id": "slot_true",
             "label": "println i if-gren",
             "accepts": [
               "ok"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1514,
+              "y": 0.4225,
+              "w": 0.3061,
+              "h": 0.0285
+            }
           },
           {
             "id": "slot_false",
             "label": "println i else-gren",
             "accepts": [
               "fail"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.307,
+              "y": 0.4551,
+              "w": 0.3053,
+              "h": 0.0285
+            }
           }
         ]
       }

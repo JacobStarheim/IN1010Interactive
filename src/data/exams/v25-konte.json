@@ -79,42 +79,84 @@
             "label": "Plass 1",
             "accepts": [
               "q2_next"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.106,
+              "y": 0.1711,
+              "w": 0.2187,
+              "h": 0.0285
+            }
           },
           {
             "id": "q2_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q2_last"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1211,
+              "y": 0.2591,
+              "w": 0.2187,
+              "h": 0.0285
+            }
           },
           {
             "id": "q2_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q2_init"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1463,
+              "y": 0.3108,
+              "w": 0.2187,
+              "h": 0.0285
+            }
           },
           {
             "id": "q2_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q2_param"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4087,
+              "y": 0.3624,
+              "w": 0.2187,
+              "h": 0.0285
+            }
           },
           {
             "id": "q2_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q2_store"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1463,
+              "y": 0.3957,
+              "w": 0.2187,
+              "h": 0.0285
+            }
           },
           {
             "id": "q2_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q2_link"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1463,
+              "y": 0.4284,
+              "w": 0.2187,
+              "h": 0.0285
+            }
           }
         ]
       }
@@ -228,56 +270,112 @@
             "label": "Plass 1",
             "accepts": [
               "q6_name_void"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2523,
+              "y": 0.2478,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           },
           {
             "id": "q6_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q6_if"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1514,
+              "y": 0.2805,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           },
           {
             "id": "q6_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q6_set"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1463,
+              "y": 0.3137,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           },
           {
             "id": "q6_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q6_name_int"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2321,
+              "y": 0.4029,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           },
           {
             "id": "q6_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q6_zero"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2246,
+              "y": 0.4545,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           },
           {
             "id": "q6_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q6_len"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2439,
+              "y": 0.4866,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           },
           {
             "id": "q6_slot_7",
             "label": "Plass 7",
             "accepts": [
               "q6_high"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1993,
+              "y": 0.5193,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           },
           {
             "id": "q6_slot_8",
             "label": "Plass 8",
             "accepts": [
               "q6_mid"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1993,
+              "y": 0.571,
+              "w": 0.2111,
+              "h": 0.0285
+            }
           }
         ]
       }
@@ -344,70 +442,140 @@
             "label": "Plass 1",
             "accepts": [
               "q7_next"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1161,
+              "y": 0.1254,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q7_generic"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3078,
+              "y": 0.1765,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q7_fields"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1262,
+              "y": 0.2092,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q7_param"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3322,
+              "y": 0.2424,
+              "w": 0.2422,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q7_empty_add"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2927,
+              "y": 0.2751,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q7_nonempty_add"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2019,
+              "y": 0.3084,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_7",
             "label": "Plass 7",
             "accepts": [
               "q7_empty_take"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2977,
+              "y": 0.3785,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_8",
             "label": "Plass 8",
             "accepts": [
               "q7_clear"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3095,
+              "y": 0.4302,
+              "w": 0.2422,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_9",
             "label": "Plass 9",
             "accepts": [
               "q7_shift"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1968,
+              "y": 0.4635,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           },
           {
             "id": "q7_slot_10",
             "label": "Plass 10",
             "accepts": [
               "q7_return"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1463,
+              "y": 0.4955,
+              "w": 0.2431,
+              "h": 0.0285
+            }
           }
         ]
       }
@@ -493,70 +661,140 @@
             "label": "Plass 1",
             "accepts": [
               "q9_verdi_ctor"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1262,
+              "y": 0.3696,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q9_verdi_print"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2338,
+              "y": 0.4029,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q9_ku_ctor"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3171,
+              "y": 0.4545,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q9_fele_ctor"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3246,
+              "y": 0.4872,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q9_field"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1262,
+              "y": 0.5389,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q9_temp"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3331,
+              "y": 0.5722,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_7",
             "label": "Plass 7",
             "accepts": [
               "q9_swap_1"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3078,
+              "y": 0.6049,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_8",
             "label": "Plass 8",
             "accepts": [
               "q9_swap_2"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1766,
+              "y": 0.6566,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_9",
             "label": "Plass 9",
             "accepts": [
               "q9_init"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1766,
+              "y": 0.6898,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           },
           {
             "id": "q9_slot_10",
             "label": "Plass 10",
             "accepts": [
               "q9_print"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1766,
+              "y": 0.7219,
+              "w": 0.2817,
+              "h": 0.0285
+            }
           }
         ]
       }
@@ -631,56 +869,112 @@
             "label": "Plass 1",
             "accepts": [
               "q11_iterable"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3171,
+              "y": 0.1432,
+              "w": 0.1766,
+              "h": 0.0285
+            }
           },
           {
             "id": "q11_slot_2",
             "label": "Plass 2",
             "accepts": [
               "q11_signature"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2843,
+              "y": 0.2139,
+              "w": 0.1766,
+              "h": 0.0285
+            }
           },
           {
             "id": "q11_slot_3",
             "label": "Plass 3",
             "accepts": [
               "q11_new_iter"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4912,
+              "y": 0.2139,
+              "w": 0.1766,
+              "h": 0.0285
+            }
           },
           {
             "id": "q11_slot_4",
             "label": "Plass 4",
             "accepts": [
               "q11_inner"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2086,
+              "y": 0.2466,
+              "w": 0.1766,
+              "h": 0.0285
+            }
           },
           {
             "id": "q11_slot_5",
             "label": "Plass 5",
             "accepts": [
               "q11_start_ix"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3953,
+              "y": 0.3173,
+              "w": 0.1766,
+              "h": 0.0285
+            }
           },
           {
             "id": "q11_slot_6",
             "label": "Plass 6",
             "accepts": [
               "q11_has_next"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2145,
+              "y": 0.35,
+              "w": 0.1775,
+              "h": 0.0285
+            }
           },
           {
             "id": "q11_slot_7",
             "label": "Plass 7",
             "accepts": [
               "q11_get"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2288,
+              "y": 0.4017,
+              "w": 0.1766,
+              "h": 0.0285
+            }
           },
           {
             "id": "q11_slot_8",
             "label": "Plass 8",
             "accepts": [
               "q11_dec"
-            ]
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2767,
+              "y": 0.4712,
+              "w": 0.1766,
+              "h": 0.0285
+            }
           }
         ]
       }
