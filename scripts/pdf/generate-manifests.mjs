@@ -48,6 +48,29 @@ const exams = [
       9: "choice-grid",
       10: "choice-grid",
     },
+    interactions: {
+      1: {
+        checkMode: "auto",
+        instructions:
+          "Dra kodebitene til riktig plass i rekkefølge for å lage et gyldig og kjørbart program.",
+        draggableItems: [
+          { id: "q1_main", label: "public static void main (String[] args) {" },
+          { id: "q1_decl", label: "Pakke min, din;" },
+          { id: "q1_new", label: "min = new Pakke(5);" },
+          { id: "q1_assign", label: "din = min;" },
+          { id: "q1_read", label: "int vekten = din.vekt;" },
+          { id: "q1_print", label: "System.out.println(vekten);" },
+        ],
+        dropZones: [
+          { id: "q1_slot_1", label: "Plass 1", accepts: ["q1_main"] },
+          { id: "q1_slot_2", label: "Plass 2", accepts: ["q1_decl"] },
+          { id: "q1_slot_3", label: "Plass 3", accepts: ["q1_new"] },
+          { id: "q1_slot_4", label: "Plass 4", accepts: ["q1_assign"] },
+          { id: "q1_slot_5", label: "Plass 5", accepts: ["q1_read"] },
+          { id: "q1_slot_6", label: "Plass 6", accepts: ["q1_print"] },
+        ],
+      },
+    },
   },
   {
     id: "v24-konte",
