@@ -1,0 +1,257 @@
+{
+  "id": "v24-prove",
+  "title": "IN1010 Midtveis V24 Prøve",
+  "sourcePromptPdf": "midtveis-v24-prove.pdf",
+  "sourceSolutionPdf": "midtveis-v24-prove-fasit.pdf",
+  "questionOrder": [
+    "q01",
+    "q02",
+    "q03",
+    "q04"
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "number": 1,
+      "title": "IN1010-test-1",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-prove/prompt/page-01.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-prove/solution/page-01.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Velg alle uttrykk som sammenligner string-innhold korrekt i Java.",
+        "allowMultiple": true,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "a <> b",
+            "correct": false
+          },
+          {
+            "id": "q1_b",
+            "label": "a = b",
+            "correct": false
+          },
+          {
+            "id": "q1_c",
+            "label": "a == b",
+            "correct": false
+          },
+          {
+            "id": "q1_d",
+            "label": "a.equals(b)",
+            "correct": true
+          },
+          {
+            "id": "q1_e",
+            "label": "b.equals(a)",
+            "correct": true
+          },
+          {
+            "id": "q1_f",
+            "label": "a.length() == b.length()",
+            "correct": false
+          },
+          {
+            "id": "q1_g",
+            "label": "a eq b",
+            "correct": false
+          },
+          {
+            "id": "q1_h",
+            "label": "a.compareTo(b) == 0",
+            "correct": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "q02",
+      "number": 2,
+      "title": "IN1010-test-4",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-prove/prompt/page-02.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-prove/solution/page-02.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Bruk denne som øvingstabell. For fasit vises offisiell fasitside med avkryssing per relasjon."
+      }
+    },
+    {
+      "id": "q03",
+      "number": 3,
+      "title": "IN1010-test-2",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v24-prove/prompt/page-03.png",
+        "/assets/exams/v24-prove/prompt/page-04.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-prove/solution/page-03.png",
+        "/assets/exams/v24-prove/solution/page-04.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Velg tallet programmet skriver ut.",
+        "allowMultiple": false,
+        "options": [
+          {
+            "id": "q3_21",
+            "label": "21",
+            "correct": true
+          },
+          {
+            "id": "q3_8",
+            "label": "8",
+            "correct": false
+          },
+          {
+            "id": "q3_0",
+            "label": "0",
+            "correct": false
+          },
+          {
+            "id": "q3_13",
+            "label": "13",
+            "correct": false
+          },
+          {
+            "id": "q3_5",
+            "label": "5",
+            "correct": false
+          },
+          {
+            "id": "q3_4",
+            "label": "4",
+            "correct": false
+          },
+          {
+            "id": "q3_1",
+            "label": "1",
+            "correct": false
+          },
+          {
+            "id": "q3_3",
+            "label": "3",
+            "correct": false
+          },
+          {
+            "id": "q3_2",
+            "label": "2",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "q04",
+      "number": 4,
+      "title": "IN1010-test-3",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v24-prove/prompt/page-05.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v24-prove/solution/page-05.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene inn i riktig hull i programmet.",
+        "draggableItems": [
+          {
+            "id": "new_scanner",
+            "label": "new Scanner(System.in)"
+          },
+          {
+            "id": "prompt",
+            "label": "\"Gi karakter 1-6: \""
+          },
+          {
+            "id": "next_int",
+            "label": "tastatur.nextInt()"
+          },
+          {
+            "id": "valid_if",
+            "label": "1 <= svar && svar <= 6"
+          },
+          {
+            "id": "ok",
+            "label": "\"OK\""
+          },
+          {
+            "id": "fail",
+            "label": "\"FEIL\""
+          },
+          {
+            "id": "wrong_or",
+            "label": "1 <= svar || svar <= 6"
+          },
+          {
+            "id": "wrong_chain",
+            "label": "1 <= svar <= 6"
+          },
+          {
+            "id": "wrong_four",
+            "label": "4"
+          },
+          {
+            "id": "wrong_system_in",
+            "label": "System.in"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "slot_scanner",
+            "label": "Scanner tastatur = ...",
+            "accepts": [
+              "new_scanner"
+            ]
+          },
+          {
+            "id": "slot_prompt",
+            "label": "System.out.print(...)",
+            "accepts": [
+              "prompt"
+            ]
+          },
+          {
+            "id": "slot_read",
+            "label": "int svar = ...",
+            "accepts": [
+              "next_int"
+            ]
+          },
+          {
+            "id": "slot_if",
+            "label": "if (...)",
+            "accepts": [
+              "valid_if"
+            ]
+          },
+          {
+            "id": "slot_true",
+            "label": "println i if-gren",
+            "accepts": [
+              "ok"
+            ]
+          },
+          {
+            "id": "slot_false",
+            "label": "println i else-gren",
+            "accepts": [
+              "fail"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

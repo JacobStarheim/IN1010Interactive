@@ -1,0 +1,70 @@
+:root {
+  --font-main: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-code: Menlo, Consolas, "Courier New", monospace;
+  --ink: #10202d;
+  --muted: #4f6779;
+  --canvas: #f2f6f8;
+  --surface: #ffffff;
+  --edge: #cfdce7;
+  --accent: #0a6baa;
+  --accent-soft: #d8ebf8;
+  --shadow: 0 6px 22px rgba(16, 32, 45, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--ink);
+  font-family: var(--font-main), "Trebuchet MS", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 12% 18%, #e2f1ff 0%, transparent 24%),
+    radial-gradient(circle at 78% 8%, #ecf7e8 0%, transparent 20%),
+    var(--canvas);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main.site-shell {
+  width: min(1200px, calc(100vw - 2rem));
+  margin: 1rem auto 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.card h1,
+.card h2,
+.card h3,
+.card p {
+  margin-top: 0;
+}
+
+.top-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #bdd3e4;
+  background: #f4fbff;
+  width: fit-content;
+  font-size: 0.88rem;
+}

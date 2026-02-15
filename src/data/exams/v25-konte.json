@@ -1,0 +1,207 @@
+{
+  "id": "v25-konte",
+  "title": "IN1010 Midtveis V25 Konte",
+  "sourcePromptPdf": "in1010-v25-midt-konte-uten-svar.pdf",
+  "sourceSolutionPdf": "in1010-v25-midt-konte-med-svar.pdf",
+  "questionOrder": [
+    "q01",
+    "q02",
+    "q03",
+    "q04",
+    "q05",
+    "q06",
+    "q07",
+    "q08",
+    "q09",
+    "q10",
+    "q11"
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "number": 1,
+      "title": "Sett inn i array",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-02.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-02.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q02",
+      "number": 2,
+      "title": "Bil-liste",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-03.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-03.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q03",
+      "number": 3,
+      "title": "8 tall",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-04.png",
+        "/assets/exams/v25-konte/prompt/page-05.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-04.png",
+        "/assets/exams/v25-konte/solution/page-05.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q04",
+      "number": 4,
+      "title": "Kompilerer/kjører",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-06.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-06.png",
+        "/assets/exams/v25-konte/solution/page-07.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q05",
+      "number": 5,
+      "title": "Les strenger til liste",
+      "type": "code-editor",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-07.png",
+        "/assets/exams/v25-konte/prompt/page-08.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-08.png",
+        "/assets/exams/v25-konte/solution/page-09.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Skriv løsning i editoren og sammenlign med fasit med knappen over.",
+        "codeTemplate": "import java.util.*;\n\nclass Oppgave5 {\n  // Skriv metoden her\n}\n",
+        "solutionText": "Bruk Vis fasit for den offisielle løsningsvarianten."
+      }
+    },
+    {
+      "id": "q06",
+      "number": 6,
+      "title": "To array-metoder",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-09.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-10.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q07",
+      "number": 7,
+      "title": "EnVeisBeholder",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-10.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-11.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q08",
+      "number": 8,
+      "title": "Casting-linje",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-11.png",
+        "/assets/exams/v25-konte/prompt/page-12.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-12.png",
+        "/assets/exams/v25-konte/solution/page-13.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q09",
+      "number": 9,
+      "title": "Gamlefela / Litago",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-13.png",
+        "/assets/exams/v25-konte/prompt/page-14.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-14.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q10",
+      "number": 10,
+      "title": "Arv eller komposisjon",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-14.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-15.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    },
+    {
+      "id": "q11",
+      "number": 11,
+      "title": "Iterator baklengs",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v25-konte/prompt/page-15.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v25-konte/solution/page-16.png"
+      ],
+      "interaction": {
+        "checkMode": "manual",
+        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+      }
+    }
+  ]
+}

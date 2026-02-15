@@ -1,0 +1,19 @@
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.figure {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
