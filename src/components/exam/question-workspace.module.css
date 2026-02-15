@@ -161,8 +161,9 @@
   cursor: pointer;
 }
 
-.token:disabled {
-  opacity: 0.4;
+.tokenUsed {
+  opacity: 0.7;
+  border-color: #8eb2ca;
 }
 
 .tokenActive {
@@ -191,6 +192,88 @@
 .slotValue {
   margin-top: 0.15rem;
   font-weight: 600;
+}
+
+.overlayStack {
+  display: grid;
+  gap: 1rem;
+}
+
+.overlayFigure {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  background: #fff;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.overlayImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.overlayLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.overlayZone {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.2rem 0.4rem;
+  border: 1px dashed #99b6cb;
+  border-radius: 6px;
+  background: rgba(245, 251, 255, 0.72);
+  pointer-events: auto;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.overlayZoneCorrect {
+  border: 2px solid #43a047;
+  background: rgba(232, 247, 233, 0.88);
+}
+
+.overlayZoneWrong {
+  border: 2px solid #e53935;
+  background: rgba(255, 235, 238, 0.9);
+}
+
+.overlayZoneEmpty {
+  border: 2px dashed #99b6cb;
+  background: rgba(245, 251, 255, 0.72);
+}
+
+.overlayPlaceholder {
+  font-size: 0.7rem;
+  color: #60829a;
+}
+
+.overlayText {
+  font-size: clamp(0.4rem, 1vw, 0.82rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overlayClear {
+  border: 1px solid #a8c3d6;
+  background: #fff;
+  color: #355269;
+  border-radius: 999px;
+  width: 1.1rem;
+  height: 1.1rem;
+  line-height: 1;
+  font-size: 0.88rem;
+  cursor: pointer;
+  flex: 0 0 auto;
 }
 
 .label {

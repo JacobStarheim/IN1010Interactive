@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -40,6 +42,9 @@ export function QuestionWorkspace({ examId, question }: Props) {
   const [manualNotes, setManualNotes] = useState("");
   const [codeText, setCodeText] = useState(question.interaction?.codeTemplate ?? "");
   const [feedback, setFeedback] = useState<string>("");
+  const [zoneStatus, setZoneStatus] = useState<Record<string, "correct" | "wrong" | "empty">>(
+    {}
+  );
 
   const options = useMemo(() => question.interaction?.options ?? [], [question.interaction?.options]);
   const allowMultiple = question.interaction?.allowMultiple ?? true;
@@ -56,6 +61,21 @@ export function QuestionWorkspace({ examId, question }: Props) {
     question.interaction?.checkMode === "auto" &&
     draggableItems.length > 0 &&
     dropZones.length > 0;
+  const hasOverlayDropTargets = useMemo(
+    () => dropZones.length > 0 && dropZones.every((zone) => Boolean(zone.rect)),
+    [dropZones]
+  );
+  const dropZonesByPage = useMemo(() => {
+    const perPage: Record<number, typeof dropZones> = {};
+    dropZones.forEach((zone) => {
+      const pageIndex = zone.pageIndex ?? 0;
+      if (!perPage[pageIndex]) {
+        perPage[pageIndex] = [];
+      }
+      perPage[pageIndex].push(zone);
+    });
+    return perPage;
+  }, [dropZones]);
 
   useEffect(() => {
     const storage = getStorage();
@@ -148,6 +168,8 @@ export function QuestionWorkspace({ examId, question }: Props) {
   }, [assignments]);
 
   const placeItem = (zoneId: string, itemId: string) => {
+    setZoneStatus({});
+    setFeedback("");
     setAssignments((current) => {
       const updated = { ...current };
       Object.keys(updated).forEach((key) => {
@@ -165,6 +187,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
     setAssignments(emptyState);
     setFeedback("");
     setActiveItemId(null);
+    setZoneStatus({});
   };
 
   const resetChoices = () => {
@@ -193,6 +216,19 @@ export function QuestionWorkspace({ examId, question }: Props) {
 
   const checkDrag = () => {
     const result: DragCheckResult = evaluateDragAssignments(assignments, dropZones);
+    const statusMap: Record<string, "correct" | "wrong" | "empty"> = {};
+    dropZones.forEach((zone) => {
+      const assigned = assignments[zone.id];
+      if (!assigned) {
+        statusMap[zone.id] = "empty";
+      } else if (zone.accepts.includes(assigned)) {
+        statusMap[zone.id] = "correct";
+      } else {
+        statusMap[zone.id] = "wrong";
+      }
+    });
+    setZoneStatus(statusMap);
+
     if (result.isPerfect) {
       setFeedback(`Riktig plassering: ${result.correct}/${result.total}`);
       return;
@@ -216,6 +252,93 @@ export function QuestionWorkspace({ examId, question }: Props) {
       }
       return [optionId];
     });
+  };
+
+  const renderOverlayViewer = () => {
+    return (
+      <div className={styles.overlayStack}>
+        {question.promptPages.map((page, pageIndex) => {
+          const zonesOnPage = dropZonesByPage[pageIndex] ?? [];
+
+          return (
+            <figure key={`${page}-${pageIndex}`} className={styles.overlayFigure}>
+              <img
+                src={page}
+                alt={`Oppgaveside ${pageIndex + 1}`}
+                className={styles.overlayImage}
+                loading={pageIndex === 0 ? "eager" : "lazy"}
+              />
+              <div className={styles.overlayLayer}>
+                {zonesOnPage.map((zone) => {
+                  if (!zone.rect) {
+                    return null;
+                  }
+                  const itemId = assignments[zone.id];
+                  const itemLabel = draggableItems.find((item) => item.id === itemId)?.label;
+                  const status = zoneStatus[zone.id];
+                  const statusClass =
+                    status === "correct"
+                      ? styles.overlayZoneCorrect
+                      : status === "wrong"
+                      ? styles.overlayZoneWrong
+                      : status === "empty"
+                      ? styles.overlayZoneEmpty
+                      : "";
+
+                  return (
+                    <div
+                      key={zone.id}
+                      className={`${styles.overlayZone} ${statusClass}`}
+                      style={{
+                        left: `${zone.rect.x * 100}%`,
+                        top: `${zone.rect.y * 100}%`,
+                        width: `${zone.rect.w * 100}%`,
+                        height: `${zone.rect.h * 100}%`,
+                      }}
+                      onDragOver={(event) => event.preventDefault()}
+                      onDrop={(event) => {
+                        event.preventDefault();
+                        const item = event.dataTransfer.getData("text/plain");
+                        if (item) {
+                          placeItem(zone.id, item);
+                          setActiveItemId(null);
+                        }
+                      }}
+                      onClick={() => {
+                        if (activeItemId) {
+                          placeItem(zone.id, activeItemId);
+                          setActiveItemId(null);
+                        }
+                      }}
+                    >
+                      {itemLabel ? (
+                        <>
+                          <span className={styles.overlayText}>{itemLabel}</span>
+                          <button
+                            className={styles.overlayClear}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              setAssignments((current) => ({ ...current, [zone.id]: null }));
+                              setZoneStatus({});
+                              setFeedback("");
+                            }}
+                            aria-label={`Fjern brikke fra ${zone.label}`}
+                          >
+                            ×
+                          </button>
+                        </>
+                      ) : (
+                        <span className={styles.overlayPlaceholder}>{zone.label}</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </figure>
+          );
+        })}
+      </div>
+    );
   };
 
   const renderInteraction = () => {
@@ -300,7 +423,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
         <div>
           <p className={styles.note}>{question.interaction?.instructions}</p>
           <p className={styles.subtle}>
-            Dra brikker inn i slottene, eller klikk en brikke og deretter en slot.
+            Dra brikker direkte inn i oppgaven. Du kan også klikke en brikke og så klikke plassering.
           </p>
           <div className={styles.dragLayout}>
             <div className={styles.panel}>
@@ -311,13 +434,14 @@ export function QuestionWorkspace({ examId, question }: Props) {
                   return (
                     <button
                       key={item.id}
-                      className={`${styles.token} ${activeItemId === item.id ? styles.tokenActive : ""}`}
+                      className={`${styles.token} ${activeItemId === item.id ? styles.tokenActive : ""} ${
+                        used ? styles.tokenUsed : ""
+                      }`}
                       draggable
                       onDragStart={(event) => {
                         event.dataTransfer.setData("text/plain", item.id);
                       }}
                       onClick={() => setActiveItemId(item.id)}
-                      disabled={used}
                     >
                       {item.label}
                     </button>
@@ -325,52 +449,55 @@ export function QuestionWorkspace({ examId, question }: Props) {
                 })}
               </div>
             </div>
-            <div className={styles.panel}>
-              <h3>Slots</h3>
-              <div className={styles.slotList}>
-                {dropZones.map((zone) => {
-                  const itemId = assignments[zone.id];
-                  const itemLabel = draggableItems.find((item) => item.id === itemId)?.label;
-                  return (
-                    <div
-                      key={zone.id}
-                      className={styles.slot}
-                      onDragOver={(event) => event.preventDefault()}
-                      onDrop={(event) => {
-                        event.preventDefault();
-                        const item = event.dataTransfer.getData("text/plain");
-                        if (item) {
-                          placeItem(zone.id, item);
-                          setFeedback("");
-                        }
-                      }}
-                      onClick={() => {
-                        if (activeItemId) {
-                          placeItem(zone.id, activeItemId);
-                          setActiveItemId(null);
-                          setFeedback("");
-                        }
-                      }}
-                    >
-                      <div className={styles.slotLabel}>{zone.label}</div>
-                      <div className={styles.slotValue}>{itemLabel ?? "(tom)"}</div>
-                      {itemId ? (
-                        <button
-                          className={styles.inlineClear}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            setAssignments((current) => ({ ...current, [zone.id]: null }));
-                            setFeedback("");
-                          }}
-                        >
-                          Fjern
-                        </button>
-                      ) : null}
-                    </div>
-                  );
-                })}
+
+            {!hasOverlayDropTargets ? (
+              <div className={styles.panel}>
+                <h3>Slots</h3>
+                <div className={styles.slotList}>
+                  {dropZones.map((zone) => {
+                    const itemId = assignments[zone.id];
+                    const itemLabel = draggableItems.find((item) => item.id === itemId)?.label;
+                    return (
+                      <div
+                        key={zone.id}
+                        className={styles.slot}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDrop={(event) => {
+                          event.preventDefault();
+                          const item = event.dataTransfer.getData("text/plain");
+                          if (item) {
+                            placeItem(zone.id, item);
+                            setActiveItemId(null);
+                          }
+                        }}
+                        onClick={() => {
+                          if (activeItemId) {
+                            placeItem(zone.id, activeItemId);
+                            setActiveItemId(null);
+                          }
+                        }}
+                      >
+                        <div className={styles.slotLabel}>{zone.label}</div>
+                        <div className={styles.slotValue}>{itemLabel ?? "(tom)"}</div>
+                        {itemId ? (
+                          <button
+                            className={styles.inlineClear}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              setAssignments((current) => ({ ...current, [zone.id]: null }));
+                              setZoneStatus({});
+                              setFeedback("");
+                            }}
+                          >
+                            Fjern
+                          </button>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
           <div className={styles.actions}>
             <button className={styles.primaryButton} disabled={!hasAutoDrag} onClick={checkDrag}>
@@ -431,10 +558,14 @@ export function QuestionWorkspace({ examId, question }: Props) {
 
       <div className={styles.content}>
         <section className={styles.viewer}>
-          <PageImageStack
-            pages={showSolution ? question.solutionPages : question.promptPages}
-            label={showSolution ? "Fasitside" : "Oppgaveside"}
-          />
+          {question.type === "drag-drop" && !showSolution && hasOverlayDropTargets
+            ? renderOverlayViewer()
+            : (
+              <PageImageStack
+                pages={showSolution ? question.solutionPages : question.promptPages}
+                label={showSolution ? "Fasitside" : "Oppgaveside"}
+              />
+            )}
         </section>
 
         <aside className={styles.sidebar}>
