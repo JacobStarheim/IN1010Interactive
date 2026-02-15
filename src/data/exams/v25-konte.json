@@ -45,8 +45,78 @@
         "/assets/exams/v25-konte/solution/page-03.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene på plass i enkeltlenket liste.",
+        "draggableItems": [
+          {
+            "id": "q2_next",
+            "label": "Bil neste"
+          },
+          {
+            "id": "q2_last",
+            "label": "Bil siste = new Bil()"
+          },
+          {
+            "id": "q2_init",
+            "label": "første.neste = siste"
+          },
+          {
+            "id": "q2_param",
+            "label": "Bil ny"
+          },
+          {
+            "id": "q2_store",
+            "label": "ny.neste = erILista.neste"
+          },
+          {
+            "id": "q2_link",
+            "label": "erILista.neste = ny"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q2_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q2_next"
+            ]
+          },
+          {
+            "id": "q2_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q2_last"
+            ]
+          },
+          {
+            "id": "q2_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q2_init"
+            ]
+          },
+          {
+            "id": "q2_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q2_param"
+            ]
+          },
+          {
+            "id": "q2_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q2_store"
+            ]
+          },
+          {
+            "id": "q2_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q2_link"
+            ]
+          }
+        ]
       }
     },
     {
@@ -116,8 +186,100 @@
         "/assets/exams/v25-konte/solution/page-10.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene til riktig plass i de to array-metodene.",
+        "draggableItems": [
+          {
+            "id": "q6_name_void",
+            "label": "settInnIArray"
+          },
+          {
+            "id": "q6_if",
+            "label": "ix >= 0 && ix < a.length"
+          },
+          {
+            "id": "q6_set",
+            "label": "a[ix] = v"
+          },
+          {
+            "id": "q6_name_int",
+            "label": "hentFraArray"
+          },
+          {
+            "id": "q6_zero",
+            "label": "0"
+          },
+          {
+            "id": "q6_len",
+            "label": "a.length"
+          },
+          {
+            "id": "q6_high",
+            "label": "a[a.length-1]"
+          },
+          {
+            "id": "q6_mid",
+            "label": "a[ix]"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q6_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q6_name_void"
+            ]
+          },
+          {
+            "id": "q6_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q6_if"
+            ]
+          },
+          {
+            "id": "q6_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q6_set"
+            ]
+          },
+          {
+            "id": "q6_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q6_name_int"
+            ]
+          },
+          {
+            "id": "q6_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q6_zero"
+            ]
+          },
+          {
+            "id": "q6_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q6_len"
+            ]
+          },
+          {
+            "id": "q6_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q6_high"
+            ]
+          },
+          {
+            "id": "q6_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q6_mid"
+            ]
+          }
+        ]
       }
     },
     {
@@ -132,8 +294,122 @@
         "/assets/exams/v25-konte/solution/page-11.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Fyll inn kodebitene i EnVeisBeholder.",
+        "draggableItems": [
+          {
+            "id": "q7_next",
+            "label": "EnVeis neste"
+          },
+          {
+            "id": "q7_generic",
+            "label": "E extends EnVeis"
+          },
+          {
+            "id": "q7_fields",
+            "label": "private E første, siste"
+          },
+          {
+            "id": "q7_param",
+            "label": "E ny"
+          },
+          {
+            "id": "q7_empty_add",
+            "label": "første = ny; siste = ny;"
+          },
+          {
+            "id": "q7_nonempty_add",
+            "label": "siste.neste = ny; siste = ny;"
+          },
+          {
+            "id": "q7_empty_take",
+            "label": "return null;"
+          },
+          {
+            "id": "q7_clear",
+            "label": "første = null; siste = null;"
+          },
+          {
+            "id": "q7_shift",
+            "label": "første = (E) første.neste;"
+          },
+          {
+            "id": "q7_return",
+            "label": "return ut;"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q7_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q7_next"
+            ]
+          },
+          {
+            "id": "q7_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q7_generic"
+            ]
+          },
+          {
+            "id": "q7_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q7_fields"
+            ]
+          },
+          {
+            "id": "q7_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q7_param"
+            ]
+          },
+          {
+            "id": "q7_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q7_empty_add"
+            ]
+          },
+          {
+            "id": "q7_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q7_nonempty_add"
+            ]
+          },
+          {
+            "id": "q7_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q7_empty_take"
+            ]
+          },
+          {
+            "id": "q7_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q7_clear"
+            ]
+          },
+          {
+            "id": "q7_slot_9",
+            "label": "Plass 9",
+            "accepts": [
+              "q7_shift"
+            ]
+          },
+          {
+            "id": "q7_slot_10",
+            "label": "Plass 10",
+            "accepts": [
+              "q7_return"
+            ]
+          }
+        ]
       }
     },
     {
@@ -167,8 +443,122 @@
         "/assets/exams/v25-konte/solution/page-14.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra kodebitene inn slik at programmet skriver ut de to riktige linjene.",
+        "draggableItems": [
+          {
+            "id": "q9_verdi_ctor",
+            "label": "Verdi(String n) {navn = n;}"
+          },
+          {
+            "id": "q9_verdi_print",
+            "label": "skriv() {System.out.println(navn);}"
+          },
+          {
+            "id": "q9_ku_ctor",
+            "label": "Ku(String n) {super(n);}"
+          },
+          {
+            "id": "q9_fele_ctor",
+            "label": "Fele(String n) {super(n);}"
+          },
+          {
+            "id": "q9_field",
+            "label": "KanEies min"
+          },
+          {
+            "id": "q9_temp",
+            "label": "KanEies temp = min"
+          },
+          {
+            "id": "q9_swap_1",
+            "label": "min = andre.min"
+          },
+          {
+            "id": "q9_swap_2",
+            "label": "andre.min = temp"
+          },
+          {
+            "id": "q9_init",
+            "label": "min = start"
+          },
+          {
+            "id": "q9_print",
+            "label": "min.skriv()"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q9_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q9_verdi_ctor"
+            ]
+          },
+          {
+            "id": "q9_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q9_verdi_print"
+            ]
+          },
+          {
+            "id": "q9_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q9_ku_ctor"
+            ]
+          },
+          {
+            "id": "q9_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q9_fele_ctor"
+            ]
+          },
+          {
+            "id": "q9_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q9_field"
+            ]
+          },
+          {
+            "id": "q9_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q9_temp"
+            ]
+          },
+          {
+            "id": "q9_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q9_swap_1"
+            ]
+          },
+          {
+            "id": "q9_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q9_swap_2"
+            ]
+          },
+          {
+            "id": "q9_slot_9",
+            "label": "Plass 9",
+            "accepts": [
+              "q9_init"
+            ]
+          },
+          {
+            "id": "q9_slot_10",
+            "label": "Plass 10",
+            "accepts": [
+              "q9_print"
+            ]
+          }
+        ]
       }
     },
     {
@@ -199,8 +589,100 @@
         "/assets/exams/v25-konte/solution/page-16.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Fyll inn iterator-koden for baklengs gjennomgang.",
+        "draggableItems": [
+          {
+            "id": "q11_iterable",
+            "label": "Iterable <String>"
+          },
+          {
+            "id": "q11_signature",
+            "label": "Iterator <String> iterator"
+          },
+          {
+            "id": "q11_new_iter",
+            "label": "new LagerIterator ()"
+          },
+          {
+            "id": "q11_inner",
+            "label": "Iterator <String>"
+          },
+          {
+            "id": "q11_start_ix",
+            "label": "innhold.length - 1"
+          },
+          {
+            "id": "q11_has_next",
+            "label": "ix >= 0"
+          },
+          {
+            "id": "q11_get",
+            "label": "innhold[ix]"
+          },
+          {
+            "id": "q11_dec",
+            "label": "ix = ix - 1"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q11_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q11_iterable"
+            ]
+          },
+          {
+            "id": "q11_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q11_signature"
+            ]
+          },
+          {
+            "id": "q11_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q11_new_iter"
+            ]
+          },
+          {
+            "id": "q11_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q11_inner"
+            ]
+          },
+          {
+            "id": "q11_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q11_start_ix"
+            ]
+          },
+          {
+            "id": "q11_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q11_has_next"
+            ]
+          },
+          {
+            "id": "q11_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q11_get"
+            ]
+          },
+          {
+            "id": "q11_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q11_dec"
+            ]
+          }
+        ]
       }
     }
   ]

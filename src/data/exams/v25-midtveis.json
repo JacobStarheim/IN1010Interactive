@@ -63,8 +63,100 @@
         "/assets/exams/v25-midtveis/solution/page-04.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodebit inn i hvert tomme felt.",
+        "draggableItems": [
+          {
+            "id": "q3_import",
+            "label": "java.util.Scanner"
+          },
+          {
+            "id": "q3_try",
+            "label": "try"
+          },
+          {
+            "id": "q3_scanner",
+            "label": "Scanner"
+          },
+          {
+            "id": "q3_file",
+            "label": "File"
+          },
+          {
+            "id": "q3_name",
+            "label": "\"data.txt\""
+          },
+          {
+            "id": "q3_catch",
+            "label": "catch"
+          },
+          {
+            "id": "q3_exit",
+            "label": "exit"
+          },
+          {
+            "id": "q3_line",
+            "label": "s.nextLine()"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q3_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q3_import"
+            ]
+          },
+          {
+            "id": "q3_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q3_try"
+            ]
+          },
+          {
+            "id": "q3_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q3_scanner"
+            ]
+          },
+          {
+            "id": "q3_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q3_file"
+            ]
+          },
+          {
+            "id": "q3_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q3_name"
+            ]
+          },
+          {
+            "id": "q3_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q3_catch"
+            ]
+          },
+          {
+            "id": "q3_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q3_exit"
+            ]
+          },
+          {
+            "id": "q3_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q3_line"
+            ]
+          }
+        ]
       }
     },
     {
@@ -79,8 +171,89 @@
         "/assets/exams/v25-midtveis/solution/page-05.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra linjene til riktig plass for å skrive ut Voff-voff.",
+        "draggableItems": [
+          {
+            "id": "q4_decl",
+            "label": "Hund h1, h2, h3"
+          },
+          {
+            "id": "q4_new1",
+            "label": "new Hund(\"Voff-voff\")"
+          },
+          {
+            "id": "q4_new2",
+            "label": "new Hund(\"Bjeff-bjeff\");"
+          },
+          {
+            "id": "q4_copy",
+            "label": "h3 = h2;"
+          },
+          {
+            "id": "q4_call",
+            "label": "h3.bjeff();"
+          },
+          {
+            "id": "q4_ctor",
+            "label": "voff = bjeff"
+          },
+          {
+            "id": "q4_print",
+            "label": "voff"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q4_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q4_decl"
+            ]
+          },
+          {
+            "id": "q4_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q4_new1"
+            ]
+          },
+          {
+            "id": "q4_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q4_new2"
+            ]
+          },
+          {
+            "id": "q4_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q4_copy"
+            ]
+          },
+          {
+            "id": "q4_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q4_call"
+            ]
+          },
+          {
+            "id": "q4_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q4_ctor"
+            ]
+          },
+          {
+            "id": "q4_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q4_print"
+            ]
+          }
+        ]
       }
     },
     {
@@ -165,8 +338,111 @@
         "/assets/exams/v25-midtveis/solution/page-13.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Sett inn alle ni kodebitene på riktig plass.",
+        "draggableItems": [
+          {
+            "id": "q9_next",
+            "label": "Bil neste"
+          },
+          {
+            "id": "q9_fields",
+            "label": "Bil første, siste"
+          },
+          {
+            "id": "q9_params",
+            "label": "Bil ny, Bil erILista"
+          },
+          {
+            "id": "q9_empty",
+            "label": "første = ny; siste = ny;"
+          },
+          {
+            "id": "q9_always",
+            "label": "ny.neste = erILista"
+          },
+          {
+            "id": "q9_first_prev",
+            "label": "første.forrige = ny"
+          },
+          {
+            "id": "q9_first_new",
+            "label": "første = ny"
+          },
+          {
+            "id": "q9_mid_prev",
+            "label": "ny.forrige = erILista.forrige"
+          },
+          {
+            "id": "q9_link_back",
+            "label": "erILista.forrige = ny"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q9_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q9_next"
+            ]
+          },
+          {
+            "id": "q9_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q9_fields"
+            ]
+          },
+          {
+            "id": "q9_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q9_params"
+            ]
+          },
+          {
+            "id": "q9_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q9_empty"
+            ]
+          },
+          {
+            "id": "q9_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q9_always"
+            ]
+          },
+          {
+            "id": "q9_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q9_first_prev"
+            ]
+          },
+          {
+            "id": "q9_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q9_first_new"
+            ]
+          },
+          {
+            "id": "q9_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q9_mid_prev"
+            ]
+          },
+          {
+            "id": "q9_slot_9",
+            "label": "Plass 9",
+            "accepts": [
+              "q9_link_back"
+            ]
+          }
+        ]
       }
     },
     {

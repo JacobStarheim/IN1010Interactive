@@ -61,10 +61,6 @@ export function QuestionWorkspace({ examId, question }: Props) {
     question.interaction?.checkMode === "auto" &&
     draggableItems.length > 0 &&
     dropZones.length > 0;
-  const hasOverlayDropTargets = useMemo(
-    () => dropZones.length > 0 && dropZones.every((zone) => Boolean(zone.rect)),
-    [dropZones]
-  );
   const dropZonesByPage = useMemo(() => {
     const perPage: Record<number, typeof dropZones> = {};
     dropZones.forEach((zone) => {
@@ -76,6 +72,20 @@ export function QuestionWorkspace({ examId, question }: Props) {
     });
     return perPage;
   }, [dropZones]);
+
+  const getAutoRectForZone = (zoneIndex: number, total: number) => {
+    const columns = total > 8 ? 2 : 1;
+    const rowsPerColumn = Math.ceil(total / columns);
+    const column = columns === 1 ? 0 : Math.floor(zoneIndex / rowsPerColumn);
+    const row = columns === 1 ? zoneIndex : zoneIndex % rowsPerColumn;
+
+    const x = columns === 1 ? 0.14 : 0.12 + column * 0.36;
+    const y = 0.29 + row * 0.043;
+    const w = columns === 1 ? 0.33 : 0.32;
+    const h = 0.032;
+
+    return { x, y, w, h };
+  };
 
   useEffect(() => {
     const storage = getStorage();
@@ -269,10 +279,8 @@ export function QuestionWorkspace({ examId, question }: Props) {
                 loading={pageIndex === 0 ? "eager" : "lazy"}
               />
               <div className={styles.overlayLayer}>
-                {zonesOnPage.map((zone) => {
-                  if (!zone.rect) {
-                    return null;
-                  }
+                {zonesOnPage.map((zone, zoneIndex) => {
+                  const rect = zone.rect ?? getAutoRectForZone(zoneIndex, zonesOnPage.length);
                   const itemId = assignments[zone.id];
                   const itemLabel = draggableItems.find((item) => item.id === itemId)?.label;
                   const status = zoneStatus[zone.id];
@@ -290,10 +298,10 @@ export function QuestionWorkspace({ examId, question }: Props) {
                       key={zone.id}
                       className={`${styles.overlayZone} ${statusClass}`}
                       style={{
-                        left: `${zone.rect.x * 100}%`,
-                        top: `${zone.rect.y * 100}%`,
-                        width: `${zone.rect.w * 100}%`,
-                        height: `${zone.rect.h * 100}%`,
+                        left: `${rect.x * 100}%`,
+                        top: `${rect.y * 100}%`,
+                        width: `${rect.w * 100}%`,
+                        height: `${rect.h * 100}%`,
                       }}
                       onDragOver={(event) => event.preventDefault()}
                       onDrop={(event) => {
@@ -450,54 +458,6 @@ export function QuestionWorkspace({ examId, question }: Props) {
               </div>
             </div>
 
-            {!hasOverlayDropTargets ? (
-              <div className={styles.panel}>
-                <h3>Slots</h3>
-                <div className={styles.slotList}>
-                  {dropZones.map((zone) => {
-                    const itemId = assignments[zone.id];
-                    const itemLabel = draggableItems.find((item) => item.id === itemId)?.label;
-                    return (
-                      <div
-                        key={zone.id}
-                        className={styles.slot}
-                        onDragOver={(event) => event.preventDefault()}
-                        onDrop={(event) => {
-                          event.preventDefault();
-                          const item = event.dataTransfer.getData("text/plain");
-                          if (item) {
-                            placeItem(zone.id, item);
-                            setActiveItemId(null);
-                          }
-                        }}
-                        onClick={() => {
-                          if (activeItemId) {
-                            placeItem(zone.id, activeItemId);
-                            setActiveItemId(null);
-                          }
-                        }}
-                      >
-                        <div className={styles.slotLabel}>{zone.label}</div>
-                        <div className={styles.slotValue}>{itemLabel ?? "(tom)"}</div>
-                        {itemId ? (
-                          <button
-                            className={styles.inlineClear}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              setAssignments((current) => ({ ...current, [zone.id]: null }));
-                              setZoneStatus({});
-                              setFeedback("");
-                            }}
-                          >
-                            Fjern
-                          </button>
-                        ) : null}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : null}
           </div>
           <div className={styles.actions}>
             <button className={styles.primaryButton} disabled={!hasAutoDrag} onClick={checkDrag}>
@@ -558,7 +518,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
 
       <div className={styles.content}>
         <section className={styles.viewer}>
-          {question.type === "drag-drop" && !showSolution && hasOverlayDropTargets
+          {question.type === "drag-drop" && !showSolution && dropZones.length > 0
             ? renderOverlayViewer()
             : (
               <PageImageStack
