@@ -123,79 +123,33 @@ export function QuestionWorkspace({ examId, question }: Props) {
       return;
     }
 
-    const savedChoices = storage.getItem(storageKey("choices", examId, question.id));
-    if (savedChoices) {
-      try {
-        setSelectedChoices(JSON.parse(savedChoices) as string[]);
-      } catch {
-        // Ignore invalid persisted values.
-      }
-    }
-
-    const savedAssignments = storage.getItem(storageKey("drag", examId, question.id));
-    if (savedAssignments) {
-      try {
-        setAssignments(JSON.parse(savedAssignments) as DragAssignments);
-      } catch {
-        // Ignore invalid persisted values.
-      }
-    } else if (dropZones.length > 0) {
+    setSelectedChoices([]);
+    setFeedback("");
+    setZoneStatus({});
+    if (dropZones.length > 0) {
       const emptyState = Object.fromEntries(dropZones.map((zone) => [zone.id, null]));
       setAssignments(emptyState);
+    } else {
+      setAssignments({});
     }
 
     const savedManual = storage.getItem(storageKey("manual", examId, question.id));
     if (savedManual) {
       setManualNotes(savedManual);
+    } else {
+      setManualNotes("");
     }
 
+    setCodeText(question.interaction?.codeTemplate ?? "");
     const savedCode = storage.getItem(storageKey("code", examId, question.id));
     if (savedCode) {
       setCodeText(savedCode);
     }
 
-    const savedChoiceMarks = storage.getItem(storageKey("choice-overlay", examId, question.id));
-    if (savedChoiceMarks) {
-      try {
-        const parsed = JSON.parse(savedChoiceMarks) as ChoiceMark[];
-        setChoiceMarks(parsed);
-        const maxId = parsed.reduce((max, mark) => {
-          const value = Number(mark.id.replace("mark-", ""));
-          if (Number.isFinite(value) && value > max) {
-            return value;
-          }
-          return max;
-        }, 0);
-        choiceMarkIdRef.current = maxId;
-      } catch {
-        setChoiceMarks([]);
-        choiceMarkIdRef.current = 0;
-      }
-    } else {
-      setChoiceMarks([]);
-      choiceMarkIdRef.current = 0;
-    }
+    setChoiceMarks([]);
+    choiceMarkIdRef.current = 0;
     setChoiceTool("none");
-  }, [dropZones, examId, question.id]);
-
-  useEffect(() => {
-    const storage = getStorage();
-    if (!storage) {
-      return;
-    }
-    storage.setItem(
-      storageKey("choices", examId, question.id),
-      JSON.stringify(selectedChoices)
-    );
-  }, [selectedChoices, examId, question.id]);
-
-  useEffect(() => {
-    const storage = getStorage();
-    if (!storage) {
-      return;
-    }
-    storage.setItem(storageKey("drag", examId, question.id), JSON.stringify(assignments));
-  }, [assignments, examId, question.id]);
+  }, [dropZones, examId, question.id, question.interaction?.codeTemplate]);
 
   useEffect(() => {
     const storage = getStorage();
@@ -212,17 +166,6 @@ export function QuestionWorkspace({ examId, question }: Props) {
     }
     storage.setItem(storageKey("code", examId, question.id), codeText);
   }, [codeText, examId, question.id]);
-
-  useEffect(() => {
-    const storage = getStorage();
-    if (!storage) {
-      return;
-    }
-    storage.setItem(
-      storageKey("choice-overlay", examId, question.id),
-      JSON.stringify(choiceMarks)
-    );
-  }, [choiceMarks, examId, question.id]);
 
   const assignedItemIds = useMemo(() => {
     return new Set(Object.values(assignments).filter(Boolean));
