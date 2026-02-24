@@ -167,6 +167,10 @@
         "instructions": "Dra kodebitene inn i riktig hull i programmet.",
         "draggableItems": [
           {
+            "id": "main_sig",
+            "label": "public static void main (String[] arg) {"
+          },
+          {
             "id": "new_scanner",
             "label": "new Scanner(System.in)"
           },
@@ -209,6 +213,20 @@
         ],
         "dropZones": [
           {
+            "id": "slot_main",
+            "label": "public static void main (...) {",
+            "accepts": [
+              "main_sig"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.111,
+              "y": 0.2906,
+              "w": 0.3061,
+              "h": 0.0285
+            }
+          },
+          {
             "id": "slot_scanner",
             "label": "Scanner tastatur = ...",
             "accepts": [
@@ -216,9 +234,9 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.111,
-              "y": 0.2906,
-              "w": 0.3061,
+              "x": 0.2893,
+              "y": 0.3232,
+              "w": 0.3053,
               "h": 0.0285
             }
           },
@@ -230,9 +248,9 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.2893,
-              "y": 0.3232,
-              "w": 0.3053,
+              "x": 0.2725,
+              "y": 0.3565,
+              "w": 0.3061,
               "h": 0.0285
             }
           },
@@ -244,9 +262,9 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.2725,
-              "y": 0.3565,
-              "w": 0.3061,
+              "x": 0.2136,
+              "y": 0.3892,
+              "w": 0.3053,
               "h": 0.0285
             }
           },
@@ -258,9 +276,9 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.2136,
-              "y": 0.3892,
-              "w": 0.3053,
+              "x": 0.1514,
+              "y": 0.4225,
+              "w": 0.3061,
               "h": 0.0285
             }
           },
@@ -272,9 +290,9 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.1514,
-              "y": 0.4225,
-              "w": 0.3061,
+              "x": 0.307,
+              "y": 0.4551,
+              "w": 0.3053,
               "h": 0.0285
             }
           },
@@ -286,8 +304,8 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.307,
-              "y": 0.4551,
+              "x": 0.312,
+              "y": 0.5068,
               "w": 0.3053,
               "h": 0.0285
             }

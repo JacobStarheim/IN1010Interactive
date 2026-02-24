@@ -387,6 +387,7 @@ const exams = [
         checkMode: "auto",
         instructions: "Dra kodebitene inn i riktig hull i programmet.",
         draggableItems: [
+          { id: "main_sig", label: "public static void main (String[] arg) {" },
           { id: "new_scanner", label: "new Scanner(System.in)" },
           { id: "prompt", label: "\"Gi karakter 1-6: \"" },
           { id: "next_int", label: "tastatur.nextInt()" },
@@ -399,6 +400,7 @@ const exams = [
           { id: "wrong_system_in", label: "System.in" },
         ],
         dropZones: [
+          { id: "slot_main", label: "public static void main (...) {", accepts: ["main_sig"] },
           { id: "slot_scanner", label: "Scanner tastatur = ...", accepts: ["new_scanner"] },
           { id: "slot_prompt", label: "System.out.print(...)", accepts: ["prompt"] },
           { id: "slot_read", label: "int svar = ...", accepts: ["next_int"] },
