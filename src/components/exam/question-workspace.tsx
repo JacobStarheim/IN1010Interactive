@@ -422,9 +422,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
                             ×
                           </button>
                         </>
-                      ) : (
-                        <span className={styles.overlayPlaceholder}>{zone.label}</span>
-                      )}
+                      ) : null}
                     </div>
                   );
                 })}
