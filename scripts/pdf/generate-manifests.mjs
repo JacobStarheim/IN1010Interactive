@@ -6,6 +6,38 @@ const OUT_DIR = "/Users/jacob/IN1010-web/src/data/exams";
 const pagePath = (examId, variant, page) =>
   `/assets/exams/${examId}/${variant}/page-${String(page).padStart(2, "0")}.png`;
 
+const buildBinaryChoiceCircleZones = ({
+  rows,
+  leftX,
+  rightX,
+  startY,
+  rowStep,
+  w,
+  h,
+  pageIndex = 0,
+  groupPrefix,
+}) => {
+  const zones = [];
+  for (let row = 1; row <= rows; row += 1) {
+    const y = Number((startY + (row - 1) * rowStep).toFixed(4));
+    zones.push({
+      id: `row${row}-arv`,
+      kind: "circle",
+      group: `${groupPrefix}${row}`,
+      pageIndex,
+      rect: { x: leftX, y, w, h },
+    });
+    zones.push({
+      id: `row${row}-komposisjon`,
+      kind: "circle",
+      group: `${groupPrefix}${row}`,
+      pageIndex,
+      rect: { x: rightX, y, w, h },
+    });
+  }
+  return zones;
+};
+
 const exams = [
   {
     id: "v24-midtveis",
@@ -366,134 +398,17 @@ const exams = [
         checkMode: "manual",
         instructions:
           "Bruk denne som øvingstabell. For fasit vises offisiell fasitside med avkryssing per relasjon.",
-        choiceZones: [
-          {
-            id: "row1-arv",
-            kind: "circle",
-            group: "test4-r1",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.2301, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row1-komposisjon",
-            kind: "circle",
-            group: "test4-r1",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.2301, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row2-arv",
-            kind: "circle",
-            group: "test4-r2",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.2738, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row2-komposisjon",
-            kind: "circle",
-            group: "test4-r2",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.2738, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row3-arv",
-            kind: "circle",
-            group: "test4-r3",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.3174, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row3-komposisjon",
-            kind: "circle",
-            group: "test4-r3",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.3174, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row4-arv",
-            kind: "circle",
-            group: "test4-r4",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.3611, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row4-komposisjon",
-            kind: "circle",
-            group: "test4-r4",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.3611, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row5-arv",
-            kind: "circle",
-            group: "test4-r5",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.4048, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row5-komposisjon",
-            kind: "circle",
-            group: "test4-r5",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.4048, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row6-arv",
-            kind: "circle",
-            group: "test4-r6",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.4486, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row6-komposisjon",
-            kind: "circle",
-            group: "test4-r6",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.4486, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row7-arv",
-            kind: "circle",
-            group: "test4-r7",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.4921, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row7-komposisjon",
-            kind: "circle",
-            group: "test4-r7",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.4921, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row8-arv",
-            kind: "circle",
-            group: "test4-r8",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.5358, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row8-komposisjon",
-            kind: "circle",
-            group: "test4-r8",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.5358, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row9-arv",
-            kind: "circle",
-            group: "test4-r9",
-            pageIndex: 0,
-            rect: { x: 0.5582, y: 0.5795, w: 0.03, h: 0.03 },
-          },
-          {
-            id: "row9-komposisjon",
-            kind: "circle",
-            group: "test4-r9",
-            pageIndex: 0,
-            rect: { x: 0.7789, y: 0.5795, w: 0.03, h: 0.03 },
-          },
-        ],
+        choiceZones: buildBinaryChoiceCircleZones({
+          rows: 9,
+          leftX: 0.5254,
+          rightX: 0.7222,
+          startY: 0.2304,
+          rowStep: 0.0392,
+          w: 0.04,
+          h: 0.024,
+          pageIndex: 0,
+          groupPrefix: "test4-r",
+        }),
       },
       3: {
         checkMode: "auto",
