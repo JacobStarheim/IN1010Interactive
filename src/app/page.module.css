@@ -38,3 +38,18 @@
   border: 1px solid #b8d9ee;
   font-size: 0.84rem;
 }
+
+.openSource {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.openSource p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.openSourceLink {
+  justify-self: start;
+  font-weight: 600;
+}

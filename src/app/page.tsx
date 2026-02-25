@@ -25,6 +25,20 @@ export default function HomePage() {
           </Link>
         ))}
       </section>
+
+      <section className={`card ${styles.openSource}`}>
+        <p>
+          Dette prosjektet er åpen kildekode. Vil du bidra eller bli contributor?
+        </p>
+        <a
+          href="https://github.com/JacobStarheim/IN1010Interactive"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.openSourceLink}
+        >
+          GitHub-repo: IN1010Interactive
+        </a>
+      </section>
     </main>
   );
 }
