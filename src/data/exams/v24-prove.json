@@ -82,239 +82,239 @@
       ],
       "interaction": {
         "checkMode": "auto",
-        "instructions": "Bruk denne som øvingstabell. For fasit vises offisiell fasitside med avkryssing per relasjon.",
+        "instructions": "Klikk i tabellen for hver rad og trykk Sjekk svar.",
         "choiceZones": [
           {
-            "id": "row1-arv",
+            "id": "q02-r1-c1",
             "kind": "circle",
-            "group": "test4-r1",
+            "group": "q02-r1",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.2304,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.2261,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row1-komposisjon",
+            "id": "q02-r1-c2",
             "kind": "circle",
-            "group": "test4-r1",
+            "group": "q02-r1",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.2304,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.2261,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row2-arv",
+            "id": "q02-r2-c1",
             "kind": "circle",
-            "group": "test4-r2",
+            "group": "q02-r2",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.2696,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.2653,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row2-komposisjon",
+            "id": "q02-r2-c2",
             "kind": "circle",
-            "group": "test4-r2",
+            "group": "q02-r2",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.2696,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.2653,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row3-arv",
+            "id": "q02-r3-c1",
             "kind": "circle",
-            "group": "test4-r3",
+            "group": "q02-r3",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.3088,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.3045,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row3-komposisjon",
+            "id": "q02-r3-c2",
             "kind": "circle",
-            "group": "test4-r3",
+            "group": "q02-r3",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.3088,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.3045,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row4-arv",
+            "id": "q02-r4-c1",
             "kind": "circle",
-            "group": "test4-r4",
+            "group": "q02-r4",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.348,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.3437,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row4-komposisjon",
+            "id": "q02-r4-c2",
             "kind": "circle",
-            "group": "test4-r4",
+            "group": "q02-r4",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.348,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.3437,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row5-arv",
+            "id": "q02-r5-c1",
             "kind": "circle",
-            "group": "test4-r5",
+            "group": "q02-r5",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.3872,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.3829,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row5-komposisjon",
+            "id": "q02-r5-c2",
             "kind": "circle",
-            "group": "test4-r5",
+            "group": "q02-r5",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.3872,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.3829,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row6-arv",
+            "id": "q02-r6-c1",
             "kind": "circle",
-            "group": "test4-r6",
+            "group": "q02-r6",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.4264,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.4221,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row6-komposisjon",
+            "id": "q02-r6-c2",
             "kind": "circle",
-            "group": "test4-r6",
+            "group": "q02-r6",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.4264,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.4221,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row7-arv",
+            "id": "q02-r7-c1",
             "kind": "circle",
-            "group": "test4-r7",
+            "group": "q02-r7",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.4656,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.4613,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row7-komposisjon",
+            "id": "q02-r7-c2",
             "kind": "circle",
-            "group": "test4-r7",
+            "group": "q02-r7",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.4656,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.4613,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row8-arv",
+            "id": "q02-r8-c1",
             "kind": "circle",
-            "group": "test4-r8",
+            "group": "q02-r8",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.5048,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.5006,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row8-komposisjon",
+            "id": "q02-r8-c2",
             "kind": "circle",
-            "group": "test4-r8",
+            "group": "q02-r8",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.5048,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.5006,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           },
           {
-            "id": "row9-arv",
+            "id": "q02-r9-c1",
             "kind": "circle",
-            "group": "test4-r9",
+            "group": "q02-r9",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5254,
-              "y": 0.544,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.5227,
+              "y": 0.5398,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": false
           },
           {
-            "id": "row9-komposisjon",
+            "id": "q02-r9-c2",
             "kind": "circle",
-            "group": "test4-r9",
+            "group": "q02-r9",
             "pageIndex": 0,
             "rect": {
-              "x": 0.7222,
-              "y": 0.544,
-              "w": 0.04,
-              "h": 0.024
+              "x": 0.7195,
+              "y": 0.5398,
+              "w": 0.0463,
+              "h": 0.0327
             },
             "correct": true
           }

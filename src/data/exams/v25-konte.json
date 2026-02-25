@@ -21,7 +21,7 @@
       "id": "q01",
       "number": 1,
       "title": "Sett inn i array",
-      "type": "choice-grid",
+      "type": "drag-drop",
       "promptPages": [
         "/assets/exams/v25-konte/prompt/page-02.png"
       ],
@@ -29,8 +29,107 @@
         "/assets/exams/v25-konte/solution/page-02.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodelinje inn i hvert tomrom og trykk Sjekk svar.",
+        "allowItemReuse": false,
+        "draggableItems": [
+          {
+            "id": "q01_return_tallpos",
+            "label": "return tall[pos];"
+          },
+          {
+            "id": "q01_int_tv_tall",
+            "label": "int taVare = tall;"
+          },
+          {
+            "id": "q01_return_pos",
+            "label": "return pos;"
+          },
+          {
+            "id": "q01_int_tv",
+            "label": "int taVare;"
+          },
+          {
+            "id": "q01_tallpos_tv",
+            "label": "tall[pos] = taVare;"
+          },
+          {
+            "id": "q01_int_tv_tallpos",
+            "label": "int taVare = tall[pos];"
+          },
+          {
+            "id": "q01_tallny_tv",
+            "label": "tall[ny] = taVare;"
+          },
+          {
+            "id": "q01_return_tv",
+            "label": "return taVare;"
+          },
+          {
+            "id": "q01_return_ny",
+            "label": "return ny;"
+          },
+          {
+            "id": "q01_tv_pos",
+            "label": "taVare = pos;"
+          },
+          {
+            "id": "q01_int_tv_pos",
+            "label": "int taVare = pos;"
+          },
+          {
+            "id": "q01_tv_ny",
+            "label": "taVare = ny;"
+          },
+          {
+            "id": "q01_tallpos_ny",
+            "label": "tall[pos] = ny;"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q01_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q01_int_tv_tallpos"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1514,
+              "y": 0.1783,
+              "w": 0.1901,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q01_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q01_tallpos_ny"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1514,
+              "y": 0.2109,
+              "w": 0.1901,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q01_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q01_return_tv"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1514,
+              "y": 0.2442,
+              "w": 0.1901,
+              "h": 0.0285
+            }
+          }
+        ]
       }
     },
     {
@@ -175,8 +274,106 @@
         "/assets/exams/v25-konte/solution/page-05.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Skriv de åtte utskriftene i feltene og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q03-text-1",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1008,
+              "y": 0.1055,
+              "w": 0.0389,
+              "h": 0.0238
+            },
+            "answer": "2"
+          },
+          {
+            "id": "q03-text-2",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1008,
+              "y": 0.1447,
+              "w": 0.0389,
+              "h": 0.0238
+            },
+            "answer": "5"
+          },
+          {
+            "id": "q03-text-3",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1008,
+              "y": 0.1839,
+              "w": 0.0389,
+              "h": 0.0238
+            },
+            "answer": "6"
+          },
+          {
+            "id": "q03-text-4",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1008,
+              "y": 0.2231,
+              "w": 0.0389,
+              "h": 0.0238
+            },
+            "answer": "6"
+          },
+          {
+            "id": "q03-text-5",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1008,
+              "y": 0.2617,
+              "w": 0.0389,
+              "h": 0.0238
+            },
+            "answer": "5"
+          },
+          {
+            "id": "q03-text-6",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0997,
+              "y": 0.301,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "10"
+          },
+          {
+            "id": "q03-text-7",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0997,
+              "y": 0.3402,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "25"
+          },
+          {
+            "id": "q03-text-8",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0997,
+              "y": 0.3794,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "15"
+          }
+        ]
       }
     },
     {
@@ -192,8 +389,400 @@
         "/assets/exams/v25-konte/solution/page-07.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Marker riktig kolonne for hver kodelinje og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q04-r1-c1",
+            "kind": "circle",
+            "group": "q04-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.4614,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r1-c2",
+            "kind": "circle",
+            "group": "q04-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.4614,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r1-c3",
+            "kind": "circle",
+            "group": "q04-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.4614,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r2-c1",
+            "kind": "circle",
+            "group": "q04-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.5006,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r2-c2",
+            "kind": "circle",
+            "group": "q04-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.5006,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r2-c3",
+            "kind": "circle",
+            "group": "q04-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.5006,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r3-c1",
+            "kind": "circle",
+            "group": "q04-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.5398,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r3-c2",
+            "kind": "circle",
+            "group": "q04-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.5398,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r3-c3",
+            "kind": "circle",
+            "group": "q04-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.5398,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r4-c1",
+            "kind": "circle",
+            "group": "q04-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.579,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r4-c2",
+            "kind": "circle",
+            "group": "q04-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.579,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r4-c3",
+            "kind": "circle",
+            "group": "q04-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.579,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r5-c1",
+            "kind": "circle",
+            "group": "q04-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.6182,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r5-c2",
+            "kind": "circle",
+            "group": "q04-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.6182,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r5-c3",
+            "kind": "circle",
+            "group": "q04-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.6182,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r6-c1",
+            "kind": "circle",
+            "group": "q04-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.6575,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r6-c2",
+            "kind": "circle",
+            "group": "q04-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.6575,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r6-c3",
+            "kind": "circle",
+            "group": "q04-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.6575,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r7-c1",
+            "kind": "circle",
+            "group": "q04-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.6967,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r7-c2",
+            "kind": "circle",
+            "group": "q04-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.6967,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r7-c3",
+            "kind": "circle",
+            "group": "q04-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.6967,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r8-c1",
+            "kind": "circle",
+            "group": "q04-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.7359,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r8-c2",
+            "kind": "circle",
+            "group": "q04-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.7359,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r8-c3",
+            "kind": "circle",
+            "group": "q04-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.7359,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r9-c1",
+            "kind": "circle",
+            "group": "q04-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.7751,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r9-c2",
+            "kind": "circle",
+            "group": "q04-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.7751,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r9-c3",
+            "kind": "circle",
+            "group": "q04-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.7751,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r10-c1",
+            "kind": "circle",
+            "group": "q04-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4823,
+              "y": 0.8143,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r10-c2",
+            "kind": "circle",
+            "group": "q04-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6421,
+              "y": 0.8143,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r10-c3",
+            "kind": "circle",
+            "group": "q04-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7851,
+              "y": 0.8143,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          }
+        ]
       }
     },
     {
@@ -594,8 +1183,400 @@
         "/assets/exams/v25-konte/solution/page-13.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Marker OK eller Vil gi feil per linje og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q08-r1-c1",
+            "kind": "circle",
+            "group": "q08-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.1637,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r1-c2",
+            "kind": "circle",
+            "group": "q08-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.1637,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r2-c1",
+            "kind": "circle",
+            "group": "q08-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.2029,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r2-c2",
+            "kind": "circle",
+            "group": "q08-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.2029,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r3-c1",
+            "kind": "circle",
+            "group": "q08-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.2421,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r3-c2",
+            "kind": "circle",
+            "group": "q08-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.2421,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r4-c1",
+            "kind": "circle",
+            "group": "q08-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.2813,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r4-c2",
+            "kind": "circle",
+            "group": "q08-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.2813,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r5-c1",
+            "kind": "circle",
+            "group": "q08-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.3206,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r5-c2",
+            "kind": "circle",
+            "group": "q08-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.3206,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r6-c1",
+            "kind": "circle",
+            "group": "q08-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.3598,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r6-c2",
+            "kind": "circle",
+            "group": "q08-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.3598,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r7-c1",
+            "kind": "circle",
+            "group": "q08-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.399,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r7-c2",
+            "kind": "circle",
+            "group": "q08-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.399,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r8-c1",
+            "kind": "circle",
+            "group": "q08-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.4382,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r8-c2",
+            "kind": "circle",
+            "group": "q08-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.4382,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r9-c1",
+            "kind": "circle",
+            "group": "q08-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.4774,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r9-c2",
+            "kind": "circle",
+            "group": "q08-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.4774,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r10-c1",
+            "kind": "circle",
+            "group": "q08-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.5166,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r10-c2",
+            "kind": "circle",
+            "group": "q08-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.5166,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r11-c1",
+            "kind": "circle",
+            "group": "q08-r11",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.5559,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r11-c2",
+            "kind": "circle",
+            "group": "q08-r11",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.5559,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r12-c1",
+            "kind": "circle",
+            "group": "q08-r12",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.5951,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r12-c2",
+            "kind": "circle",
+            "group": "q08-r12",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.5951,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r13-c1",
+            "kind": "circle",
+            "group": "q08-r13",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.6343,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r13-c2",
+            "kind": "circle",
+            "group": "q08-r13",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.6343,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r14-c1",
+            "kind": "circle",
+            "group": "q08-r14",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.6735,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r14-c2",
+            "kind": "circle",
+            "group": "q08-r14",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.6735,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q08-r15-c1",
+            "kind": "circle",
+            "group": "q08-r15",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5429,
+              "y": 0.7127,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q08-r15-c2",
+            "kind": "circle",
+            "group": "q08-r15",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7371,
+              "y": 0.7127,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          }
+        ]
       }
     },
     {
@@ -811,8 +1792,270 @@
         "/assets/exams/v25-konte/solution/page-15.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Klikk i tabellen for hver rad og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q10-r1-c1",
+            "kind": "circle",
+            "group": "q10-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.2653,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r1-c2",
+            "kind": "circle",
+            "group": "q10-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.2653,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r2-c1",
+            "kind": "circle",
+            "group": "q10-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.3045,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r2-c2",
+            "kind": "circle",
+            "group": "q10-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.3045,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r3-c1",
+            "kind": "circle",
+            "group": "q10-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.3437,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r3-c2",
+            "kind": "circle",
+            "group": "q10-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.3437,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r4-c1",
+            "kind": "circle",
+            "group": "q10-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.3829,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r4-c2",
+            "kind": "circle",
+            "group": "q10-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.3829,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r5-c1",
+            "kind": "circle",
+            "group": "q10-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.4221,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r5-c2",
+            "kind": "circle",
+            "group": "q10-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.4221,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r6-c1",
+            "kind": "circle",
+            "group": "q10-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.4613,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r6-c2",
+            "kind": "circle",
+            "group": "q10-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.4613,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r7-c1",
+            "kind": "circle",
+            "group": "q10-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.5006,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r7-c2",
+            "kind": "circle",
+            "group": "q10-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.5006,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r8-c1",
+            "kind": "circle",
+            "group": "q10-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.5398,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r8-c2",
+            "kind": "circle",
+            "group": "q10-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.5398,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r9-c1",
+            "kind": "circle",
+            "group": "q10-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.579,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r9-c2",
+            "kind": "circle",
+            "group": "q10-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.579,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q10-r10-c1",
+            "kind": "circle",
+            "group": "q10-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5681,
+              "y": 0.6182,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q10-r10-c2",
+            "kind": "circle",
+            "group": "q10-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.738,
+              "y": 0.6182,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          }
+        ]
       }
     },
     {

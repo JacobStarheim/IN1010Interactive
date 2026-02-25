@@ -321,6 +321,9 @@
 .choiceZone {
   position: absolute;
   pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .choiceZoneInput {
@@ -353,6 +356,22 @@
   background:
     radial-gradient(circle at center, #1f7dbb 0, #1f7dbb 42%, transparent 44%),
     rgba(255, 255, 255, 0.25);
+}
+
+.choiceZoneBox {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  border: 2px solid #8ea8ba;
+  background: rgba(255, 255, 255, 0.86);
+  color: #1f7d3c;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.choiceZoneBoxActive {
+  border-color: #2f8d43;
+  background: rgba(231, 247, 236, 0.95);
 }
 
 .choiceMarkText {

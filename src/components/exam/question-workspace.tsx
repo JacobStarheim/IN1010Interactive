@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PageImageStack } from "@/components/exam/page-image-stack";
 import type { DragAssignments, DragCheckResult } from "@/lib/interaction";
 import {
+  evaluateChoiceZones,
   evaluateChoiceSelection,
   evaluateDragAssignments,
 } from "@/lib/interaction";
@@ -80,6 +81,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
     () => question.interaction?.draggableItems ?? [],
     [question.interaction?.draggableItems]
   );
+  const allowItemReuse = question.interaction?.allowItemReuse ?? false;
   const hasPresetChoiceZones = choiceZones.length > 0;
   const hasAutoChoice = question.interaction?.checkMode === "auto" && options.length > 0;
   const hasAutoDrag =
@@ -121,15 +123,14 @@ export function QuestionWorkspace({ examId, question }: Props) {
     });
     return grouped;
   }, [choiceZones]);
-  const choiceZonesById = useMemo(() => {
-    const mapped: Record<string, ChoiceZone> = {};
-    choiceZones.forEach((zone) => {
-      mapped[zone.id] = zone;
-    });
-    return mapped;
-  }, [choiceZones]);
   const hasChoiceZoneAnswerKey = useMemo(
-    () => choiceZones.some((zone) => typeof zone.correct === "boolean"),
+    () =>
+      choiceZones.some(
+        (zone) =>
+          typeof zone.correct === "boolean" ||
+          typeof zone.answer === "string" ||
+          (zone.answers?.length ?? 0) > 0
+      ),
     [choiceZones]
   );
   const hasAutoChoiceZones =
@@ -220,7 +221,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
           const merged: ChoiceZoneValues = { ...defaultChoiceZoneValues };
           choiceZones.forEach((zone) => {
             const value = parsed[zone.id];
-            if (zone.kind === "circle" && typeof value === "boolean") {
+            if (zone.kind !== "text" && typeof value === "boolean") {
               merged[zone.id] = value;
             }
             if (zone.kind === "text" && typeof value === "string") {
@@ -265,8 +266,11 @@ export function QuestionWorkspace({ examId, question }: Props) {
   }, [choiceZoneValues, choiceZones.length, examId, question.id]);
 
   const assignedItemIds = useMemo(() => {
+    if (allowItemReuse) {
+      return new Set<string>();
+    }
     return new Set(Object.values(assignments).filter(Boolean));
-  }, [assignments]);
+  }, [allowItemReuse, assignments]);
   const choiceMarksByPage = useMemo(() => {
     const grouped: Record<number, ChoiceMark[]> = {};
     choiceMarks.forEach((mark) => {
@@ -398,11 +402,13 @@ export function QuestionWorkspace({ examId, question }: Props) {
     setFeedback("");
     setAssignments((current) => {
       const updated = { ...current };
-      Object.keys(updated).forEach((key) => {
-        if (updated[key] === itemId) {
-          updated[key] = null;
-        }
-      });
+      if (!allowItemReuse) {
+        Object.keys(updated).forEach((key) => {
+          if (updated[key] === itemId) {
+            updated[key] = null;
+          }
+        });
+      }
       updated[zoneId] = itemId;
       return updated;
     });
@@ -441,52 +447,19 @@ export function QuestionWorkspace({ examId, question }: Props) {
   };
 
   const checkChoiceZones = () => {
-    const groups = Object.keys(choiceZonesByGroup);
-    if (groups.length === 0) {
+    const result = evaluateChoiceZones(choiceZoneValues, choiceZones);
+    if (result.total === 0) {
       setFeedback("Denne oppgaven har ikke sjekkbar fasit ennå.");
       return;
     }
 
-    let total = 0;
-    let correct = 0;
-    let missing = 0;
-    let wrong = 0;
-
-    groups.forEach((group) => {
-      const zoneIds = choiceZonesByGroup[group];
-      const expected = zoneIds.find((zoneId) => choiceZonesById[zoneId]?.correct === true);
-      if (!expected) {
-        return;
-      }
-
-      total += 1;
-      const selected = zoneIds.filter((zoneId) => Boolean(choiceZoneValues[zoneId]));
-
-      if (selected.length === 0) {
-        missing += 1;
-        return;
-      }
-
-      if (selected.length === 1 && selected[0] === expected) {
-        correct += 1;
-        return;
-      }
-
-      wrong += 1;
-    });
-
-    if (total === 0) {
-      setFeedback("Denne oppgaven har ikke sjekkbar fasit ennå.");
-      return;
-    }
-
-    if (correct === total) {
-      setFeedback(`Riktig: ${correct}/${total}`);
+    if (result.isPerfect) {
+      setFeedback(`Riktig: ${result.correct}/${result.total}`);
       return;
     }
 
     setFeedback(
-      `Delvis riktig: ${correct}/${total}. Mangler: ${missing}, feil: ${wrong}.`
+      `Delvis riktig: ${result.correct}/${result.total}. Mangler: ${result.missing}, feil: ${result.wrong}.`
     );
   };
 
@@ -652,12 +625,24 @@ export function QuestionWorkspace({ examId, question }: Props) {
                       ) : (
                         <button
                           type="button"
-                          className={`${styles.choiceZoneCircle} ${
-                            Boolean(choiceZoneValues[zone.id]) ? styles.choiceZoneCircleActive : ""
-                          }`}
+                          className={
+                            zone.kind === "box"
+                              ? `${styles.choiceZoneBox} ${
+                                  Boolean(choiceZoneValues[zone.id])
+                                    ? styles.choiceZoneBoxActive
+                                    : ""
+                                }`
+                              : `${styles.choiceZoneCircle} ${
+                                  Boolean(choiceZoneValues[zone.id])
+                                    ? styles.choiceZoneCircleActive
+                                    : ""
+                                }`
+                          }
                           onClick={() => toggleChoiceZoneCircle(zone.id, zone.group)}
                           aria-label={Boolean(choiceZoneValues[zone.id]) ? "Fjern markering" : "Marker"}
-                        />
+                        >
+                          {zone.kind === "box" && Boolean(choiceZoneValues[zone.id]) ? "✓" : ""}
+                        </button>
                       )}
                     </div>
                   ))}

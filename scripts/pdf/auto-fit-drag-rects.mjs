@@ -159,6 +159,8 @@ async function fitManifest(fileName) {
     if (question.type !== "drag-drop") continue;
     const zones = question.interaction?.dropZones;
     if (!zones || zones.length === 0) continue;
+    const needsFit = zones.some((zone) => !zone.rect || typeof zone.pageIndex !== "number");
+    if (!needsFit) continue;
 
     const pages = question.solutionPages;
     if (!pages || pages.length === 0) continue;
@@ -170,7 +172,7 @@ async function fitManifest(fileName) {
       const filePath = path.join(PUBLIC_DIR, asset.replace(/^\//, ""));
       const png = await loadPng(filePath);
       const boxes = findConnectedBoxes(png)
-        .filter((b) => b.minY < png.height * 0.88) // ignore very low area near footer
+        .filter((b) => b.minY < png.height * 0.97) // ignore footer area only
         .map((b) => ({ ...b, pageOffset, width: png.width, height: png.height }));
       for (const box of boxes) {
         pageBoxes.push(box);

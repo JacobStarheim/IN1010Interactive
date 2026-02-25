@@ -33,7 +33,7 @@ export type ChoiceOption = {
   correct: boolean;
 };
 
-export type ChoiceZoneKind = "text" | "circle";
+export type ChoiceZoneKind = "text" | "circle" | "box";
 
 export type ChoiceZone = {
   id: string;
@@ -43,12 +43,15 @@ export type ChoiceZone = {
   group?: string;
   placeholder?: string;
   correct?: boolean;
+  answer?: string;
+  answers?: string[];
 };
 
 export type InteractionSpec = {
   checkMode: "manual" | "auto";
   instructions?: string;
   draggableItems?: DragItem[];
+  allowItemReuse?: boolean;
   dropZones?: DropZone[];
   options?: ChoiceOption[];
   choiceZones?: ChoiceZone[];

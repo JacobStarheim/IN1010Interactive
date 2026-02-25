@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   evaluateChoiceSelection,
+  evaluateChoiceZones,
   evaluateDragAssignments,
 } from "@/lib/interaction";
 
@@ -58,5 +59,57 @@ describe("evaluateDragAssignments", () => {
     expect(result.correct).toBe(1);
     expect(result.wrong).toEqual(["s2"]);
     expect(result.empty).toEqual(["s3"]);
+  });
+});
+
+describe("evaluateChoiceZones", () => {
+  it("evaluates grouped circle zones", () => {
+    const zones = [
+      { id: "r1-a", kind: "circle", group: "r1", rect: { x: 0, y: 0, w: 0, h: 0 }, correct: true },
+      { id: "r1-b", kind: "circle", group: "r1", rect: { x: 0, y: 0, w: 0, h: 0 }, correct: false },
+      { id: "r2-a", kind: "circle", group: "r2", rect: { x: 0, y: 0, w: 0, h: 0 }, correct: false },
+      { id: "r2-b", kind: "circle", group: "r2", rect: { x: 0, y: 0, w: 0, h: 0 }, correct: true },
+    ] as const;
+
+    const result = evaluateChoiceZones(
+      {
+        "r1-a": true,
+        "r1-b": false,
+        "r2-a": true,
+        "r2-b": false,
+      },
+      [...zones]
+    );
+
+    expect(result.total).toBe(2);
+    expect(result.correct).toBe(1);
+    expect(result.missing).toBe(0);
+    expect(result.wrong).toBe(1);
+    expect(result.isPerfect).toBe(false);
+  });
+
+  it("evaluates standalone checkboxes and text answers", () => {
+    const zones = [
+      { id: "z1", kind: "box", rect: { x: 0, y: 0, w: 0, h: 0 }, correct: true },
+      { id: "z2", kind: "box", rect: { x: 0, y: 0, w: 0, h: 0 }, correct: false },
+      { id: "z3", kind: "text", rect: { x: 0, y: 0, w: 0, h: 0 }, answer: "13" },
+      { id: "z4", kind: "text", rect: { x: 0, y: 0, w: 0, h: 0 }, answers: ["DL23145", "DL231"] },
+    ] as const;
+
+    const result = evaluateChoiceZones(
+      {
+        z1: true,
+        z2: false,
+        z3: "(13)",
+        z4: "dl231",
+      },
+      [...zones]
+    );
+
+    expect(result.total).toBe(4);
+    expect(result.correct).toBe(4);
+    expect(result.missing).toBe(0);
+    expect(result.wrong).toBe(0);
+    expect(result.isPerfect).toBe(true);
   });
 });

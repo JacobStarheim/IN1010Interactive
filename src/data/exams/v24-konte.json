@@ -21,7 +21,7 @@
       "id": "q01",
       "number": 1,
       "title": "Sett inn verdi i array",
-      "type": "choice-grid",
+      "type": "drag-drop",
       "promptPages": [
         "/assets/exams/v24-konte/prompt/page-02.png"
       ],
@@ -29,8 +29,107 @@
         "/assets/exams/v24-konte/solution/page-02.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodelinje inn i hvert tomrom og trykk Sjekk svar.",
+        "allowItemReuse": false,
+        "draggableItems": [
+          {
+            "id": "q01_tv_pos",
+            "label": "taVare = pos;"
+          },
+          {
+            "id": "q01_return_tv",
+            "label": "return taVare;"
+          },
+          {
+            "id": "q01_tallpos_tv",
+            "label": "tall[pos] = taVare;"
+          },
+          {
+            "id": "q01_tallny_tv",
+            "label": "tall[ny] = taVare;"
+          },
+          {
+            "id": "q01_tv_ny",
+            "label": "taVare = ny;"
+          },
+          {
+            "id": "q01_int_tv_tall",
+            "label": "int taVare = tall;"
+          },
+          {
+            "id": "q01_return_pos",
+            "label": "return pos;"
+          },
+          {
+            "id": "q01_return_ny",
+            "label": "return ny;"
+          },
+          {
+            "id": "q01_int_tv_tallpos",
+            "label": "int taVare = tall[pos];"
+          },
+          {
+            "id": "q01_int_tv_pos",
+            "label": "int taVare = pos;"
+          },
+          {
+            "id": "q01_int_tv",
+            "label": "int taVare;"
+          },
+          {
+            "id": "q01_return_tallpos",
+            "label": "return tall[pos];"
+          },
+          {
+            "id": "q01_tallpos_ny",
+            "label": "tall[pos] = ny;"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q01_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q01_int_tv_tallpos"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1405,
+              "y": 0.1788,
+              "w": 0.1892,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q01_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q01_tallpos_ny"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1405,
+              "y": 0.2121,
+              "w": 0.1867,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q01_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q01_return_tv"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1354,
+              "y": 0.2448,
+              "w": 0.1867,
+              "h": 0.0285
+            }
+          }
+        ]
       }
     },
     {
@@ -349,7 +448,7 @@
       "id": "q04",
       "number": 4,
       "title": "Finn hesteeiere",
-      "type": "choice-grid",
+      "type": "drag-drop",
       "promptPages": [
         "/assets/exams/v24-konte/prompt/page-06.png",
         "/assets/exams/v24-konte/prompt/page-07.png"
@@ -359,8 +458,99 @@
         "/assets/exams/v24-konte/solution/page-07.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Dra hestenavnene inn i feltene og trykk Sjekk svar.",
+        "allowItemReuse": true,
+        "draggableItems": [
+          {
+            "id": "h_trofast",
+            "label": "Trofast"
+          },
+          {
+            "id": "h_slitern",
+            "label": "Slitern"
+          },
+          {
+            "id": "h_svarten",
+            "label": "Svarten"
+          },
+          {
+            "id": "h_blakken",
+            "label": "Blakken"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q04_slot_1",
+            "label": "Ole",
+            "accepts": [
+              "h_slitern"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1489,
+              "y": 0.8122,
+              "w": 0.0967,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q04_slot_2",
+            "label": "Per",
+            "accepts": [
+              "h_svarten"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1489,
+              "y": 0.8455,
+              "w": 0.0967,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q04_slot_3",
+            "label": "Anne",
+            "accepts": [
+              "h_blakken"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.148,
+              "y": 0.8788,
+              "w": 0.0959,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q04_slot_4",
+            "label": "Linda",
+            "accepts": [
+              "h_svarten"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1489,
+              "y": 0.9115,
+              "w": 0.0967,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q04_slot_5",
+            "label": "Trine",
+            "accepts": [
+              "h_trofast"
+            ],
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.1505,
+              "y": 0.0345,
+              "w": 0.0959,
+              "h": 0.0285
+            }
+          }
+        ]
       }
     },
     {
@@ -781,8 +971,70 @@
         "/assets/exams/v24-konte/solution/page-13.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Skriv tallene i feltene og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q08-text-1",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0997,
+              "y": 0.6295,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "19"
+          },
+          {
+            "id": "q08-text-2",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.209,
+              "y": 0.6295,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "24"
+          },
+          {
+            "id": "q08-text-3",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3192,
+              "y": 0.6295,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "32"
+          },
+          {
+            "id": "q08-text-4",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4285,
+              "y": 0.6295,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "13"
+          },
+          {
+            "id": "q08-text-5",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5387,
+              "y": 0.6295,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "17"
+          }
+        ]
       }
     },
     {
@@ -929,8 +1181,70 @@
         "/assets/exams/v24-konte/solution/page-17.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Skriv internprisene i feltene og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q10-text-1",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2696,
+              "y": 0.7805,
+              "w": 0.0652,
+              "h": 0.0238
+            },
+            "answer": "1000"
+          },
+          {
+            "id": "q10-text-2",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2662,
+              "y": 0.8197,
+              "w": 0.0526,
+              "h": 0.0238
+            },
+            "answer": "320"
+          },
+          {
+            "id": "q10-text-3",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2132,
+              "y": 0.8589,
+              "w": 0.0526,
+              "h": 0.0238
+            },
+            "answer": "480"
+          },
+          {
+            "id": "q10-text-4",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2233,
+              "y": 0.8981,
+              "w": 0.0652,
+              "h": 0.0238
+            },
+            "answer": "2000"
+          },
+          {
+            "id": "q10-text-5",
+            "kind": "text",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.2839,
+              "y": 0.0389,
+              "w": 0.0526,
+              "h": 0.0238
+            },
+            "answer": "180"
+          }
+        ]
       }
     },
     {
@@ -947,8 +1261,400 @@
         "/assets/exams/v24-konte/solution/page-19.png"
       ],
       "interaction": {
-        "checkMode": "manual",
-        "instructions": "Interaktiv versjon av denne oppgaven er ikke fullstendig modellert enda. Bruk Vis fasit for offisiell løsning."
+        "checkMode": "auto",
+        "instructions": "Marker OK eller Feil per linje og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q11-r1-c1",
+            "kind": "circle",
+            "group": "q11-r1",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.0817,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r1-c2",
+            "kind": "circle",
+            "group": "q11-r1",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.0817,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r2-c1",
+            "kind": "circle",
+            "group": "q11-r2",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.1209,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r2-c2",
+            "kind": "circle",
+            "group": "q11-r2",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.1209,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r3-c1",
+            "kind": "circle",
+            "group": "q11-r3",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.1601,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r3-c2",
+            "kind": "circle",
+            "group": "q11-r3",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.1601,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r4-c1",
+            "kind": "circle",
+            "group": "q11-r4",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.1993,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r4-c2",
+            "kind": "circle",
+            "group": "q11-r4",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.1993,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r5-c1",
+            "kind": "circle",
+            "group": "q11-r5",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.2386,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r5-c2",
+            "kind": "circle",
+            "group": "q11-r5",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.2386,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r6-c1",
+            "kind": "circle",
+            "group": "q11-r6",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.2778,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r6-c2",
+            "kind": "circle",
+            "group": "q11-r6",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.2778,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r7-c1",
+            "kind": "circle",
+            "group": "q11-r7",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.317,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r7-c2",
+            "kind": "circle",
+            "group": "q11-r7",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.317,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r8-c1",
+            "kind": "circle",
+            "group": "q11-r8",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.3562,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r8-c2",
+            "kind": "circle",
+            "group": "q11-r8",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.3562,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r9-c1",
+            "kind": "circle",
+            "group": "q11-r9",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.3954,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r9-c2",
+            "kind": "circle",
+            "group": "q11-r9",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.3954,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r10-c1",
+            "kind": "circle",
+            "group": "q11-r10",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.4346,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r10-c2",
+            "kind": "circle",
+            "group": "q11-r10",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.4346,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r11-c1",
+            "kind": "circle",
+            "group": "q11-r11",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.4739,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r11-c2",
+            "kind": "circle",
+            "group": "q11-r11",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.4739,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r12-c1",
+            "kind": "circle",
+            "group": "q11-r12",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.5131,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r12-c2",
+            "kind": "circle",
+            "group": "q11-r12",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.5131,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r13-c1",
+            "kind": "circle",
+            "group": "q11-r13",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.5523,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r13-c2",
+            "kind": "circle",
+            "group": "q11-r13",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.5523,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r14-c1",
+            "kind": "circle",
+            "group": "q11-r14",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.5915,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q11-r14-c2",
+            "kind": "circle",
+            "group": "q11-r14",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.5915,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r15-c1",
+            "kind": "circle",
+            "group": "q11-r15",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.7026,
+              "y": 0.6307,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q11-r15-c2",
+            "kind": "circle",
+            "group": "q11-r15",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.8061,
+              "y": 0.6307,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          }
+        ]
       }
     }
   ]

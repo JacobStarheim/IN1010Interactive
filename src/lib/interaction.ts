@@ -1,4 +1,4 @@
-import type { ChoiceOption, DropZone } from "@/lib/exam-types";
+import type { ChoiceOption, ChoiceZone, DropZone } from "@/lib/exam-types";
 
 export type ChoiceCheckResult = {
   total: number;
@@ -26,6 +26,120 @@ export function evaluateChoiceSelection(
     missing,
     incorrect,
     isPerfect: missing.length === 0 && incorrect.length === 0,
+  };
+}
+
+export type ChoiceZoneValues = Record<string, string | boolean>;
+
+export type ChoiceZoneCheckResult = {
+  total: number;
+  correct: number;
+  missing: number;
+  wrong: number;
+  isPerfect: boolean;
+};
+
+const normalizeTextAnswer = (value: string) =>
+  value.trim().toLowerCase().replace(/[()]/g, "").replace(/\s+/g, "");
+
+export function evaluateChoiceZones(
+  values: ChoiceZoneValues,
+  choiceZones: ChoiceZone[]
+): ChoiceZoneCheckResult {
+  const byId = Object.fromEntries(choiceZones.map((zone) => [zone.id, zone]));
+  const groups: Record<string, string[]> = {};
+
+  choiceZones.forEach((zone) => {
+    if (!zone.group) {
+      return;
+    }
+    if (!groups[zone.group]) {
+      groups[zone.group] = [];
+    }
+    groups[zone.group].push(zone.id);
+  });
+
+  let total = 0;
+  let correct = 0;
+  let missing = 0;
+  let wrong = 0;
+
+  Object.values(groups).forEach((zoneIds) => {
+    const expected = zoneIds.find((zoneId) => byId[zoneId]?.correct === true);
+    if (!expected) {
+      return;
+    }
+
+    total += 1;
+    const selected = zoneIds.filter((zoneId) => Boolean(values[zoneId]));
+
+    if (selected.length === 0) {
+      missing += 1;
+      return;
+    }
+
+    if (selected.length === 1 && selected[0] === expected) {
+      correct += 1;
+      return;
+    }
+
+    wrong += 1;
+  });
+
+  choiceZones
+    .filter((zone) => zone.kind !== "text" && !zone.group && typeof zone.correct === "boolean")
+    .forEach((zone) => {
+      total += 1;
+      const selected = Boolean(values[zone.id]);
+      const expected = Boolean(zone.correct);
+
+      if (!selected && expected) {
+        missing += 1;
+        return;
+      }
+
+      if (selected === expected) {
+        correct += 1;
+        return;
+      }
+
+      wrong += 1;
+    });
+
+  choiceZones
+    .filter(
+      (zone) =>
+        zone.kind === "text" &&
+        (typeof zone.answer === "string" || (zone.answers?.length ?? 0) > 0)
+    )
+    .forEach((zone) => {
+      total += 1;
+      const raw = String(values[zone.id] ?? "").trim();
+      if (raw.length === 0) {
+        missing += 1;
+        return;
+      }
+
+      const expectedRaw = [
+        typeof zone.answer === "string" ? zone.answer : null,
+        ...(zone.answers ?? []),
+      ].filter((answer): answer is string => Boolean(answer));
+
+      const expectedSet = new Set(expectedRaw.map(normalizeTextAnswer));
+      if (expectedSet.has(normalizeTextAnswer(raw))) {
+        correct += 1;
+        return;
+      }
+
+      wrong += 1;
+    });
+
+  return {
+    total,
+    correct,
+    missing,
+    wrong,
+    isPerfect: total > 0 && correct === total,
   };
 }
 
