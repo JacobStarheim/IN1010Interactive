@@ -33,12 +33,24 @@ export type ChoiceOption = {
   correct: boolean;
 };
 
+export type ChoiceZoneKind = "text" | "circle";
+
+export type ChoiceZone = {
+  id: string;
+  rect: Rect;
+  kind: ChoiceZoneKind;
+  pageIndex?: number;
+  group?: string;
+  placeholder?: string;
+};
+
 export type InteractionSpec = {
   checkMode: "manual" | "auto";
   instructions?: string;
   draggableItems?: DragItem[];
   dropZones?: DropZone[];
   options?: ChoiceOption[];
+  choiceZones?: ChoiceZone[];
   allowMultiple?: boolean;
   codeTemplate?: string;
   solutionText?: string;

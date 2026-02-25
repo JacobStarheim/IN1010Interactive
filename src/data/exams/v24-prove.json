@@ -80,11 +80,229 @@
       "solutionPages": [
         "/assets/exams/v24-prove/solution/page-02.png"
       ],
-      "interaction": {
-        "checkMode": "manual",
-        "instructions": "Bruk denne som øvingstabell. For fasit vises offisiell fasitside med avkryssing per relasjon."
+  "interaction": {
+    "checkMode": "manual",
+    "instructions": "Bruk denne som øvingstabell. For fasit vises offisiell fasitside med avkryssing per relasjon.",
+    "choiceZones": [
+      {
+        "id": "row1-arv",
+        "kind": "circle",
+        "group": "test4-r1",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.2301,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row1-komposisjon",
+        "kind": "circle",
+        "group": "test4-r1",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.2301,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row2-arv",
+        "kind": "circle",
+        "group": "test4-r2",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.2738,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row2-komposisjon",
+        "kind": "circle",
+        "group": "test4-r2",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.2738,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row3-arv",
+        "kind": "circle",
+        "group": "test4-r3",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.3174,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row3-komposisjon",
+        "kind": "circle",
+        "group": "test4-r3",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.3174,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row4-arv",
+        "kind": "circle",
+        "group": "test4-r4",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.3611,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row4-komposisjon",
+        "kind": "circle",
+        "group": "test4-r4",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.3611,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row5-arv",
+        "kind": "circle",
+        "group": "test4-r5",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.4048,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row5-komposisjon",
+        "kind": "circle",
+        "group": "test4-r5",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.4048,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row6-arv",
+        "kind": "circle",
+        "group": "test4-r6",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.4486,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row6-komposisjon",
+        "kind": "circle",
+        "group": "test4-r6",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.4486,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row7-arv",
+        "kind": "circle",
+        "group": "test4-r7",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.4921,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row7-komposisjon",
+        "kind": "circle",
+        "group": "test4-r7",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.4921,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row8-arv",
+        "kind": "circle",
+        "group": "test4-r8",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.5358,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row8-komposisjon",
+        "kind": "circle",
+        "group": "test4-r8",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.5358,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row9-arv",
+        "kind": "circle",
+        "group": "test4-r9",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.5582,
+          "y": 0.5795,
+          "w": 0.03,
+          "h": 0.03
+        }
+      },
+      {
+        "id": "row9-komposisjon",
+        "kind": "circle",
+        "group": "test4-r9",
+        "pageIndex": 0,
+        "rect": {
+          "x": 0.7789,
+          "y": 0.5795,
+          "w": 0.03,
+          "h": 0.03
+        }
       }
-    },
+    ]
+  }
+},
     {
       "id": "q03",
       "number": 3,

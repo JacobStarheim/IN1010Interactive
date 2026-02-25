@@ -10,7 +10,7 @@ import {
   evaluateChoiceSelection,
   evaluateDragAssignments,
 } from "@/lib/interaction";
-import type { QuestionManifest } from "@/lib/exam-types";
+import type { ChoiceZone, QuestionManifest } from "@/lib/exam-types";
 import styles from "@/components/exam/question-workspace.module.css";
 
 type Props = {
@@ -31,6 +31,8 @@ type ChoiceMark = {
   text: string;
   checked: boolean;
 };
+
+type ChoiceZoneValues = Record<string, string | boolean>;
 
 const storageKey = (kind: string, examId: string, questionId: string) =>
   `in1010:${kind}:${examId}:${questionId}`;
@@ -61,6 +63,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
   );
   const [choiceTool, setChoiceTool] = useState<"none" | "text" | "circle">("none");
   const [choiceMarks, setChoiceMarks] = useState<ChoiceMark[]>([]);
+  const [choiceZoneValues, setChoiceZoneValues] = useState<ChoiceZoneValues>({});
   const choiceMarkIdRef = useRef(0);
 
   const options = useMemo(() => question.interaction?.options ?? [], [question.interaction?.options]);
@@ -69,10 +72,15 @@ export function QuestionWorkspace({ examId, question }: Props) {
     () => question.interaction?.dropZones ?? [],
     [question.interaction?.dropZones]
   );
+  const choiceZones = useMemo(
+    () => question.interaction?.choiceZones ?? [],
+    [question.interaction?.choiceZones]
+  );
   const draggableItems = useMemo(
     () => question.interaction?.draggableItems ?? [],
     [question.interaction?.draggableItems]
   );
+  const hasPresetChoiceZones = choiceZones.length > 0;
   const hasAutoChoice = question.interaction?.checkMode === "auto" && options.length > 0;
   const hasAutoDrag =
     question.interaction?.checkMode === "auto" &&
@@ -89,6 +97,37 @@ export function QuestionWorkspace({ examId, question }: Props) {
     });
     return perPage;
   }, [dropZones]);
+  const choiceZonesByPage = useMemo(() => {
+    const perPage: Record<number, ChoiceZone[]> = {};
+    choiceZones.forEach((zone) => {
+      const pageIndex = zone.pageIndex ?? 0;
+      if (!perPage[pageIndex]) {
+        perPage[pageIndex] = [];
+      }
+      perPage[pageIndex].push(zone);
+    });
+    return perPage;
+  }, [choiceZones]);
+  const choiceZonesByGroup = useMemo(() => {
+    const grouped: Record<string, string[]> = {};
+    choiceZones.forEach((zone) => {
+      if (!zone.group) {
+        return;
+      }
+      if (!grouped[zone.group]) {
+        grouped[zone.group] = [];
+      }
+      grouped[zone.group].push(zone.id);
+    });
+    return grouped;
+  }, [choiceZones]);
+
+  const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) => {
+    return zones.reduce<ChoiceZoneValues>((acc, zone) => {
+      acc[zone.id] = zone.kind === "text" ? "" : false;
+      return acc;
+    }, {});
+  };
 
   const getAutoRectForZone = (zoneIndex: number, total: number) => {
     const columns = total > 8 ? 2 : 1;
@@ -149,7 +188,35 @@ export function QuestionWorkspace({ examId, question }: Props) {
     setChoiceMarks([]);
     choiceMarkIdRef.current = 0;
     setChoiceTool("none");
-  }, [dropZones, examId, question.id, question.interaction?.codeTemplate]);
+    const defaultChoiceZoneValues = buildDefaultChoiceZoneValues(choiceZones);
+    if (choiceZones.length === 0) {
+      setChoiceZoneValues({});
+    } else {
+      const savedChoiceZoneValues = storage.getItem(
+        storageKey("choice-zones", examId, question.id)
+      );
+      if (savedChoiceZoneValues) {
+        try {
+          const parsed = JSON.parse(savedChoiceZoneValues) as ChoiceZoneValues;
+          const merged: ChoiceZoneValues = { ...defaultChoiceZoneValues };
+          choiceZones.forEach((zone) => {
+            const value = parsed[zone.id];
+            if (zone.kind === "circle" && typeof value === "boolean") {
+              merged[zone.id] = value;
+            }
+            if (zone.kind === "text" && typeof value === "string") {
+              merged[zone.id] = value;
+            }
+          });
+          setChoiceZoneValues(merged);
+        } catch {
+          setChoiceZoneValues(defaultChoiceZoneValues);
+        }
+      } else {
+        setChoiceZoneValues(defaultChoiceZoneValues);
+      }
+    }
+  }, [choiceZones, dropZones, examId, question.id, question.interaction?.codeTemplate]);
 
   useEffect(() => {
     const storage = getStorage();
@@ -166,6 +233,17 @@ export function QuestionWorkspace({ examId, question }: Props) {
     }
     storage.setItem(storageKey("code", examId, question.id), codeText);
   }, [codeText, examId, question.id]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage || choiceZones.length === 0) {
+      return;
+    }
+    storage.setItem(
+      storageKey("choice-zones", examId, question.id),
+      JSON.stringify(choiceZoneValues)
+    );
+  }, [choiceZoneValues, choiceZones.length, examId, question.id]);
 
   const assignedItemIds = useMemo(() => {
     return new Set(Object.values(assignments).filter(Boolean));
@@ -262,6 +340,38 @@ export function QuestionWorkspace({ examId, question }: Props) {
 
   const undoChoiceMark = () => {
     setChoiceMarks((current) => current.slice(0, -1));
+  };
+
+  const updateChoiceZoneText = (zoneId: string, value: string) => {
+    setChoiceZoneValues((current) => ({ ...current, [zoneId]: value }));
+  };
+
+  const toggleChoiceZoneCircle = (zoneId: string, group?: string) => {
+    setChoiceZoneValues((current) => {
+      if (!group) {
+        return { ...current, [zoneId]: !Boolean(current[zoneId]) };
+      }
+
+      const inGroup = choiceZonesByGroup[group] ?? [];
+      const isChecked = Boolean(current[zoneId]);
+      const next = { ...current };
+
+      if (isChecked) {
+        next[zoneId] = false;
+        return next;
+      }
+
+      inGroup.forEach((id) => {
+        next[id] = false;
+      });
+      next[zoneId] = true;
+      return next;
+    });
+  };
+
+  const clearChoiceZones = () => {
+    setChoiceZoneValues(buildDefaultChoiceZoneValues(choiceZones));
+    setFeedback("");
   };
 
   const placeItem = (zoneId: string, itemId: string) => {
@@ -435,6 +545,61 @@ export function QuestionWorkspace({ examId, question }: Props) {
   };
 
   const renderChoiceOverlayViewer = () => {
+    if (hasPresetChoiceZones) {
+      return (
+        <div className={styles.overlayStack}>
+          {question.promptPages.map((page, pageIndex) => {
+            const zonesOnPage = choiceZonesByPage[pageIndex] ?? [];
+
+            return (
+              <figure key={`${page}-${pageIndex}`} className={styles.overlayFigure}>
+                <img
+                  src={page}
+                  alt={`Oppgaveside ${pageIndex + 1}`}
+                  className={styles.overlayImage}
+                  loading={pageIndex === 0 ? "eager" : "lazy"}
+                />
+                <div className={`${styles.overlayLayer} ${styles.choiceOverlayLayer}`}>
+                  {zonesOnPage.map((zone) => (
+                    <div
+                      key={zone.id}
+                      className={styles.choiceZone}
+                      style={{
+                        left: `${zone.rect.x * 100}%`,
+                        top: `${zone.rect.y * 100}%`,
+                        width: `${zone.rect.w * 100}%`,
+                        height: `${zone.rect.h * 100}%`,
+                      }}
+                    >
+                      {zone.kind === "text" ? (
+                        <input
+                          type="text"
+                          className={styles.choiceZoneInput}
+                          value={(choiceZoneValues[zone.id] as string) ?? ""}
+                          placeholder={zone.placeholder ?? ""}
+                          onChange={(event) => updateChoiceZoneText(zone.id, event.target.value)}
+                          aria-label={`Svarfelt ${zone.id}`}
+                        />
+                      ) : (
+                        <button
+                          type="button"
+                          className={`${styles.choiceZoneCircle} ${
+                            Boolean(choiceZoneValues[zone.id]) ? styles.choiceZoneCircleActive : ""
+                          }`}
+                          onClick={() => toggleChoiceZoneCircle(zone.id, zone.group)}
+                          aria-label={Boolean(choiceZoneValues[zone.id]) ? "Fjern markering" : "Marker"}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </figure>
+            );
+          })}
+        </div>
+      );
+    }
+
     return (
       <div className={styles.overlayStack}>
         {question.promptPages.map((page, pageIndex) => {
@@ -553,6 +718,34 @@ export function QuestionWorkspace({ examId, question }: Props) {
     }
 
     if (question.type === "choice-grid") {
+      const hasZoneValues = Object.values(choiceZoneValues).some((value) =>
+        typeof value === "boolean" ? value : value.trim().length > 0
+      );
+
+      if (hasPresetChoiceZones) {
+        return (
+          <div className={styles.manualBlock}>
+            <p className={styles.note}>{question.interaction?.instructions}</p>
+            <p className={styles.choiceOverlayHint}>
+              Trykk direkte i sirklene på oppgaven for å velge svar.
+            </p>
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.secondaryButton}
+                onClick={clearChoiceZones}
+                disabled={!hasZoneValues}
+              >
+                Nullstill markeringer
+              </button>
+            </div>
+            <div className={styles.subtle}>
+              Markeringer lagres lokalt i nettleseren for denne oppgaven.
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div className={styles.manualBlock}>
           <p className={styles.note}>{question.interaction?.instructions}</p>

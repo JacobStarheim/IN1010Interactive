@@ -318,6 +318,43 @@
   color: #406074;
 }
 
+.choiceZone {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.choiceZoneInput {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #83afce;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 0.12rem 0.3rem;
+  font: inherit;
+  font-size: clamp(0.56rem, 1.05vw, 0.85rem);
+}
+
+.choiceZoneInput:focus {
+  outline: 2px solid rgba(0, 107, 176, 0.35);
+  outline-offset: 1px;
+}
+
+.choiceZoneCircle {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+}
+
+.choiceZoneCircleActive {
+  border-color: #1f7dbb;
+  background:
+    radial-gradient(circle at center, #1f7dbb 0, #1f7dbb 42%, transparent 44%),
+    rgba(255, 255, 255, 0.25);
+}
+
 .choiceMarkText {
   position: absolute;
   display: flex;
