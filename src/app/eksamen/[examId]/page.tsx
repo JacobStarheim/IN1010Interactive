@@ -46,11 +46,6 @@ export default async function ExamPage({ params }: Props) {
         {exam.questions.map((question) => (
           <section key={question.id} id={question.id} className="card">
             <QuestionWorkspace examId={exam.id} question={question} />
-            <div className={styles.onlyLinkWrap}>
-              <Link href={`/eksamen/${exam.id}/oppgave/${question.id}`} className="top-link">
-                Åpne kun denne oppgaven
-              </Link>
-            </div>
           </section>
         ))}
       </div>
