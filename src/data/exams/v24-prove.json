@@ -81,7 +81,7 @@
         "/assets/exams/v24-prove/solution/page-02.png"
       ],
       "interaction": {
-        "checkMode": "manual",
+        "checkMode": "auto",
         "instructions": "Bruk denne som øvingstabell. For fasit vises offisiell fasitside med avkryssing per relasjon.",
         "choiceZones": [
           {
@@ -94,7 +94,8 @@
               "y": 0.2304,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row1-komposisjon",
@@ -106,7 +107,8 @@
               "y": 0.2304,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row2-arv",
@@ -118,7 +120,8 @@
               "y": 0.2696,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row2-komposisjon",
@@ -130,7 +133,8 @@
               "y": 0.2696,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row3-arv",
@@ -142,7 +146,8 @@
               "y": 0.3088,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row3-komposisjon",
@@ -154,7 +159,8 @@
               "y": 0.3088,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row4-arv",
@@ -166,7 +172,8 @@
               "y": 0.348,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row4-komposisjon",
@@ -178,7 +185,8 @@
               "y": 0.348,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row5-arv",
@@ -190,7 +198,8 @@
               "y": 0.3872,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row5-komposisjon",
@@ -202,7 +211,8 @@
               "y": 0.3872,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row6-arv",
@@ -214,7 +224,8 @@
               "y": 0.4264,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row6-komposisjon",
@@ -226,7 +237,8 @@
               "y": 0.4264,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row7-arv",
@@ -238,7 +250,8 @@
               "y": 0.4656,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row7-komposisjon",
@@ -250,7 +263,8 @@
               "y": 0.4656,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row8-arv",
@@ -262,7 +276,8 @@
               "y": 0.5048,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row8-komposisjon",
@@ -274,7 +289,8 @@
               "y": 0.5048,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           },
           {
             "id": "row9-arv",
@@ -286,7 +302,8 @@
               "y": 0.544,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": false
           },
           {
             "id": "row9-komposisjon",
@@ -298,7 +315,8 @@
               "y": 0.544,
               "w": 0.04,
               "h": 0.024
-            }
+            },
+            "correct": true
           }
         ]
       }

@@ -121,6 +121,25 @@ export function QuestionWorkspace({ examId, question }: Props) {
     });
     return grouped;
   }, [choiceZones]);
+  const choiceZonesById = useMemo(() => {
+    const mapped: Record<string, ChoiceZone> = {};
+    choiceZones.forEach((zone) => {
+      mapped[zone.id] = zone;
+    });
+    return mapped;
+  }, [choiceZones]);
+  const hasChoiceZoneAnswerKey = useMemo(
+    () => choiceZones.some((zone) => typeof zone.correct === "boolean"),
+    [choiceZones]
+  );
+  const hasAutoChoiceZones =
+    hasPresetChoiceZones &&
+    question.interaction?.checkMode === "auto" &&
+    hasChoiceZoneAnswerKey;
+  const useChoiceOverlayViewer =
+    question.type === "choice-grid" &&
+    !showSolution &&
+    (hasPresetChoiceZones || options.length === 0);
 
   const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) => {
     return zones.reduce<ChoiceZoneValues>((acc, zone) => {
@@ -418,6 +437,56 @@ export function QuestionWorkspace({ examId, question }: Props) {
     const incorrect = result.incorrect.length;
     setFeedback(
       `Delvis riktig: ${result.correct}/${result.total}. Mangler: ${missing}, feil valgt: ${incorrect}.`
+    );
+  };
+
+  const checkChoiceZones = () => {
+    const groups = Object.keys(choiceZonesByGroup);
+    if (groups.length === 0) {
+      setFeedback("Denne oppgaven har ikke sjekkbar fasit ennå.");
+      return;
+    }
+
+    let total = 0;
+    let correct = 0;
+    let missing = 0;
+    let wrong = 0;
+
+    groups.forEach((group) => {
+      const zoneIds = choiceZonesByGroup[group];
+      const expected = zoneIds.find((zoneId) => choiceZonesById[zoneId]?.correct === true);
+      if (!expected) {
+        return;
+      }
+
+      total += 1;
+      const selected = zoneIds.filter((zoneId) => Boolean(choiceZoneValues[zoneId]));
+
+      if (selected.length === 0) {
+        missing += 1;
+        return;
+      }
+
+      if (selected.length === 1 && selected[0] === expected) {
+        correct += 1;
+        return;
+      }
+
+      wrong += 1;
+    });
+
+    if (total === 0) {
+      setFeedback("Denne oppgaven har ikke sjekkbar fasit ennå.");
+      return;
+    }
+
+    if (correct === total) {
+      setFeedback(`Riktig: ${correct}/${total}`);
+      return;
+    }
+
+    setFeedback(
+      `Delvis riktig: ${correct}/${total}. Mangler: ${missing}, feil: ${wrong}.`
     );
   };
 
@@ -725,22 +794,59 @@ export function QuestionWorkspace({ examId, question }: Props) {
       if (hasPresetChoiceZones) {
         return (
           <div className={styles.manualBlock}>
-            <p className={styles.note}>{question.interaction?.instructions}</p>
-            <p className={styles.choiceOverlayHint}>
-              Trykk direkte i sirklene på oppgaven for å velge svar.
-            </p>
             <div className={styles.actions}>
+              {hasAutoChoiceZones ? (
+                <button
+                  type="button"
+                  className={styles.primaryButton}
+                  onClick={checkChoiceZones}
+                >
+                  Sjekk svar
+                </button>
+              ) : null}
               <button
                 type="button"
                 className={styles.secondaryButton}
                 onClick={clearChoiceZones}
                 disabled={!hasZoneValues}
               >
-                Nullstill markeringer
+                Nullstill
               </button>
             </div>
-            <div className={styles.subtle}>
-              Markeringer lagres lokalt i nettleseren for denne oppgaven.
+          </div>
+        );
+      }
+
+      if (options.length > 0) {
+        return (
+          <div className={styles.manualBlock}>
+            <div className={styles.choiceList}>
+              {options.map((option) => {
+                const checked = selectedChoices.includes(option.id);
+                return (
+                  <label key={option.id} className={styles.choiceRow}>
+                    <input
+                      type={allowMultiple ? "checkbox" : "radio"}
+                      name={`choice-${question.id}`}
+                      checked={checked}
+                      onChange={() => onChoiceToggle(option.id)}
+                    />
+                    <span>{option.label}</span>
+                  </label>
+                );
+              })}
+            </div>
+            <div className={styles.actions}>
+              <button
+                className={styles.primaryButton}
+                disabled={!hasAutoChoice}
+                onClick={checkChoice}
+              >
+                Sjekk svar
+              </button>
+              <button className={styles.secondaryButton} onClick={resetChoices}>
+                Nullstill
+              </button>
             </div>
           </div>
         );
@@ -748,7 +854,6 @@ export function QuestionWorkspace({ examId, question }: Props) {
 
       return (
         <div className={styles.manualBlock}>
-          <p className={styles.note}>{question.interaction?.instructions}</p>
           <div className={styles.choiceToolRow}>
             <button
               type="button"
@@ -791,71 +896,26 @@ export function QuestionWorkspace({ examId, question }: Props) {
               onClick={clearChoiceMarks}
               disabled={choiceMarks.length === 0}
             >
-              Tøm markeringer
+              Nullstill markeringer
             </button>
           </div>
-          <p className={styles.choiceOverlayHint}>
-            Velg verktøy og klikk direkte i oppgavesiden for å plassere markering.
-          </p>
-
-          {options.length > 0 ? (
-            <>
-              <div className={styles.choiceList}>
-                {options.map((option) => {
-                  const checked = selectedChoices.includes(option.id);
-                  return (
-                    <label key={option.id} className={styles.choiceRow}>
-                      <input
-                        type={allowMultiple ? "checkbox" : "radio"}
-                        name={`choice-${question.id}`}
-                        checked={checked}
-                        onChange={() => onChoiceToggle(option.id)}
-                      />
-                      <span>{option.label}</span>
-                    </label>
-                  );
-                })}
-              </div>
-              <div className={styles.actions}>
-                <button
-                  className={styles.primaryButton}
-                  disabled={!hasAutoChoice}
-                  onClick={checkChoice}
-                >
-                  Sjekk svar
-                </button>
-                <button className={styles.secondaryButton} onClick={resetChoices}>
-                  Nullstill valg
-                </button>
-              </div>
-            </>
-          ) : null}
-
-          {options.length === 0 ? (
-            <>
-              <label className={styles.label} htmlFor="manual-notes">
-                Egne notater
-              </label>
-              <textarea
-                id="manual-notes"
-                className={styles.textarea}
-                value={manualNotes}
-                onChange={(event) => setManualNotes(event.target.value)}
-                placeholder="Skriv din vurdering her..."
-              />
-              <div className={styles.actions}>
-                <button
-                  className={styles.secondaryButton}
-                  onClick={() => setManualNotes("")}
-                >
-                  Nullstill notater
-                </button>
-              </div>
-            </>
-          ) : null}
-
-          <div className={styles.subtle}>
-            Markeringer lagres lokalt i nettleseren for denne oppgaven.
+          <label className={styles.label} htmlFor="manual-notes">
+            Egne notater
+          </label>
+          <textarea
+            id="manual-notes"
+            className={styles.textarea}
+            value={manualNotes}
+            onChange={(event) => setManualNotes(event.target.value)}
+            placeholder="Skriv din vurdering her..."
+          />
+          <div className={styles.actions}>
+            <button
+              className={styles.secondaryButton}
+              onClick={() => setManualNotes("")}
+            >
+              Nullstill notater
+            </button>
           </div>
         </div>
       );
@@ -875,10 +935,6 @@ export function QuestionWorkspace({ examId, question }: Props) {
 
       return (
         <div>
-          <p className={styles.note}>{question.interaction?.instructions}</p>
-          <p className={styles.subtle}>
-            Dra brikker direkte inn i oppgaven. Du kan også klikke en brikke og så klikke plassering.
-          </p>
           <div className={styles.dragLayout}>
             <div className={styles.panel}>
               <h3>Brikker</h3>
@@ -949,7 +1005,6 @@ export function QuestionWorkspace({ examId, question }: Props) {
           <h1 className={styles.title}>
             Oppgave {question.number}: {question.title}
           </h1>
-          <p className={styles.subtitle}>Type: {question.type}</p>
         </div>
         <button
           className={styles.toggleButton}
@@ -966,7 +1021,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
         <section className={styles.viewer}>
           {question.type === "drag-drop" && !showSolution && dropZones.length > 0
             ? renderOverlayViewer()
-            : question.type === "choice-grid" && !showSolution
+            : useChoiceOverlayViewer
             ? renderChoiceOverlayViewer()
             : (
               <PageImageStack
@@ -977,12 +1032,8 @@ export function QuestionWorkspace({ examId, question }: Props) {
         </section>
 
         <aside className={styles.sidebar}>
-          <h2>Interaktiv øving</h2>
           {renderInteraction()}
           {feedback ? <p className={styles.feedback}>{feedback}</p> : null}
-          <p className={styles.hint}>
-            Offisiell løsning vises alltid med knappen <strong>Vis fasit</strong>.
-          </p>
         </aside>
       </div>
     </div>

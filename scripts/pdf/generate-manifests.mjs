@@ -16,16 +16,20 @@ const buildBinaryChoiceCircleZones = ({
   h,
   pageIndex = 0,
   groupPrefix,
+  leftCorrectRows = [],
 }) => {
   const zones = [];
+  const leftCorrectSet = new Set(leftCorrectRows);
   for (let row = 1; row <= rows; row += 1) {
     const y = Number((startY + (row - 1) * rowStep).toFixed(4));
+    const leftCorrect = leftCorrectSet.has(row);
     zones.push({
       id: `row${row}-arv`,
       kind: "circle",
       group: `${groupPrefix}${row}`,
       pageIndex,
       rect: { x: leftX, y, w, h },
+      correct: leftCorrect,
     });
     zones.push({
       id: `row${row}-komposisjon`,
@@ -33,6 +37,7 @@ const buildBinaryChoiceCircleZones = ({
       group: `${groupPrefix}${row}`,
       pageIndex,
       rect: { x: rightX, y, w, h },
+      correct: !leftCorrect,
     });
   }
   return zones;
@@ -395,7 +400,7 @@ const exams = [
         ],
       },
       2: {
-        checkMode: "manual",
+        checkMode: "auto",
         instructions:
           "Bruk denne som øvingstabell. For fasit vises offisiell fasitside med avkryssing per relasjon.",
         choiceZones: buildBinaryChoiceCircleZones({
@@ -408,6 +413,7 @@ const exams = [
           h: 0.024,
           pageIndex: 0,
           groupPrefix: "test4-r",
+          leftCorrectRows: [3, 4, 5, 7],
         }),
       },
       3: {

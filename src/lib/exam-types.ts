@@ -42,6 +42,7 @@ export type ChoiceZone = {
   pageIndex?: number;
   group?: string;
   placeholder?: string;
+  correct?: boolean;
 };
 
 export type InteractionSpec = {
