@@ -74,6 +74,10 @@ export function QuestionWorkspace({ examId, question }: Props) {
     () => question.interaction?.dropZones ?? [],
     [question.interaction?.dropZones]
   );
+  const tokenZones = useMemo(
+    () => question.interaction?.tokenZones ?? [],
+    [question.interaction?.tokenZones]
+  );
   const choiceZones = useMemo(
     () => question.interaction?.choiceZones ?? [],
     [question.interaction?.choiceZones]
@@ -100,6 +104,17 @@ export function QuestionWorkspace({ examId, question }: Props) {
     });
     return perPage;
   }, [dropZones]);
+  const tokenZonesByPage = useMemo(() => {
+    const perPage: Record<number, typeof tokenZones> = {};
+    tokenZones.forEach((zone) => {
+      const pageIndex = zone.pageIndex ?? 0;
+      if (!perPage[pageIndex]) {
+        perPage[pageIndex] = [];
+      }
+      perPage[pageIndex].push(zone);
+    });
+    return perPage;
+  }, [tokenZones]);
   const choiceZonesByPage = useMemo(() => {
     const perPage: Record<number, ChoiceZone[]> = {};
     choiceZones.forEach((zone) => {
@@ -133,8 +148,13 @@ export function QuestionWorkspace({ examId, question }: Props) {
       }, 0);
       perPage[pageIndex] = Math.min(1, maxBottom + 0.02);
     });
+    Object.entries(tokenZonesByPage).forEach(([rawPageIndex, zones]) => {
+      const pageIndex = Number(rawPageIndex);
+      const maxBottom = zones.reduce((max, zone) => Math.max(max, zone.rect.y + zone.rect.h), 0);
+      perPage[pageIndex] = Math.min(1, Math.max(perPage[pageIndex] ?? 0, maxBottom + 0.02));
+    });
     return perPage;
-  }, [dropZonesByPage]);
+  }, [dropZonesByPage, tokenZonesByPage]);
   const requiredChoiceBottomByPage = useMemo(() => {
     const perPage: Record<number, number> = {};
     Object.entries(choiceZonesByPage).forEach(([rawPageIndex, zones]) => {
@@ -175,6 +195,10 @@ export function QuestionWorkspace({ examId, question }: Props) {
     question.type === "choice-grid" &&
     !showSolution &&
     (hasPresetChoiceZones || options.length === 0);
+  const hasInCanvasTokenBank =
+    question.type === "drag-drop" &&
+    tokenZones.length > 0 &&
+    tokenZones.length === draggableItems.length;
 
   const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) => {
     return zones.reduce<ChoiceZoneValues>((acc, zone) => {
@@ -547,6 +571,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
       <div className={styles.overlayStack}>
         {question.promptPages.map((page, pageIndex) => {
           const zonesOnPage = dropZonesByPage[pageIndex] ?? [];
+          const tokenZonesOnPage = tokenZonesByPage[pageIndex] ?? [];
           const requiredBottom = requiredDragBottomByPage[pageIndex] ?? 0;
           const effectiveBottom = getEffectivePageBottom(page, requiredBottom);
           const crop = getPageCrop(page);
@@ -566,6 +591,35 @@ export function QuestionWorkspace({ examId, question }: Props) {
                   loading={pageIndex === 0 ? "eager" : "lazy"}
                 />
                 <div className={styles.overlayLayer}>
+                  {tokenZonesOnPage.map((zone) => {
+                    const mappedRect = mapRectForPage(zone.rect, page, requiredBottom);
+                    const item = draggableItems.find((entry) => entry.id === zone.itemId);
+                    if (!item) return null;
+                    const used = assignedItemIds.has(item.id);
+
+                    return (
+                      <button
+                        key={zone.id}
+                        className={`${styles.inCanvasToken} ${
+                          activeItemId === item.id ? styles.inCanvasTokenActive : ""
+                        } ${used ? styles.inCanvasTokenUsed : ""}`}
+                        style={{
+                          left: `${mappedRect.x * 100}%`,
+                          top: `${mappedRect.y * 100}%`,
+                          width: `${mappedRect.w * 100}%`,
+                          height: `${mappedRect.h * 100}%`,
+                        }}
+                        draggable
+                        onDragStart={(event) => {
+                          event.dataTransfer.setData("text/plain", item.id);
+                        }}
+                        onClick={() => setActiveItemId(item.id)}
+                        aria-label={`Brikke ${item.label}`}
+                      >
+                        <span className={styles.inCanvasTokenText}>{item.label}</span>
+                      </button>
+                    );
+                  })}
                   {zonesOnPage.map((zone, zoneIndex) => {
                     const rect = zone.rect ?? getAutoRectForZone(zoneIndex, zonesOnPage.length);
                     const mappedRect = mapRectForPage(rect, page, requiredBottom);
@@ -993,7 +1047,9 @@ export function QuestionWorkspace({ examId, question }: Props) {
       return (
         <div className={styles.manualBlock}>
           <p className={styles.subtle}>
-            Klikk en brikke og trykk i feltet, eller dra direkte inn i feltet.
+            {hasInCanvasTokenBank
+              ? "Brikkene ligger i oppgaven. Klikk en brikke og trykk i feltet, eller dra direkte."
+              : "Klikk en brikke og trykk i feltet, eller dra direkte inn i feltet."}
           </p>
           <div className={styles.actions}>
             <button className={styles.primaryButton} disabled={!hasAutoDrag} onClick={checkDrag}>
@@ -1063,7 +1119,10 @@ export function QuestionWorkspace({ examId, question }: Props) {
                 label={showSolution ? "Fasitside" : "Oppgaveside"}
               />
             )}
-          {question.type === "drag-drop" && !showSolution && dropZones.length > 0 ? (
+          {question.type === "drag-drop" &&
+          !showSolution &&
+          dropZones.length > 0 &&
+          !hasInCanvasTokenBank ? (
             <div className={styles.dragDock}>
               <div className={styles.panel}>
                 <h3>Brikker</h3>

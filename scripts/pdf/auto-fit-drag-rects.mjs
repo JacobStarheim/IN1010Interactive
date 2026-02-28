@@ -18,7 +18,15 @@ function isGreen(r, g, b) {
   return g > 110 && g > r + 20 && g > b + 20 && r < 170 && b < 170;
 }
 
-function findConnectedBoxes(png) {
+function isNeutralGray(r, g, b, a) {
+  if (a < 120) return false;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  if (max - min > 22) return false;
+  return r >= 140 && r <= 240;
+}
+
+function findConnectedBoxes(png, isPixelMatch) {
   const { width, height, data } = png;
   const visited = new Uint8Array(width * height);
 
@@ -36,7 +44,8 @@ function findConnectedBoxes(png) {
       const g = data[off + 1];
       const b = data[off + 2];
 
-      if (!isGreen(r, g, b)) {
+      const a = data[off + 3];
+      if (!isPixelMatch(r, g, b, a)) {
         visited[p] = 1;
         continue;
       }
@@ -79,7 +88,8 @@ function findConnectedBoxes(png) {
           const nr = data[noff];
           const ng = data[noff + 1];
           const nb = data[noff + 2];
-          if (isGreen(nr, ng, nb)) {
+          const na = data[noff + 3];
+          if (isPixelMatch(nr, ng, nb, na)) {
             queue.push(n);
           }
         }
@@ -121,6 +131,25 @@ function findConnectedBoxes(png) {
   return merged.sort((a, b) => a.minY - b.minY || a.minX - b.minX);
 }
 
+function findGreenSolutionBoxes(png) {
+  const { width } = png;
+  return findConnectedBoxes(png, isGreen).filter(
+    (box) => box.count > 120 && box.w > 45 && box.h > 16 && box.w < width * 0.8 && box.h < 80
+  );
+}
+
+function findPromptTokenBoxes(png) {
+  const { width } = png;
+  return findConnectedBoxes(png, isNeutralGray).filter(
+    (box) =>
+      box.count > 120 &&
+      box.w > 34 &&
+      box.h > 14 &&
+      box.w < width * 0.45 &&
+      box.h < 90
+  );
+}
+
 function normalizeBox(box, width, height) {
   return {
     x: Number((box.minX / width).toFixed(4)),
@@ -149,6 +178,23 @@ function chooseBoxesForQuestion(allBoxes, needed) {
   return picked;
 }
 
+function chooseTokenBoxesForQuestion(allBoxes, needed) {
+  if (allBoxes.length < needed) return null;
+
+  const byGlobalY = [...allBoxes].sort((a, b) => {
+    const ay = a.pageOffset + a.minY / a.height;
+    const by = b.pageOffset + b.minY / b.height;
+    if (ay !== by) return ay - by;
+    return a.minX - b.minX;
+  });
+
+  const picked = byGlobalY
+    .slice(-needed)
+    .sort((a, b) => a.pageOffset - b.pageOffset || a.minY - b.minY || a.minX - b.minX);
+
+  return picked;
+}
+
 async function fitManifest(fileName) {
   const full = path.join(DATA_DIR, fileName);
   const manifest = JSON.parse(await readFile(full, "utf8"));
@@ -157,48 +203,77 @@ async function fitManifest(fileName) {
 
   for (const question of manifest.questions) {
     if (question.type !== "drag-drop") continue;
-    const zones = question.interaction?.dropZones;
-    if (!zones || zones.length === 0) continue;
+    const zones = question.interaction?.dropZones ?? [];
+    const draggableItems = question.interaction?.draggableItems ?? [];
+    if (zones.length === 0 && draggableItems.length === 0) continue;
     const needsFit = zones.some((zone) => !zone.rect || typeof zone.pageIndex !== "number");
-    if (!needsFit) continue;
+    if (needsFit) {
+      const pages = question.solutionPages;
+      if (pages && pages.length > 0) {
+        // Most tasks are on first page of question. We'll detect from every page and assign in order.
+        const pageBoxes = [];
+        for (let pageOffset = 0; pageOffset < pages.length; pageOffset += 1) {
+          const asset = pages[pageOffset];
+          const filePath = path.join(PUBLIC_DIR, asset.replace(/^\//, ""));
+          const png = await loadPng(filePath);
+          const boxes = findGreenSolutionBoxes(png)
+            .filter((b) => b.minY < png.height * 0.97) // ignore footer area only
+            .map((b) => ({ ...b, pageOffset, width: png.width, height: png.height }));
+          for (const box of boxes) {
+            pageBoxes.push(box);
+          }
+        }
 
-    const pages = question.solutionPages;
-    if (!pages || pages.length === 0) continue;
+        if (pageBoxes.length > 0) {
+          // Sort by page then top-to-bottom left-to-right.
+          pageBoxes.sort((a, b) => a.pageOffset - b.pageOffset || a.minY - b.minY || a.minX - b.minX);
 
-    // Most tasks are on first page of question. We'll detect from every page and assign in order.
-    const pageBoxes = [];
-    for (let pageOffset = 0; pageOffset < pages.length; pageOffset += 1) {
-      const asset = pages[pageOffset];
-      const filePath = path.join(PUBLIC_DIR, asset.replace(/^\//, ""));
-      const png = await loadPng(filePath);
-      const boxes = findConnectedBoxes(png)
-        .filter((b) => b.minY < png.height * 0.97) // ignore footer area only
-        .map((b) => ({ ...b, pageOffset, width: png.width, height: png.height }));
-      for (const box of boxes) {
-        pageBoxes.push(box);
+          const chosen = chooseBoxesForQuestion(pageBoxes, zones.length);
+          if (chosen.length === zones.length) {
+            zones.forEach((zone, i) => {
+              const box = chosen[i];
+              zone.pageIndex = box.pageOffset;
+              zone.rect = normalizeBox(box, box.width, box.height);
+              changed += 1;
+            });
+          }
+        }
       }
     }
 
-    if (pageBoxes.length === 0) {
-      // Keep existing values if detection fails.
-      continue;
+    // Fit in-canvas token bank positions from prompt pages.
+    if (draggableItems.length > 0) {
+      const existingTokenZones = question.interaction?.tokenZones ?? [];
+      const tokenNeedsFit = existingTokenZones.length !== draggableItems.length;
+      if (tokenNeedsFit) {
+        const promptPages = question.promptPages ?? [];
+        if (promptPages.length > 0) {
+          const promptBoxes = [];
+          for (let pageOffset = 0; pageOffset < promptPages.length; pageOffset += 1) {
+            const asset = promptPages[pageOffset];
+            const filePath = path.join(PUBLIC_DIR, asset.replace(/^\//, ""));
+            const png = await loadPng(filePath);
+            const boxes = findPromptTokenBoxes(png)
+              .filter((b) => b.minY < png.height * 0.97)
+              .map((b) => ({ ...b, pageOffset, width: png.width, height: png.height }));
+            for (const box of boxes) {
+              promptBoxes.push(box);
+            }
+          }
+
+          const chosenTokenBoxes = chooseTokenBoxesForQuestion(promptBoxes, draggableItems.length);
+          if (chosenTokenBoxes && chosenTokenBoxes.length === draggableItems.length) {
+            question.interaction.tokenZones = chosenTokenBoxes.map((box, index) => ({
+              id: `${question.id}-token-${index + 1}`,
+              itemId: draggableItems[index].id,
+              pageIndex: box.pageOffset,
+              rect: normalizeBox(box, box.width, box.height),
+            }));
+            changed += chosenTokenBoxes.length;
+          }
+        }
+      }
     }
-
-    // Sort by page then top-to-bottom left-to-right.
-    pageBoxes.sort((a, b) => a.pageOffset - b.pageOffset || a.minY - b.minY || a.minX - b.minX);
-
-    const chosen = chooseBoxesForQuestion(pageBoxes, zones.length);
-    if (chosen.length !== zones.length) {
-      // fallback: leave as-is if mismatch
-      continue;
-    }
-
-    zones.forEach((zone, i) => {
-      const box = chosen[i];
-      zone.pageIndex = box.pageOffset;
-      zone.rect = normalizeBox(box, box.width, box.height);
-      changed += 1;
-    });
   }
 
   await writeFile(full, JSON.stringify(manifest, null, 2) + "\n", "utf8");

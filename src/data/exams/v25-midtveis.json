@@ -572,6 +572,96 @@
               "h": 0.0285
             }
           }
+        ],
+        "tokenZones": [
+          {
+            "id": "q03-token-1",
+            "itemId": "q3_import",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3196,
+              "y": 0.6334,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q03-token-2",
+            "itemId": "q3_try",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5391,
+              "y": 0.6334,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q03-token-3",
+            "itemId": "q3_scanner",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.6708,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q03-token-4",
+            "itemId": "q3_file",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3196,
+              "y": 0.6708,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q03-token-5",
+            "itemId": "q3_name",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5391,
+              "y": 0.6708,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q03-token-6",
+            "itemId": "q3_catch",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7083,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q03-token-7",
+            "itemId": "q3_exit",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3196,
+              "y": 0.7083,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q03-token-8",
+            "itemId": "q3_line",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5391,
+              "y": 0.7083,
+              "w": 0.2069,
+              "h": 0.0291
+            }
+          }
         ]
       }
     },
@@ -718,6 +808,85 @@
               "h": 0.0285
             }
           }
+        ],
+        "tokenZones": [
+          {
+            "id": "q04-token-1",
+            "itemId": "q4_decl",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5593,
+              "y": 0.6512,
+              "w": 0.217,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q04-token-2",
+            "itemId": "q4_new1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.6887,
+              "w": 0.217,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q04-token-3",
+            "itemId": "q4_new2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3297,
+              "y": 0.6887,
+              "w": 0.217,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q04-token-4",
+            "itemId": "q4_copy",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5593,
+              "y": 0.6887,
+              "w": 0.217,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q04-token-5",
+            "itemId": "q4_call",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7261,
+              "w": 0.217,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q04-token-6",
+            "itemId": "q4_ctor",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3297,
+              "y": 0.7261,
+              "w": 0.217,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q04-token-7",
+            "itemId": "q4_print",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5593,
+              "y": 0.7261,
+              "w": 0.217,
+              "h": 0.0291
+            }
+          }
         ]
       }
     },
@@ -825,6 +994,52 @@
               "y": 0.2406,
               "w": 0.1043,
               "h": 0.0285
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q05-token-1",
+            "itemId": "reg_el",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.2965,
+              "w": 0.1034,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q05-token-2",
+            "itemId": "reg_eb",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2161,
+              "y": 0.2965,
+              "w": 0.1034,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q05-token-3",
+            "itemId": "reg_ek",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3322,
+              "y": 0.2965,
+              "w": 0.1034,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q05-token-4",
+            "itemId": "reg_dl",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4483,
+              "y": 0.2965,
+              "w": 0.1034,
+              "h": 0.0291
             }
           }
         ]
@@ -1160,6 +1375,85 @@
               "h": 0.0285
             }
           }
+        ],
+        "tokenZones": [
+          {
+            "id": "q07-token-1",
+            "itemId": "name_carsten",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.489,
+              "w": 0.0934,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-2",
+            "itemId": "name_puck",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2061,
+              "y": 0.489,
+              "w": 0.0934,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-3",
+            "itemId": "name_anne",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.312,
+              "y": 0.489,
+              "w": 0.0934,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-4",
+            "itemId": "name_kine",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.418,
+              "y": 0.489,
+              "w": 0.0934,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-5",
+            "itemId": "name_jabben",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.524,
+              "y": 0.489,
+              "w": 0.0934,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-6",
+            "itemId": "name_eva",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6299,
+              "y": 0.489,
+              "w": 0.0934,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-7",
+            "itemId": "name_kalle",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7359,
+              "y": 0.489,
+              "w": 0.0934,
+              "h": 0.0291
+            }
+          }
         ]
       }
     },
@@ -1456,6 +1750,107 @@
               "y": 0.6227,
               "w": 0.2288,
               "h": 0.0285
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q09-token-1",
+            "itemId": "q9_next",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7712,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-2",
+            "itemId": "q9_fields",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3398,
+              "y": 0.7712,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-3",
+            "itemId": "q9_params",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5795,
+              "y": 0.7712,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-4",
+            "itemId": "q9_empty",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8087,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-5",
+            "itemId": "q9_always",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3398,
+              "y": 0.8087,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-6",
+            "itemId": "q9_first_prev",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5795,
+              "y": 0.8087,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-7",
+            "itemId": "q9_first_new",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8461,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-8",
+            "itemId": "q9_mid_prev",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3398,
+              "y": 0.8461,
+              "w": 0.2271,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-9",
+            "itemId": "q9_link_back",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5795,
+              "y": 0.8461,
+              "w": 0.2271,
+              "h": 0.0291
             }
           }
         ]

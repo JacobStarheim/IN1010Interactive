@@ -19,6 +19,13 @@ export type DragItem = {
   label: string;
 };
 
+export type TokenZone = {
+  id: string;
+  itemId: string;
+  rect: Rect;
+  pageIndex?: number;
+};
+
 export type DropZone = {
   id: string;
   label: string;
@@ -51,6 +58,7 @@ export type InteractionSpec = {
   checkMode: "manual" | "auto";
   instructions?: string;
   draggableItems?: DragItem[];
+  tokenZones?: TokenZone[];
   allowItemReuse?: boolean;
   dropZones?: DropZone[];
   options?: ChoiceOption[];

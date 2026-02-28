@@ -141,6 +141,74 @@
               "h": 0.028
             }
           }
+        ],
+        "tokenZones": [
+          {
+            "id": "q01-token-1",
+            "itemId": "q1_main",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.5591,
+              "w": 0.1085,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-2",
+            "itemId": "q1_decl",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2212,
+              "y": 0.5591,
+              "w": 0.3146,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-3",
+            "itemId": "q1_new",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5475,
+              "y": 0.5591,
+              "w": 0.1859,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-4",
+            "itemId": "q1_assign",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.5966,
+              "w": 0.1909,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-5",
+            "itemId": "q1_read",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3028,
+              "y": 0.5966,
+              "w": 0.1505,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-6",
+            "itemId": "q1_print",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4659,
+              "y": 0.5966,
+              "w": 0.2321,
+              "h": 0.0291
+            }
+          }
         ]
       }
     },
@@ -582,6 +650,140 @@
               "x": 0.2952,
               "y": 0.4783,
               "w": 0.2111,
+              "h": 0.0285
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q03-token-1",
+            "itemId": "q3_wrong_v",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.5835,
+              "w": 0.0446,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-2",
+            "itemId": "q3_cls",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1564,
+              "y": 0.5835,
+              "w": 0.1051,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-3",
+            "itemId": "q3_min0",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2742,
+              "y": 0.5835,
+              "w": 0.2111,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-4",
+            "itemId": "q3_wrong_for_lt",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4971,
+              "y": 0.5835,
+              "w": 0.1783,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-5",
+            "itemId": "q3_wrong_i5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.688,
+              "y": 0.5835,
+              "w": 0.0681,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-6",
+            "itemId": "q3_for",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7687,
+              "y": 0.5835,
+              "w": 0.09,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-7",
+            "itemId": "q3_read",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.6209,
+              "w": 0.1514,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-8",
+            "itemId": "q3_if",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2641,
+              "y": 0.6209,
+              "w": 0.0395,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-9",
+            "itemId": "q3_wrong_i",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3154,
+              "y": 0.6209,
+              "w": 0.0614,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-10",
+            "itemId": "q3_wrong_min_eq_i",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3886,
+              "y": 0.6209,
+              "w": 0.0967,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-11",
+            "itemId": "q3_set",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4971,
+              "y": 0.6209,
+              "w": 0.0917,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q03-token-12",
+            "itemId": "q3_out",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6005,
+              "y": 0.6209,
+              "w": 0.1876,
               "h": 0.0285
             }
           }
@@ -1046,6 +1248,140 @@
               "y": 0.5746,
               "w": 0.2801,
               "h": 0.0285
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q08-token-1",
+            "itemId": "q8_wrong_not_start",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3961,
+              "y": 0.6803,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-2",
+            "itemId": "q8_wrong_not_this",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7178,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-3",
+            "itemId": "q8_wrong_print_next",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3961,
+              "y": 0.7178,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-4",
+            "itemId": "q8_wrong_rekursiv_arg",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7552,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-5",
+            "itemId": "q8_wrong_data_if",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3961,
+              "y": 0.7552,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-6",
+            "itemId": "q8_wrong_backwards",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7926,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-7",
+            "itemId": "q8_wrong_this",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3961,
+              "y": 0.7926,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-8",
+            "itemId": "q8_if",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8301,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-9",
+            "itemId": "q8_rec",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3961,
+              "y": 0.8301,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-10",
+            "itemId": "q8_print",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8675,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-11",
+            "itemId": "q8_start_if",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3961,
+              "y": 0.8675,
+              "w": 0.2843,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q08-token-12",
+            "itemId": "q8_start_rec",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.9049,
+              "w": 0.2843,
+              "h": 0.0291
             }
           }
         ]

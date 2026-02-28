@@ -129,6 +129,151 @@
               "h": 0.0285
             }
           }
+        ],
+        "tokenZones": [
+          {
+            "id": "q01-token-1",
+            "itemId": "q01_return_tallpos",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.3131,
+              "w": 0.1455,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-2",
+            "itemId": "q01_int_tv_tall",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2574,
+              "y": 0.3131,
+              "w": 0.1522,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-3",
+            "itemId": "q01_return_pos",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4214,
+              "y": 0.3131,
+              "w": 0.1127,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-4",
+            "itemId": "q01_int_tv",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5467,
+              "y": 0.3131,
+              "w": 0.1102,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-5",
+            "itemId": "q01_tallpos_tv",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6686,
+              "y": 0.3131,
+              "w": 0.1657,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-6",
+            "itemId": "q01_int_tv_tallpos",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.3506,
+              "w": 0.1884,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-7",
+            "itemId": "q01_tallny_tv",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3003,
+              "y": 0.3506,
+              "w": 0.1573,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-8",
+            "itemId": "q01_return_tv",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4693,
+              "y": 0.3506,
+              "w": 0.1329,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-9",
+            "itemId": "q01_return_ny",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6148,
+              "y": 0.3506,
+              "w": 0.1051,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-10",
+            "itemId": "q01_tv_pos",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7317,
+              "y": 0.3506,
+              "w": 0.1371,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-11",
+            "itemId": "q01_int_tv_pos",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.388,
+              "w": 0.1337,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-12",
+            "itemId": "q01_tv_ny",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2464,
+              "y": 0.388,
+              "w": 0.1564,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q01-token-13",
+            "itemId": "q01_tallpos_ny",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4155,
+              "y": 0.388,
+              "w": 0.1236,
+              "h": 0.0291
+            }
+          }
         ]
       }
     },
@@ -255,6 +400,74 @@
               "y": 0.4284,
               "w": 0.2187,
               "h": 0.0285
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q02-token-1",
+            "itemId": "q2_next",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5618,
+              "y": 0.5163,
+              "w": 0.2187,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q02-token-2",
+            "itemId": "q2_last",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.5538,
+              "w": 0.2187,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q02-token-3",
+            "itemId": "q2_init",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3305,
+              "y": 0.5538,
+              "w": 0.2187,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q02-token-4",
+            "itemId": "q2_param",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5618,
+              "y": 0.5538,
+              "w": 0.2187,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q02-token-5",
+            "itemId": "q2_store",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.5912,
+              "w": 0.2187,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q02-token-6",
+            "itemId": "q2_link",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3305,
+              "y": 0.5912,
+              "w": 0.2187,
+              "h": 0.0291
             }
           }
         ]
@@ -966,6 +1179,96 @@
               "h": 0.0285
             }
           }
+        ],
+        "tokenZones": [
+          {
+            "id": "q06-token-1",
+            "itemId": "q6_name_void",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7338,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q06-token-2",
+            "itemId": "q6_if",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3246,
+              "y": 0.7338,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q06-token-3",
+            "itemId": "q6_set",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5492,
+              "y": 0.7338,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q06-token-4",
+            "itemId": "q6_name_int",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7712,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q06-token-5",
+            "itemId": "q6_zero",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3246,
+              "y": 0.7712,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q06-token-6",
+            "itemId": "q6_len",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5492,
+              "y": 0.7712,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q06-token-7",
+            "itemId": "q6_high",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8087,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q06-token-8",
+            "itemId": "q6_mid",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3246,
+              "y": 0.8087,
+              "w": 0.2119,
+              "h": 0.0291
+            }
+          }
         ]
       }
     },
@@ -1164,6 +1467,118 @@
               "y": 0.4955,
               "w": 0.2431,
               "h": 0.0285
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q07-token-1",
+            "itemId": "q7_next",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.6019,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-2",
+            "itemId": "q7_generic",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3558,
+              "y": 0.6019,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-3",
+            "itemId": "q7_fields",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6123,
+              "y": 0.6019,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-4",
+            "itemId": "q7_param",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.6393,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-5",
+            "itemId": "q7_empty_add",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3558,
+              "y": 0.6393,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-6",
+            "itemId": "q7_nonempty_add",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6123,
+              "y": 0.6393,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-7",
+            "itemId": "q7_empty_take",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.6768,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-8",
+            "itemId": "q7_clear",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3558,
+              "y": 0.6768,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-9",
+            "itemId": "q7_shift",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6123,
+              "y": 0.6768,
+              "w": 0.2439,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-10",
+            "itemId": "q7_return",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.7142,
+              "w": 0.2439,
+              "h": 0.0291
             }
           }
         ]
@@ -1777,6 +2192,118 @@
               "h": 0.0285
             }
           }
+        ],
+        "tokenZones": [
+          {
+            "id": "q09-token-1",
+            "itemId": "q9_verdi_ctor",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8188,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-2",
+            "itemId": "q9_verdi_print",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3936,
+              "y": 0.8188,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-3",
+            "itemId": "q9_ku_ctor",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8562,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-4",
+            "itemId": "q9_fele_ctor",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3936,
+              "y": 0.8562,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-5",
+            "itemId": "q9_field",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8936,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-6",
+            "itemId": "q9_temp",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3936,
+              "y": 0.8936,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-7",
+            "itemId": "q9_swap_1",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.0368,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-8",
+            "itemId": "q9_swap_2",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.3936,
+              "y": 0.0368,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-9",
+            "itemId": "q9_init",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.0743,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-10",
+            "itemId": "q9_print",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.3936,
+              "y": 0.0743,
+              "w": 0.2817,
+              "h": 0.0291
+            }
+          }
         ]
       }
     },
@@ -2217,6 +2744,96 @@
               "y": 0.4712,
               "w": 0.1766,
               "h": 0.0285
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q11-token-1",
+            "itemId": "q11_iterable",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1085,
+              "y": 0.634,
+              "w": 0.1775,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q11-token-2",
+            "itemId": "q11_signature",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2977,
+              "y": 0.634,
+              "w": 0.1775,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q11-token-3",
+            "itemId": "q11_new_iter",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.487,
+              "y": 0.634,
+              "w": 0.1775,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q11-token-4",
+            "itemId": "q11_inner",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6762,
+              "y": 0.634,
+              "w": 0.1775,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q11-token-5",
+            "itemId": "q11_start_ix",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1085,
+              "y": 0.6714,
+              "w": 0.1775,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q11-token-6",
+            "itemId": "q11_has_next",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2977,
+              "y": 0.6714,
+              "w": 0.1775,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q11-token-7",
+            "itemId": "q11_get",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.487,
+              "y": 0.6714,
+              "w": 0.1775,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q11-token-8",
+            "itemId": "q11_dec",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6762,
+              "y": 0.6714,
+              "w": 0.1775,
+              "h": 0.0291
             }
           }
         ]

@@ -258,6 +258,38 @@
   overflow: hidden;
 }
 
+.inCanvasToken {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid #bfd0dd;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 7px;
+  color: var(--ink);
+  padding: 0.1rem 0.3rem;
+  pointer-events: auto;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inCanvasTokenUsed {
+  opacity: 0.78;
+}
+
+.inCanvasTokenActive {
+  border-color: #006bb0;
+  box-shadow: 0 0 0 2px rgba(0, 107, 176, 0.18);
+}
+
+.inCanvasTokenText {
+  font-size: clamp(0.52rem, 0.92vw, 0.82rem);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .overlayZoneCorrect {
   border: 2px solid #43a047;
   background: rgba(232, 247, 233, 0.88);
