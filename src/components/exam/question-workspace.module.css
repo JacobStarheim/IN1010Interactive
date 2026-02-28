@@ -506,6 +506,11 @@
   background: #fff;
 }
 
+.textarea {
+  min-height: 240px;
+  resize: vertical;
+}
+
 .codeArea {
   min-height: 200px;
   font-family: var(--font-code), monospace;
