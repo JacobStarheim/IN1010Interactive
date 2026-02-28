@@ -116,7 +116,7 @@ const TEXT_SPECS = {
       { pageIndex: 0, rect: { x: 0.1437, y: 0.6509, w: 0.0389, h: 0.0238 } },
       { pageIndex: 0, rect: { x: 0.2431, y: 0.6509, w: 0.0389, h: 0.0238 } },
       { pageIndex: 0, rect: { x: 0.1384, y: 0.6901, w: 0.0399, h: 0.0238 } },
-      { pageIndex: 0, rect: { x: 0.2498, y: 0.6901, w: 0.0389, h: 0.0238 } },
+      { pageIndex: 0, rect: { x: 0.245, y: 0.6901, w: 0.0389, h: 0.0238 } },
     ],
     instructions: "Skriv svarene i feltene og trykk Sjekk svar.",
   },
