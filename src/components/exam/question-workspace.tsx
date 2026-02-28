@@ -52,12 +52,20 @@ const getStorage = () => {
   return storage;
 };
 
+const defaultNotesOpenForViewport = () => {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return true;
+  }
+  return !window.matchMedia("(max-width: 1080px)").matches;
+};
+
 export function QuestionWorkspace({ examId, question }: Props) {
   const [showSolution, setShowSolution] = useState(false);
   const [selectedChoices, setSelectedChoices] = useState<string[]>([]);
   const [assignments, setAssignments] = useState<DragAssignments>({});
   const [activeItemId, setActiveItemId] = useState<string | null>(null);
   const [manualNotes, setManualNotes] = useState("");
+  const [notesOpen, setNotesOpen] = useState<boolean>(() => defaultNotesOpenForViewport());
   const [codeText, setCodeText] = useState(question.interaction?.codeTemplate ?? "");
   const [feedback, setFeedback] = useState<string>("");
   const [zoneStatus, setZoneStatus] = useState<Record<string, "correct" | "wrong" | "empty">>(
@@ -261,6 +269,12 @@ export function QuestionWorkspace({ examId, question }: Props) {
     } else {
       setManualNotes("");
     }
+    const savedNotesOpen = storage.getItem(storageKey("notes-open", examId, question.id));
+    if (savedNotesOpen === "1" || savedNotesOpen === "0") {
+      setNotesOpen(savedNotesOpen === "1");
+    } else {
+      setNotesOpen(defaultNotesOpenForViewport());
+    }
 
     setCodeText(question.interaction?.codeTemplate ?? "");
     const savedCode = storage.getItem(storageKey("code", examId, question.id));
@@ -308,6 +322,14 @@ export function QuestionWorkspace({ examId, question }: Props) {
     }
     storage.setItem(storageKey("manual", examId, question.id), manualNotes);
   }, [manualNotes, examId, question.id]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage) {
+      return;
+    }
+    storage.setItem(storageKey("notes-open", examId, question.id), notesOpen ? "1" : "0");
+  }, [notesOpen, examId, question.id]);
 
   useEffect(() => {
     const storage = getStorage();
@@ -1010,24 +1032,6 @@ export function QuestionWorkspace({ examId, question }: Props) {
               Nullstill markeringer
             </button>
           </div>
-          <label className={styles.label} htmlFor="manual-notes">
-            Egne notater
-          </label>
-          <textarea
-            id="manual-notes"
-            className={styles.textarea}
-            value={manualNotes}
-            onChange={(event) => setManualNotes(event.target.value)}
-            placeholder="Skriv din vurdering her..."
-          />
-          <div className={styles.actions}>
-            <button
-              className={styles.secondaryButton}
-              onClick={() => setManualNotes("")}
-            >
-              Nullstill notater
-            </button>
-          </div>
         </div>
       );
     }
@@ -1153,6 +1157,39 @@ export function QuestionWorkspace({ examId, question }: Props) {
 
         <aside className={styles.sidebar}>
           {renderInteraction()}
+          <div className={styles.notesToggleRow}>
+            <button
+              type="button"
+              className={styles.secondaryButton}
+              onClick={() => setNotesOpen((current) => !current)}
+            >
+              {notesOpen ? "Skjul notatblokk" : "Vis notatblokk"}
+            </button>
+          </div>
+          {notesOpen ? (
+            <div className={styles.notesPanel}>
+              <label className={styles.label} htmlFor="manual-notes">
+                Notatblokk
+              </label>
+              <textarea
+                id="manual-notes"
+                className={styles.textarea}
+                value={manualNotes}
+                onChange={(event) => setManualNotes(event.target.value)}
+                placeholder="Skriv notater her..."
+              />
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.secondaryButton}
+                  onClick={() => setManualNotes("")}
+                  disabled={manualNotes.trim().length === 0}
+                >
+                  Tøm notater
+                </button>
+              </div>
+            </div>
+          ) : null}
           {feedback ? <p className={styles.feedback}>{feedback}</p> : null}
         </aside>
       </div>

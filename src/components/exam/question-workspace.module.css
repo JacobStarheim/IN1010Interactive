@@ -540,6 +540,15 @@
   gap: 0.55rem;
 }
 
+.notesToggleRow {
+  display: flex;
+}
+
+.notesPanel {
+  display: grid;
+  gap: 0.45rem;
+}
+
 @media (max-width: 1080px) {
   .content {
     grid-template-columns: 1fr;
