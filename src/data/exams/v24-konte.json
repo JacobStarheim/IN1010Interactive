@@ -260,8 +260,28 @@
         "instructions": "Dra kodebitene inn i riktig rekkefølge.",
         "draggableItems": [
           {
-            "id": "q3_arr",
-            "label": "new int[10]"
+            "id": "q3_inc",
+            "label": "antallTall = antallTall + 1"
+          },
+          {
+            "id": "q3_for",
+            "label": "int i = antallTall-1; i >= 0; i--"
+          },
+          {
+            "id": "q3_wrong_tastatur_println",
+            "label": "tastatur.println"
+          },
+          {
+            "id": "q3_wrong_null",
+            "label": "null"
+          },
+          {
+            "id": "q3_wrong_ten",
+            "label": "10"
+          },
+          {
+            "id": "q3_store_right",
+            "label": "v"
           },
           {
             "id": "q3_zero",
@@ -272,32 +292,48 @@
             "label": "antallTall < 10"
           },
           {
+            "id": "q3_wrong_minus_one",
+            "label": "-1"
+          },
+          {
+            "id": "q3_store_left",
+            "label": "tallene[antallTall]"
+          },
+          {
+            "id": "q3_wrong_dec",
+            "label": "antallTall = antallTall - 1"
+          },
+          {
+            "id": "q3_wrong_non_negative",
+            "label": "v >= 0"
+          },
+          {
             "id": "q3_read",
             "label": "tastatur.nextInt()"
-          },
-          {
-            "id": "q3_break",
-            "label": "v < 0"
-          },
-          {
-            "id": "q3_store",
-            "label": "tallene[antallTall] = v"
-          },
-          {
-            "id": "q3_inc",
-            "label": "antallTall = antallTall + 1"
-          },
-          {
-            "id": "q3_for",
-            "label": "int i = antallTall-1; i >= 0; i--"
           },
           {
             "id": "q3_print",
             "label": "System.out.println"
           },
           {
+            "id": "q3_wrong_first_elem",
+            "label": "tallene[0]"
+          },
+          {
+            "id": "q3_wrong_for_forward",
+            "label": "int i = 0; i < tallene.length; i++"
+          },
+          {
             "id": "q3_val",
             "label": "tallene[i]"
+          },
+          {
+            "id": "q3_break",
+            "label": "v < 0"
+          },
+          {
+            "id": "q3_arr",
+            "label": "new int[10]"
           }
         ],
         "dropZones": [
@@ -375,7 +411,7 @@
             "id": "q3_slot_6",
             "label": "Plass 6",
             "accepts": [
-              "q3_store"
+              "q3_store_left"
             ],
             "pageIndex": 0,
             "rect": {
@@ -389,7 +425,7 @@
             "id": "q3_slot_7",
             "label": "Plass 7",
             "accepts": [
-              "q3_inc"
+              "q3_store_right"
             ],
             "pageIndex": 0,
             "rect": {
@@ -403,7 +439,7 @@
             "id": "q3_slot_8",
             "label": "Plass 8",
             "accepts": [
-              "q3_for"
+              "q3_inc"
             ],
             "pageIndex": 0,
             "rect": {
@@ -417,7 +453,7 @@
             "id": "q3_slot_9",
             "label": "Plass 9",
             "accepts": [
-              "q3_print"
+              "q3_for"
             ],
             "pageIndex": 0,
             "rect": {
@@ -430,6 +466,20 @@
           {
             "id": "q3_slot_10",
             "label": "Plass 10",
+            "accepts": [
+              "q3_print"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1758,
+              "y": 0.4819,
+              "w": 0.2548,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q3_slot_11",
+            "label": "Plass 11",
             "accepts": [
               "q3_val"
             ],
