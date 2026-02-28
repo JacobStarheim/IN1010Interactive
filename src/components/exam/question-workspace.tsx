@@ -11,7 +11,8 @@ import {
   evaluateChoiceSelection,
   evaluateDragAssignments,
 } from "@/lib/interaction";
-import type { ChoiceZone, QuestionManifest } from "@/lib/exam-types";
+import type { ChoiceZone, QuestionManifest, Rect } from "@/lib/exam-types";
+import { getEffectivePageBottom, getPageCrop, mapRectToCroppedPage } from "@/lib/page-crops";
 import styles from "@/components/exam/question-workspace.module.css";
 
 type Props = {
@@ -110,6 +111,39 @@ export function QuestionWorkspace({ examId, question }: Props) {
     });
     return perPage;
   }, [choiceZones]);
+  const requiredDragBottomByPage = useMemo(() => {
+    const fallbackRect = (zoneIndex: number, total: number) => {
+      const columns = total > 8 ? 2 : 1;
+      const rowsPerColumn = Math.ceil(total / columns);
+      const column = columns === 1 ? 0 : Math.floor(zoneIndex / rowsPerColumn);
+      const row = columns === 1 ? zoneIndex : zoneIndex % rowsPerColumn;
+      const x = columns === 1 ? 0.14 : 0.12 + column * 0.36;
+      const y = 0.29 + row * 0.043;
+      const w = columns === 1 ? 0.33 : 0.32;
+      const h = 0.032;
+      return { x, y, w, h };
+    };
+
+    const perPage: Record<number, number> = {};
+    Object.entries(dropZonesByPage).forEach(([rawPageIndex, zones]) => {
+      const pageIndex = Number(rawPageIndex);
+      const maxBottom = zones.reduce((max, zone, index) => {
+        const rect = zone.rect ?? fallbackRect(index, zones.length);
+        return Math.max(max, rect.y + rect.h);
+      }, 0);
+      perPage[pageIndex] = Math.min(1, maxBottom + 0.02);
+    });
+    return perPage;
+  }, [dropZonesByPage]);
+  const requiredChoiceBottomByPage = useMemo(() => {
+    const perPage: Record<number, number> = {};
+    Object.entries(choiceZonesByPage).forEach(([rawPageIndex, zones]) => {
+      const pageIndex = Number(rawPageIndex);
+      const maxBottom = zones.reduce((max, zone) => Math.max(max, zone.rect.y + zone.rect.h), 0);
+      perPage[pageIndex] = Math.min(1, maxBottom + 0.02);
+    });
+    return perPage;
+  }, [choiceZonesByPage]);
   const choiceZonesByGroup = useMemo(() => {
     const grouped: Record<string, string[]> = {};
     choiceZones.forEach((zone) => {
@@ -161,6 +195,11 @@ export function QuestionWorkspace({ examId, question }: Props) {
     const h = 0.032;
 
     return { x, y, w, h };
+  };
+
+  const mapRectForPage = (rect: Rect, pagePath: string, requiredBottom = 0) => {
+    const effectiveBottom = getEffectivePageBottom(pagePath, requiredBottom);
+    return mapRectToCroppedPage(rect, effectiveBottom);
   };
 
   useEffect(() => {
@@ -508,76 +547,87 @@ export function QuestionWorkspace({ examId, question }: Props) {
       <div className={styles.overlayStack}>
         {question.promptPages.map((page, pageIndex) => {
           const zonesOnPage = dropZonesByPage[pageIndex] ?? [];
+          const requiredBottom = requiredDragBottomByPage[pageIndex] ?? 0;
+          const effectiveBottom = getEffectivePageBottom(page, requiredBottom);
+          const crop = getPageCrop(page);
 
           return (
             <figure key={`${page}-${pageIndex}`} className={styles.overlayFigure}>
-              <img
-                src={page}
-                alt={`Oppgaveside ${pageIndex + 1}`}
-                className={styles.overlayImage}
-                loading={pageIndex === 0 ? "eager" : "lazy"}
-              />
-              <div className={styles.overlayLayer}>
-                {zonesOnPage.map((zone, zoneIndex) => {
-                  const rect = zone.rect ?? getAutoRectForZone(zoneIndex, zonesOnPage.length);
-                  const itemId = assignments[zone.id];
-                  const itemLabel = draggableItems.find((item) => item.id === itemId)?.label;
-                  const status = zoneStatus[zone.id];
-                  const statusClass =
-                    status === "correct"
-                      ? styles.overlayZoneCorrect
-                      : status === "wrong"
-                      ? styles.overlayZoneWrong
-                      : status === "empty"
-                      ? styles.overlayZoneEmpty
-                      : "";
+              <div
+                className={styles.cropFrame}
+                style={{
+                  aspectRatio: `${crop.width} / ${crop.height * effectiveBottom}`,
+                }}
+              >
+                <img
+                  src={page}
+                  alt={`Oppgaveside ${pageIndex + 1}`}
+                  className={styles.overlayImage}
+                  loading={pageIndex === 0 ? "eager" : "lazy"}
+                />
+                <div className={styles.overlayLayer}>
+                  {zonesOnPage.map((zone, zoneIndex) => {
+                    const rect = zone.rect ?? getAutoRectForZone(zoneIndex, zonesOnPage.length);
+                    const mappedRect = mapRectForPage(rect, page, requiredBottom);
+                    const itemId = assignments[zone.id];
+                    const itemLabel = draggableItems.find((item) => item.id === itemId)?.label;
+                    const status = zoneStatus[zone.id];
+                    const statusClass =
+                      status === "correct"
+                        ? styles.overlayZoneCorrect
+                        : status === "wrong"
+                        ? styles.overlayZoneWrong
+                        : status === "empty"
+                        ? styles.overlayZoneEmpty
+                        : "";
 
-                  return (
-                    <div
-                      key={zone.id}
-                      className={`${styles.overlayZone} ${statusClass}`}
-                      style={{
-                        left: `${rect.x * 100}%`,
-                        top: `${rect.y * 100}%`,
-                        width: `${rect.w * 100}%`,
-                        height: `${rect.h * 100}%`,
-                      }}
-                      onDragOver={(event) => event.preventDefault()}
-                      onDrop={(event) => {
-                        event.preventDefault();
-                        const item = event.dataTransfer.getData("text/plain");
-                        if (item) {
-                          placeItem(zone.id, item);
-                          setActiveItemId(null);
-                        }
-                      }}
-                      onClick={() => {
-                        if (activeItemId) {
-                          placeItem(zone.id, activeItemId);
-                          setActiveItemId(null);
-                        }
-                      }}
-                    >
-                      {itemLabel ? (
-                        <>
-                          <span className={styles.overlayText}>{itemLabel}</span>
-                          <button
-                            className={styles.overlayClear}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              setAssignments((current) => ({ ...current, [zone.id]: null }));
-                              setZoneStatus({});
-                              setFeedback("");
-                            }}
-                            aria-label={`Fjern brikke fra ${zone.label}`}
-                          >
-                            ×
-                          </button>
-                        </>
-                      ) : null}
-                    </div>
-                  );
-                })}
+                    return (
+                      <div
+                        key={zone.id}
+                        className={`${styles.overlayZone} ${statusClass}`}
+                        style={{
+                          left: `${mappedRect.x * 100}%`,
+                          top: `${mappedRect.y * 100}%`,
+                          width: `${mappedRect.w * 100}%`,
+                          height: `${mappedRect.h * 100}%`,
+                        }}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDrop={(event) => {
+                          event.preventDefault();
+                          const item = event.dataTransfer.getData("text/plain");
+                          if (item) {
+                            placeItem(zone.id, item);
+                            setActiveItemId(null);
+                          }
+                        }}
+                        onClick={() => {
+                          if (activeItemId) {
+                            placeItem(zone.id, activeItemId);
+                            setActiveItemId(null);
+                          }
+                        }}
+                      >
+                        {itemLabel ? (
+                          <>
+                            <span className={styles.overlayText}>{itemLabel}</span>
+                            <button
+                              className={styles.overlayClear}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                setAssignments((current) => ({ ...current, [zone.id]: null }));
+                                setZoneStatus({});
+                                setFeedback("");
+                              }}
+                              aria-label={`Fjern brikke fra ${zone.label}`}
+                            >
+                              ×
+                            </button>
+                          </>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </figure>
           );
@@ -592,60 +642,73 @@ export function QuestionWorkspace({ examId, question }: Props) {
         <div className={styles.overlayStack}>
           {question.promptPages.map((page, pageIndex) => {
             const zonesOnPage = choiceZonesByPage[pageIndex] ?? [];
+            const requiredBottom = requiredChoiceBottomByPage[pageIndex] ?? 0;
+            const effectiveBottom = getEffectivePageBottom(page, requiredBottom);
+            const crop = getPageCrop(page);
 
             return (
               <figure key={`${page}-${pageIndex}`} className={styles.overlayFigure}>
-                <img
-                  src={page}
-                  alt={`Oppgaveside ${pageIndex + 1}`}
-                  className={styles.overlayImage}
-                  loading={pageIndex === 0 ? "eager" : "lazy"}
-                />
-                <div className={`${styles.overlayLayer} ${styles.choiceOverlayLayer}`}>
-                  {zonesOnPage.map((zone) => (
-                    <div
-                      key={zone.id}
-                      className={styles.choiceZone}
-                      style={{
-                        left: `${zone.rect.x * 100}%`,
-                        top: `${zone.rect.y * 100}%`,
-                        width: `${zone.rect.w * 100}%`,
-                        height: `${zone.rect.h * 100}%`,
-                      }}
-                    >
-                      {zone.kind === "text" ? (
-                        <input
-                          type="text"
-                          className={styles.choiceZoneInput}
-                          value={(choiceZoneValues[zone.id] as string) ?? ""}
-                          placeholder={zone.placeholder ?? ""}
-                          onChange={(event) => updateChoiceZoneText(zone.id, event.target.value)}
-                          aria-label={`Svarfelt ${zone.id}`}
-                        />
-                      ) : (
-                        <button
-                          type="button"
-                          className={
-                            zone.kind === "box"
-                              ? `${styles.choiceZoneBox} ${
-                                  Boolean(choiceZoneValues[zone.id])
-                                    ? styles.choiceZoneBoxActive
-                                    : ""
-                                }`
-                              : `${styles.choiceZoneCircle} ${
-                                  Boolean(choiceZoneValues[zone.id])
-                                    ? styles.choiceZoneCircleActive
-                                    : ""
-                                }`
-                          }
-                          onClick={() => toggleChoiceZoneCircle(zone.id, zone.group)}
-                          aria-label={Boolean(choiceZoneValues[zone.id]) ? "Fjern markering" : "Marker"}
+                <div
+                  className={styles.cropFrame}
+                  style={{
+                    aspectRatio: `${crop.width} / ${crop.height * effectiveBottom}`,
+                  }}
+                >
+                  <img
+                    src={page}
+                    alt={`Oppgaveside ${pageIndex + 1}`}
+                    className={styles.overlayImage}
+                    loading={pageIndex === 0 ? "eager" : "lazy"}
+                  />
+                  <div className={`${styles.overlayLayer} ${styles.choiceOverlayLayer}`}>
+                    {zonesOnPage.map((zone) => {
+                      const mappedRect = mapRectForPage(zone.rect, page, requiredBottom);
+                      return (
+                        <div
+                          key={zone.id}
+                          className={styles.choiceZone}
+                          style={{
+                            left: `${mappedRect.x * 100}%`,
+                            top: `${mappedRect.y * 100}%`,
+                            width: `${mappedRect.w * 100}%`,
+                            height: `${mappedRect.h * 100}%`,
+                          }}
                         >
-                          {zone.kind === "box" && Boolean(choiceZoneValues[zone.id]) ? "✓" : ""}
-                        </button>
-                      )}
-                    </div>
-                  ))}
+                          {zone.kind === "text" ? (
+                            <input
+                              type="text"
+                              className={styles.choiceZoneInput}
+                              value={(choiceZoneValues[zone.id] as string) ?? ""}
+                              placeholder={zone.placeholder ?? ""}
+                              onChange={(event) => updateChoiceZoneText(zone.id, event.target.value)}
+                              aria-label={`Svarfelt ${zone.id}`}
+                            />
+                          ) : (
+                            <button
+                              type="button"
+                              className={
+                                zone.kind === "box"
+                                  ? `${styles.choiceZoneBox} ${
+                                      Boolean(choiceZoneValues[zone.id])
+                                        ? styles.choiceZoneBoxActive
+                                        : ""
+                                    }`
+                                  : `${styles.choiceZoneCircle} ${
+                                      Boolean(choiceZoneValues[zone.id])
+                                        ? styles.choiceZoneCircleActive
+                                        : ""
+                                    }`
+                              }
+                              onClick={() => toggleChoiceZoneCircle(zone.id, zone.group)}
+                              aria-label={Boolean(choiceZoneValues[zone.id]) ? "Fjern markering" : "Marker"}
+                            >
+                              {zone.kind === "box" && Boolean(choiceZoneValues[zone.id]) ? "✓" : ""}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </figure>
             );
@@ -658,35 +721,78 @@ export function QuestionWorkspace({ examId, question }: Props) {
       <div className={styles.overlayStack}>
         {question.promptPages.map((page, pageIndex) => {
           const marksOnPage = choiceMarksByPage[pageIndex] ?? [];
+          const effectiveBottom = getEffectivePageBottom(page, 0);
+          const crop = getPageCrop(page);
 
           return (
             <figure key={`${page}-${pageIndex}`} className={styles.overlayFigure}>
-              <img
-                src={page}
-                alt={`Oppgaveside ${pageIndex + 1}`}
-                className={styles.overlayImage}
-                loading={pageIndex === 0 ? "eager" : "lazy"}
-              />
               <div
-                className={`${styles.overlayLayer} ${styles.choiceOverlayLayer} ${
-                  choiceTool !== "none" ? styles.choiceOverlayLayerActiveTool : ""
-                }`}
-                onClick={(event) => {
-                  if (choiceTool === "none") {
-                    return;
-                  }
-                  const bounds = event.currentTarget.getBoundingClientRect();
-                  const x = (event.clientX - bounds.left) / bounds.width;
-                  const y = (event.clientY - bounds.top) / bounds.height;
-                  addChoiceMarkAt(pageIndex, x, y);
+                className={styles.cropFrame}
+                style={{
+                  aspectRatio: `${crop.width} / ${crop.height * effectiveBottom}`,
                 }}
               >
-                {marksOnPage.map((mark) => {
-                  if (mark.kind === "text") {
+                <img
+                  src={page}
+                  alt={`Oppgaveside ${pageIndex + 1}`}
+                  className={styles.overlayImage}
+                  loading={pageIndex === 0 ? "eager" : "lazy"}
+                />
+                <div
+                  className={`${styles.overlayLayer} ${styles.choiceOverlayLayer} ${
+                    choiceTool !== "none" ? styles.choiceOverlayLayerActiveTool : ""
+                  }`}
+                  onClick={(event) => {
+                    if (choiceTool === "none") {
+                      return;
+                    }
+                    const bounds = event.currentTarget.getBoundingClientRect();
+                    const x = (event.clientX - bounds.left) / bounds.width;
+                    const y = (event.clientY - bounds.top) / bounds.height;
+                    addChoiceMarkAt(pageIndex, x, y);
+                  }}
+                >
+                  {marksOnPage.map((mark) => {
+                    if (mark.kind === "text") {
+                      return (
+                        <div
+                          key={mark.id}
+                          className={styles.choiceMarkText}
+                          style={{
+                            left: `${mark.x * 100}%`,
+                            top: `${mark.y * 100}%`,
+                            width: `${mark.w * 100}%`,
+                            height: `${mark.h * 100}%`,
+                          }}
+                        >
+                          <input
+                            type="text"
+                            className={styles.choiceMarkInput}
+                            value={mark.text}
+                            onClick={(event) => event.stopPropagation()}
+                            onChange={(event) => updateChoiceMarkText(mark.id, event.target.value)}
+                            placeholder="Skriv..."
+                            aria-label="Tekstfelt i oppgave"
+                          />
+                          <button
+                            type="button"
+                            className={styles.choiceMarkRemove}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              removeChoiceMark(mark.id);
+                            }}
+                            aria-label="Fjern tekstfelt"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      );
+                    }
+
                     return (
                       <div
                         key={mark.id}
-                        className={styles.choiceMarkText}
+                        className={styles.choiceMarkCircleWrap}
                         style={{
                           left: `${mark.x * 100}%`,
                           top: `${mark.y * 100}%`,
@@ -694,66 +800,32 @@ export function QuestionWorkspace({ examId, question }: Props) {
                           height: `${mark.h * 100}%`,
                         }}
                       >
-                        <input
-                          type="text"
-                          className={styles.choiceMarkInput}
-                          value={mark.text}
-                          onClick={(event) => event.stopPropagation()}
-                          onChange={(event) => updateChoiceMarkText(mark.id, event.target.value)}
-                          placeholder="Skriv..."
-                          aria-label="Tekstfelt i oppgave"
+                        <button
+                          type="button"
+                          className={`${styles.choiceMarkCircle} ${
+                            mark.checked ? styles.choiceMarkCircleActive : ""
+                          }`}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            toggleChoiceCircle(mark.id);
+                          }}
+                          aria-label={mark.checked ? "Fjern markering" : "Marker sirkel"}
                         />
                         <button
                           type="button"
-                          className={styles.choiceMarkRemove}
+                          className={styles.choiceMarkRemoveMini}
                           onClick={(event) => {
                             event.stopPropagation();
                             removeChoiceMark(mark.id);
                           }}
-                          aria-label="Fjern tekstfelt"
+                          aria-label="Fjern sirkel"
                         >
                           ×
                         </button>
                       </div>
                     );
-                  }
-
-                  return (
-                    <div
-                      key={mark.id}
-                      className={styles.choiceMarkCircleWrap}
-                      style={{
-                        left: `${mark.x * 100}%`,
-                        top: `${mark.y * 100}%`,
-                        width: `${mark.w * 100}%`,
-                        height: `${mark.h * 100}%`,
-                      }}
-                    >
-                      <button
-                        type="button"
-                        className={`${styles.choiceMarkCircle} ${
-                          mark.checked ? styles.choiceMarkCircleActive : ""
-                        }`}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          toggleChoiceCircle(mark.id);
-                        }}
-                        aria-label={mark.checked ? "Fjern markering" : "Marker sirkel"}
-                      />
-                      <button
-                        type="button"
-                        className={styles.choiceMarkRemoveMini}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          removeChoiceMark(mark.id);
-                        }}
-                        aria-label="Fjern sirkel"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  );
-                })}
+                  })}
+                </div>
               </div>
             </figure>
           );

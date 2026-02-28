@@ -12,11 +12,12 @@
     "test:e2e-lite": "vitest run tests/e2e-lite",
     "assets:verify": "node scripts/pdf/verify-checksums.mjs",
     "assets:render": "swift -module-cache-path /tmp/swift-module-cache scripts/pdf/render-pages.swift",
+    "assets:crop-meta": "node scripts/pdf/generate-page-crops.mjs",
     "manifests:generate": "node scripts/pdf/generate-manifests.mjs",
     "manifests:interactive": "node scripts/pdf/apply-interactivity-updates.mjs",
     "manifests:fit-rects": "node scripts/pdf/auto-fit-drag-rects.mjs",
     "manifests:validate": "node scripts/pdf/validate-manifests.mjs",
-    "prepare:data": "npm run assets:verify && npm run assets:render && npm run manifests:generate && npm run manifests:interactive && npm run manifests:fit-rects && npm run manifests:validate"
+    "prepare:data": "npm run assets:verify && npm run assets:render && npm run assets:crop-meta && npm run manifests:generate && npm run manifests:interactive && npm run manifests:fit-rects && npm run manifests:validate"
   },
   "dependencies": {
     "next": "16.1.6",

@@ -213,9 +213,19 @@
   position: relative;
 }
 
-.overlayImage {
+.cropFrame {
+  position: relative;
   width: 100%;
-  height: auto;
+  overflow: hidden;
+}
+
+.overlayImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
   display: block;
 }
 
