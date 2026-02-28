@@ -112,11 +112,17 @@ const TEXT_SPECS = {
   "v24-midtveis:q04": {
     answers: ["7", "8", "10", "6"],
     regions: [{ pageIndex: 0, minY: 0.62 }],
+    manualRects: [
+      { pageIndex: 0, rect: { x: 0.1437, y: 0.6509, w: 0.0389, h: 0.0238 } },
+      { pageIndex: 0, rect: { x: 0.2431, y: 0.6509, w: 0.0389, h: 0.0238 } },
+      { pageIndex: 0, rect: { x: 0.1384, y: 0.6901, w: 0.0399, h: 0.0238 } },
+      { pageIndex: 0, rect: { x: 0.2498, y: 0.6901, w: 0.0389, h: 0.0238 } },
+    ],
     instructions: "Skriv svarene i feltene og trykk Sjekk svar.",
   },
   "v24-midtveis:q06": {
     answers: ["3320", "4210", "5400"],
-    regions: [{ pageIndex: 2, minY: 0.1 }],
+    regions: [{ pageIndex: 1, minY: 0.1 }],
     instructions: "Skriv tallverdiene i feltene og trykk Sjekk svar.",
   },
   "v24-midtveis:q07": {
@@ -632,6 +638,21 @@ function inferTextRectFromToken(token, width, height) {
 }
 
 async function buildTextZones(question, spec) {
+  if (spec.manualRects) {
+    if (spec.manualRects.length !== spec.answers.length) {
+      throw new Error(
+        `${question.id}: expected ${spec.answers.length} manual text rects, found ${spec.manualRects.length}`
+      );
+    }
+    return spec.manualRects.map((entry, index) => ({
+      id: `${question.id}-text-${index + 1}`,
+      kind: "text",
+      pageIndex: entry.pageIndex,
+      rect: entry.rect,
+      answer: spec.answers[index],
+    }));
+  }
+
   const tokens = [];
 
   for (const region of spec.regions) {

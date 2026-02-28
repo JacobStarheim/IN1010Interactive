@@ -65,10 +65,10 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.1152,
-              "y": 0.3072,
-              "w": 0.3154,
-              "h": 0.0285
+              "x": 0.13,
+              "y": 0.318,
+              "w": 0.293,
+              "h": 0.028
             }
           },
           {
@@ -79,10 +79,10 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.1556,
-              "y": 0.3405,
-              "w": 0.3129,
-              "h": 0.0285
+              "x": 0.166,
+              "y": 0.354,
+              "w": 0.293,
+              "h": 0.028
             }
           },
           {
@@ -93,10 +93,10 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.1556,
-              "y": 0.3731,
-              "w": 0.3129,
-              "h": 0.0285
+              "x": 0.166,
+              "y": 0.389,
+              "w": 0.293,
+              "h": 0.028
             }
           },
           {
@@ -107,10 +107,10 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.1556,
-              "y": 0.4064,
-              "w": 0.3129,
-              "h": 0.0285
+              "x": 0.166,
+              "y": 0.425,
+              "w": 0.293,
+              "h": 0.028
             }
           },
           {
@@ -121,10 +121,10 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.1556,
-              "y": 0.4391,
-              "w": 0.3129,
-              "h": 0.0285
+              "x": 0.166,
+              "y": 0.461,
+              "w": 0.293,
+              "h": 0.028
             }
           },
           {
@@ -135,10 +135,10 @@
             ],
             "pageIndex": 0,
             "rect": {
-              "x": 0.1556,
-              "y": 0.4724,
-              "w": 0.3129,
-              "h": 0.0285
+              "x": 0.166,
+              "y": 0.496,
+              "w": 0.293,
+              "h": 0.028
             }
           }
         ]
@@ -436,51 +436,51 @@
       "interaction": {
         "checkMode": "auto",
         "instructions": "Dra kodebitene til de tomme feltene i riktig rekkefølge.",
-      "draggableItems": [
-        {
-          "id": "q3_wrong_v",
-          "label": "v"
-        },
-        {
-          "id": "q3_cls",
-          "label": "MinstAv5"
-        },
-        {
-          "id": "q3_min0",
-          "label": "min = 0"
-        },
-        {
-          "id": "q3_wrong_for_lt",
-          "label": "int i = 1; i < 5; i++"
-        },
-        {
-          "id": "q3_wrong_i5",
-          "label": "i = 5"
-        },
-        {
-          "id": "q3_for",
-          "label": "int i = 1; i <= 5; i++"
-        },
-        {
-          "id": "q3_read",
-          "label": "int v = tastatur.nextInt();"
-        },
-        {
-          "id": "q3_if",
-          "label": "i == 1 || v < min"
-        },
-        {
-          "id": "q3_wrong_i",
-          "label": "i"
-        },
-        {
-          "id": "q3_wrong_min_eq_i",
-          "label": "min == i"
-        },
-        {
-          "id": "q3_set",
-          "label": "min = v"
-        },
+        "draggableItems": [
+          {
+            "id": "q3_wrong_v",
+            "label": "v"
+          },
+          {
+            "id": "q3_cls",
+            "label": "MinstAv5"
+          },
+          {
+            "id": "q3_min0",
+            "label": "min = 0"
+          },
+          {
+            "id": "q3_wrong_for_lt",
+            "label": "int i = 1; i < 5; i++"
+          },
+          {
+            "id": "q3_wrong_i5",
+            "label": "i = 5"
+          },
+          {
+            "id": "q3_for",
+            "label": "int i = 1; i <= 5; i++"
+          },
+          {
+            "id": "q3_read",
+            "label": "int v = tastatur.nextInt();"
+          },
+          {
+            "id": "q3_if",
+            "label": "i == 1 || v < min"
+          },
+          {
+            "id": "q3_wrong_i",
+            "label": "i"
+          },
+          {
+            "id": "q3_wrong_min_eq_i",
+            "label": "min == i"
+          },
+          {
+            "id": "q3_set",
+            "label": "min = v"
+          },
           {
             "id": "q3_out",
             "label": "min"
@@ -620,7 +620,7 @@
             "kind": "text",
             "pageIndex": 0,
             "rect": {
-              "x": 0.2631,
+              "x": 0.2431,
               "y": 0.6509,
               "w": 0.0389,
               "h": 0.0238
@@ -644,7 +644,7 @@
             "kind": "text",
             "pageIndex": 0,
             "rect": {
-              "x": 0.2698,
+              "x": 0.2498,
               "y": 0.6901,
               "w": 0.0389,
               "h": 0.0238
@@ -797,12 +797,10 @@
       "title": "Katt+mus+ost",
       "type": "choice-grid",
       "promptPages": [
-        "/assets/exams/v24-midtveis/prompt/page-08.png",
         "/assets/exams/v24-midtveis/prompt/page-09.png",
         "/assets/exams/v24-midtveis/prompt/page-10.png"
       ],
       "solutionPages": [
-        "/assets/exams/v24-midtveis/solution/page-08.png",
         "/assets/exams/v24-midtveis/solution/page-09.png",
         "/assets/exams/v24-midtveis/solution/page-10.png"
       ],
@@ -813,7 +811,7 @@
           {
             "id": "q06-text-1",
             "kind": "text",
-            "pageIndex": 2,
+            "pageIndex": 1,
             "rect": {
               "x": 0.1964,
               "y": 0.1138,
@@ -825,7 +823,7 @@
           {
             "id": "q06-text-2",
             "kind": "text",
-            "pageIndex": 2,
+            "pageIndex": 1,
             "rect": {
               "x": 0.204,
               "y": 0.153,
@@ -837,7 +835,7 @@
           {
             "id": "q06-text-3",
             "kind": "text",
-            "pageIndex": 2,
+            "pageIndex": 1,
             "rect": {
               "x": 0.2191,
               "y": 0.1922,
@@ -921,17 +919,43 @@
       "title": "Rekursiv-utskrift",
       "type": "drag-drop",
       "promptPages": [
-        "/assets/exams/v24-midtveis/prompt/page-12.png",
-        "/assets/exams/v24-midtveis/prompt/page-13.png"
+        "/assets/exams/v24-midtveis/prompt/page-12.png"
       ],
       "solutionPages": [
-        "/assets/exams/v24-midtveis/solution/page-12.png",
-        "/assets/exams/v24-midtveis/solution/page-13.png"
+        "/assets/exams/v24-midtveis/solution/page-12.png"
       ],
       "interaction": {
         "checkMode": "auto",
         "instructions": "Dra riktig kodebit inn i hvert tomme felt i rekursjonsoppgaven.",
         "draggableItems": [
+          {
+            "id": "q8_wrong_not_start",
+            "label": "neste != start"
+          },
+          {
+            "id": "q8_wrong_not_this",
+            "label": "neste != this"
+          },
+          {
+            "id": "q8_wrong_print_next",
+            "label": "System.out.println(neste)"
+          },
+          {
+            "id": "q8_wrong_rekursiv_arg",
+            "label": "skrivRekursivt(neste)"
+          },
+          {
+            "id": "q8_wrong_data_if",
+            "label": "data != null"
+          },
+          {
+            "id": "q8_wrong_backwards",
+            "label": "skrivBaklengs()"
+          },
+          {
+            "id": "q8_wrong_this",
+            "label": "this != null"
+          },
           {
             "id": "q8_if",
             "label": "neste != null"
