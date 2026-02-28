@@ -130,6 +130,10 @@
   margin-top: 0.5rem;
 }
 
+.dragDock {
+  margin-top: 0.8rem;
+}
+
 .panel {
   border: 1px solid #d9e3eb;
   border-radius: 10px;

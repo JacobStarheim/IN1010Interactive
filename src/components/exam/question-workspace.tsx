@@ -919,33 +919,10 @@ export function QuestionWorkspace({ examId, question }: Props) {
       }
 
       return (
-        <div>
-          <div className={styles.dragLayout}>
-            <div className={styles.panel}>
-              <h3>Brikker</h3>
-              <div className={styles.tokenList}>
-                {draggableItems.map((item) => {
-                  const used = assignedItemIds.has(item.id);
-                  return (
-                    <button
-                      key={item.id}
-                      className={`${styles.token} ${activeItemId === item.id ? styles.tokenActive : ""} ${
-                        used ? styles.tokenUsed : ""
-                      }`}
-                      draggable
-                      onDragStart={(event) => {
-                        event.dataTransfer.setData("text/plain", item.id);
-                      }}
-                      onClick={() => setActiveItemId(item.id)}
-                    >
-                      {item.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-          </div>
+        <div className={styles.manualBlock}>
+          <p className={styles.subtle}>
+            Klikk en brikke og trykk i feltet, eller dra direkte inn i feltet.
+          </p>
           <div className={styles.actions}>
             <button className={styles.primaryButton} disabled={!hasAutoDrag} onClick={checkDrag}>
               Sjekk svar
@@ -1014,6 +991,33 @@ export function QuestionWorkspace({ examId, question }: Props) {
                 label={showSolution ? "Fasitside" : "Oppgaveside"}
               />
             )}
+          {question.type === "drag-drop" && !showSolution && dropZones.length > 0 ? (
+            <div className={styles.dragDock}>
+              <div className={styles.panel}>
+                <h3>Brikker</h3>
+                <div className={styles.tokenList}>
+                  {draggableItems.map((item) => {
+                    const used = assignedItemIds.has(item.id);
+                    return (
+                      <button
+                        key={item.id}
+                        className={`${styles.token} ${
+                          activeItemId === item.id ? styles.tokenActive : ""
+                        } ${used ? styles.tokenUsed : ""}`}
+                        draggable
+                        onDragStart={(event) => {
+                          event.dataTransfer.setData("text/plain", item.id);
+                        }}
+                        onClick={() => setActiveItemId(item.id)}
+                      >
+                        {item.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : null}
         </section>
 
         <aside className={styles.sidebar}>
