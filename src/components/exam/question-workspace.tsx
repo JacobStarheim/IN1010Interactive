@@ -482,11 +482,14 @@ export function QuestionWorkspace({ examId, question }: Props) {
     setFeedback("");
   };
 
-  const placeItem = (zoneId: string, itemId: string) => {
+  const placeItem = (zoneId: string, itemId: string, sourceZoneId?: string) => {
     setZoneStatus({});
     setFeedback("");
     setAssignments((current) => {
       const updated = { ...current };
+      if (sourceZoneId && sourceZoneId !== zoneId) {
+        updated[sourceZoneId] = null;
+      }
       if (!allowItemReuse) {
         Object.keys(updated).forEach((key) => {
           if (updated[key] === itemId) {
@@ -618,6 +621,9 @@ export function QuestionWorkspace({ examId, question }: Props) {
                     const item = draggableItems.find((entry) => entry.id === zone.itemId);
                     if (!item) return null;
                     const used = assignedItemIds.has(item.id);
+                    if (!allowItemReuse && used) {
+                      return null;
+                    }
 
                     return (
                       <button
@@ -629,7 +635,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
                           left: `${mappedRect.x * 100}%`,
                           top: `${mappedRect.y * 100}%`,
                           width: `${mappedRect.w * 100}%`,
-                          height: `${mappedRect.h * 100}%`,
+                          minHeight: `${mappedRect.h * 100}%`,
                         }}
                         draggable
                         onDragStart={(event) => {
@@ -671,8 +677,9 @@ export function QuestionWorkspace({ examId, question }: Props) {
                         onDrop={(event) => {
                           event.preventDefault();
                           const item = event.dataTransfer.getData("text/plain");
+                          const sourceZoneId = event.dataTransfer.getData("application/x-source-zone");
                           if (item) {
-                            placeItem(zone.id, item);
+                            placeItem(zone.id, item, sourceZoneId || undefined);
                             setActiveItemId(null);
                           }
                         }}
@@ -681,6 +688,13 @@ export function QuestionWorkspace({ examId, question }: Props) {
                             placeItem(zone.id, activeItemId);
                             setActiveItemId(null);
                           }
+                        }}
+                        draggable={Boolean(itemId)}
+                        onDragStart={(event) => {
+                          if (!itemId) return;
+                          event.dataTransfer.setData("text/plain", itemId);
+                          event.dataTransfer.setData("application/x-source-zone", zone.id);
+                          event.dataTransfer.effectAllowed = "move";
                         }}
                       >
                         {itemLabel ? (

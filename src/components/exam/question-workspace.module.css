@@ -255,7 +255,7 @@
   background: rgba(245, 251, 255, 0.72);
   pointer-events: auto;
   cursor: pointer;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .inCanvasToken {
@@ -271,6 +271,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: clip;
 }
 
 .inCanvasTokenUsed {
@@ -283,11 +284,11 @@
 }
 
 .inCanvasTokenText {
-  font-size: clamp(0.52rem, 0.92vw, 0.82rem);
+  font-size: clamp(0.45rem, 0.82vw, 0.78rem);
   line-height: 1;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: clip;
+  text-overflow: clip;
 }
 
 .overlayZoneCorrect {
@@ -313,8 +314,8 @@
 .overlayText {
   font-size: clamp(0.4rem, 1vw, 0.82rem);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: clip;
+  text-overflow: clip;
 }
 
 .overlayClear {
