@@ -11,7 +11,7 @@ import {
   evaluateChoiceSelection,
   evaluateDragAssignments,
 } from "@/lib/interaction";
-import type { ChoiceZone, QuestionManifest, Rect } from "@/lib/exam-types";
+import type { ChoiceZone, QuestionManifest, Rect, TokenZone } from "@/lib/exam-types";
 import { getEffectivePageBottom, getPageCrop, mapRectToCroppedPage } from "@/lib/page-crops";
 import styles from "@/components/exam/question-workspace.module.css";
 
@@ -96,6 +96,51 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     () => question.interaction?.draggableItems ?? [],
     [question.interaction?.draggableItems]
   );
+  const normalizedTokenZones = useMemo(() => {
+    if (tokenZones.length === 0 || draggableItems.length === 0) {
+      return tokenZones;
+    }
+
+    const validItemIds = new Set(draggableItems.map((item) => item.id));
+    const seen = new Set<string>();
+    const duplicateOrInvalidIndexes: number[] = [];
+    const presentIds = new Set<string>();
+
+    tokenZones.forEach((zone, index) => {
+      if (!validItemIds.has(zone.itemId)) {
+        duplicateOrInvalidIndexes.push(index);
+        return;
+      }
+      presentIds.add(zone.itemId);
+      if (seen.has(zone.itemId)) {
+        duplicateOrInvalidIndexes.push(index);
+      } else {
+        seen.add(zone.itemId);
+      }
+    });
+
+    const missingIds = draggableItems
+      .map((item) => item.id)
+      .filter((itemId) => !presentIds.has(itemId));
+
+    if (duplicateOrInvalidIndexes.length === 0 || missingIds.length === 0) {
+      return tokenZones;
+    }
+
+    const patched: TokenZone[] = tokenZones.map((zone) => ({ ...zone }));
+    duplicateOrInvalidIndexes.forEach((zoneIndex, index) => {
+      const replacementId = missingIds[index];
+      if (!replacementId) {
+        return;
+      }
+      patched[zoneIndex] = {
+        ...patched[zoneIndex],
+        itemId: replacementId,
+      };
+    });
+
+    return patched;
+  }, [draggableItems, tokenZones]);
   const allowItemReuse = question.interaction?.allowItemReuse ?? false;
   const hasPresetChoiceZones = choiceZones.length > 0;
   const hasAutoChoice = question.interaction?.checkMode === "auto" && options.length > 0;
@@ -115,8 +160,8 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     return perPage;
   }, [dropZones]);
   const tokenZonesByPage = useMemo(() => {
-    const perPage: Record<number, typeof tokenZones> = {};
-    tokenZones.forEach((zone) => {
+    const perPage: Record<number, typeof normalizedTokenZones> = {};
+    normalizedTokenZones.forEach((zone) => {
       const pageIndex = zone.pageIndex ?? 0;
       if (!perPage[pageIndex]) {
         perPage[pageIndex] = [];
@@ -124,7 +169,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
       perPage[pageIndex].push(zone);
     });
     return perPage;
-  }, [tokenZones]);
+  }, [normalizedTokenZones]);
   const choiceZonesByPage = useMemo(() => {
     const perPage: Record<number, ChoiceZone[]> = {};
     choiceZones.forEach((zone) => {
@@ -207,8 +252,8 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     (hasPresetChoiceZones || options.length === 0);
   const hasInCanvasTokenBank =
     question.type === "drag-drop" &&
-    tokenZones.length > 0 &&
-    tokenZones.length === draggableItems.length;
+    normalizedTokenZones.length > 0 &&
+    normalizedTokenZones.length === draggableItems.length;
 
   const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) => {
     return zones.reduce<ChoiceZoneValues>((acc, zone) => {
