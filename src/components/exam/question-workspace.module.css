@@ -517,7 +517,7 @@
 }
 
 .textarea {
-  min-height: 240px;
+  min-height: 320px;
   resize: vertical;
 }
 
@@ -567,5 +567,9 @@
 @media (max-width: 1080px) {
   .content {
     grid-template-columns: 1fr;
+  }
+
+  .textarea {
+    min-height: 260px;
   }
 }
