@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { examList, getExamById } from "@/data/exams";
-import { QuestionWorkspace } from "@/components/exam/question-workspace";
+import { ExamSession } from "@/components/exam/exam-session";
 import { isExamId } from "@/lib/exam-ids";
 import styles from "./page.module.css";
 
@@ -34,21 +34,7 @@ export default async function ExamPage({ params }: Props) {
         </p>
       </section>
 
-      <section className={`card ${styles.jumpCard}`}>
-        {exam.questions.map((question) => (
-          <a key={question.id} href={`#${question.id}`} className={styles.jumpLink}>
-            Oppgave {question.number}
-          </a>
-        ))}
-      </section>
-
-      <div className={styles.stack}>
-        {exam.questions.map((question) => (
-          <section key={question.id} id={question.id} className="card">
-            <QuestionWorkspace examId={exam.id} question={question} />
-          </section>
-        ))}
-      </div>
+      <ExamSession exam={exam} />
     </main>
   );
 }

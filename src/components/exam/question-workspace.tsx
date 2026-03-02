@@ -18,6 +18,7 @@ import styles from "@/components/exam/question-workspace.module.css";
 type Props = {
   examId: string;
   question: QuestionManifest;
+  resetToken?: number;
 };
 
 type ChoiceMarkKind = "text" | "circle";
@@ -59,7 +60,7 @@ const defaultNotesOpenForViewport = () => {
   return !window.matchMedia("(max-width: 1080px)").matches;
 };
 
-export function QuestionWorkspace({ examId, question }: Props) {
+export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   const [showSolution, setShowSolution] = useState(false);
   const [selectedChoices, setSelectedChoices] = useState<string[]>([]);
   const [assignments, setAssignments] = useState<DragAssignments>({});
@@ -74,6 +75,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
   const [choiceTool, setChoiceTool] = useState<"none" | "text" | "circle">("none");
   const [choiceMarks, setChoiceMarks] = useState<ChoiceMark[]>([]);
   const [choiceZoneValues, setChoiceZoneValues] = useState<ChoiceZoneValues>({});
+  const [isHydratedFromStorage, setIsHydratedFromStorage] = useState(false);
   const choiceMarkIdRef = useRef(0);
 
   const options = useMemo(() => question.interaction?.options ?? [], [question.interaction?.options]);
@@ -240,6 +242,8 @@ export function QuestionWorkspace({ examId, question }: Props) {
       return;
     }
 
+    setIsHydratedFromStorage(false);
+
     const visitedKey = `in1010:visited:${examId}`;
     const current = JSON.parse(storage.getItem(visitedKey) ?? "[]") as string[];
     if (!current.includes(question.id)) {
@@ -253,12 +257,47 @@ export function QuestionWorkspace({ examId, question }: Props) {
       return;
     }
 
-    setSelectedChoices([]);
+    if (options.length > 0) {
+      const optionIdSet = new Set(options.map((option) => option.id));
+      const savedSelectedChoices = storage.getItem(storageKey("choice", examId, question.id));
+      if (savedSelectedChoices) {
+        try {
+          const parsed = JSON.parse(savedSelectedChoices) as string[];
+          const filtered = parsed.filter((id) => optionIdSet.has(id));
+          setSelectedChoices(filtered);
+        } catch {
+          setSelectedChoices([]);
+        }
+      } else {
+        setSelectedChoices([]);
+      }
+    } else {
+      setSelectedChoices([]);
+    }
     setFeedback("");
     setZoneStatus({});
     if (dropZones.length > 0) {
-      const emptyState = Object.fromEntries(dropZones.map((zone) => [zone.id, null]));
-      setAssignments(emptyState);
+      const emptyState = Object.fromEntries(dropZones.map((zone) => [zone.id, null])) as DragAssignments;
+      const draggableItemIdSet = new Set(draggableItems.map((item) => item.id));
+      const savedAssignments = storage.getItem(storageKey("drag", examId, question.id));
+
+      if (savedAssignments) {
+        try {
+          const parsed = JSON.parse(savedAssignments) as Record<string, string | null>;
+          const merged: DragAssignments = { ...emptyState };
+          dropZones.forEach((zone) => {
+            const value = parsed[zone.id];
+            if (typeof value === "string" && draggableItemIdSet.has(value)) {
+              merged[zone.id] = value;
+            }
+          });
+          setAssignments(merged);
+        } catch {
+          setAssignments(emptyState);
+        }
+      } else {
+        setAssignments(emptyState);
+      }
     } else {
       setAssignments({});
     }
@@ -282,8 +321,34 @@ export function QuestionWorkspace({ examId, question }: Props) {
       setCodeText(savedCode);
     }
 
-    setChoiceMarks([]);
-    choiceMarkIdRef.current = 0;
+    const savedChoiceMarks = storage.getItem(storageKey("choice-marks", examId, question.id));
+    if (savedChoiceMarks) {
+      try {
+        const parsed = JSON.parse(savedChoiceMarks) as ChoiceMark[];
+        const sanitized = parsed.filter((mark) => {
+          const validKind = mark.kind === "text" || mark.kind === "circle";
+          const validNumbers =
+            Number.isFinite(mark.pageIndex) &&
+            Number.isFinite(mark.x) &&
+            Number.isFinite(mark.y) &&
+            Number.isFinite(mark.w) &&
+            Number.isFinite(mark.h);
+          return Boolean(mark.id) && validKind && validNumbers;
+        });
+        setChoiceMarks(sanitized);
+        const maxId = sanitized.reduce((max, mark) => {
+          const numeric = Number(mark.id.replace("mark-", ""));
+          return Number.isFinite(numeric) ? Math.max(max, numeric) : max;
+        }, 0);
+        choiceMarkIdRef.current = maxId;
+      } catch {
+        setChoiceMarks([]);
+        choiceMarkIdRef.current = 0;
+      }
+    } else {
+      setChoiceMarks([]);
+      choiceMarkIdRef.current = 0;
+    }
     setChoiceTool("none");
     const defaultChoiceZoneValues = buildDefaultChoiceZoneValues(choiceZones);
     if (choiceZones.length === 0) {
@@ -313,42 +378,76 @@ export function QuestionWorkspace({ examId, question }: Props) {
         setChoiceZoneValues(defaultChoiceZoneValues);
       }
     }
-  }, [choiceZones, dropZones, examId, question.id, question.interaction?.codeTemplate]);
+    setIsHydratedFromStorage(true);
+  }, [
+    choiceZones,
+    dropZones,
+    draggableItems,
+    examId,
+    options,
+    question.id,
+    question.interaction?.codeTemplate,
+    resetToken,
+  ]);
 
   useEffect(() => {
     const storage = getStorage();
-    if (!storage) {
+    if (!storage || !isHydratedFromStorage || options.length === 0) {
+      return;
+    }
+    storage.setItem(storageKey("choice", examId, question.id), JSON.stringify(selectedChoices));
+  }, [examId, isHydratedFromStorage, options.length, question.id, selectedChoices]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage || !isHydratedFromStorage || dropZones.length === 0) {
+      return;
+    }
+    storage.setItem(storageKey("drag", examId, question.id), JSON.stringify(assignments));
+  }, [assignments, dropZones.length, examId, isHydratedFromStorage, question.id]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage || !isHydratedFromStorage) {
       return;
     }
     storage.setItem(storageKey("manual", examId, question.id), manualNotes);
-  }, [manualNotes, examId, question.id]);
+  }, [manualNotes, examId, isHydratedFromStorage, question.id]);
 
   useEffect(() => {
     const storage = getStorage();
-    if (!storage) {
+    if (!storage || !isHydratedFromStorage) {
       return;
     }
     storage.setItem(storageKey("notes-open", examId, question.id), notesOpen ? "1" : "0");
-  }, [notesOpen, examId, question.id]);
+  }, [notesOpen, examId, isHydratedFromStorage, question.id]);
 
   useEffect(() => {
     const storage = getStorage();
-    if (!storage) {
+    if (!storage || !isHydratedFromStorage) {
       return;
     }
     storage.setItem(storageKey("code", examId, question.id), codeText);
-  }, [codeText, examId, question.id]);
+  }, [codeText, examId, isHydratedFromStorage, question.id]);
 
   useEffect(() => {
     const storage = getStorage();
-    if (!storage || choiceZones.length === 0) {
+    if (!storage || !isHydratedFromStorage || choiceZones.length === 0) {
       return;
     }
     storage.setItem(
       storageKey("choice-zones", examId, question.id),
       JSON.stringify(choiceZoneValues)
     );
-  }, [choiceZoneValues, choiceZones.length, examId, question.id]);
+  }, [choiceZoneValues, choiceZones.length, examId, isHydratedFromStorage, question.id]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage || !isHydratedFromStorage) {
+      return;
+    }
+    storage.setItem(storageKey("choice-marks", examId, question.id), JSON.stringify(choiceMarks));
+  }, [choiceMarks, examId, isHydratedFromStorage, question.id]);
 
   const assignedItemIds = useMemo(() => {
     if (allowItemReuse) {
