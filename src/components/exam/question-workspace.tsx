@@ -512,6 +512,12 @@ export function QuestionWorkspace({ examId, question }: Props) {
     setZoneStatus({});
   };
 
+  const clearZoneAssignment = (zoneId: string) => {
+    setAssignments((current) => ({ ...current, [zoneId]: null }));
+    setZoneStatus({});
+    setFeedback("");
+  };
+
   const resetChoices = () => {
     setSelectedChoices([]);
     setFeedback("");
@@ -644,6 +650,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
                           event.dataTransfer.setData("text/plain", item.id);
                         }}
                         onClick={() => setActiveItemId(item.id)}
+                        title={item.label}
                         aria-label={`Brikke ${item.label}`}
                       >
                         <span className={styles.inCanvasTokenText}>{item.label}</span>
@@ -691,6 +698,11 @@ export function QuestionWorkspace({ examId, question }: Props) {
                             setActiveItemId(null);
                           }
                         }}
+                        onDoubleClick={() => {
+                          if (itemId) {
+                            clearZoneAssignment(zone.id);
+                          }
+                        }}
                         draggable={Boolean(itemId)}
                         onDragStart={(event) => {
                           if (!itemId) return;
@@ -698,17 +710,18 @@ export function QuestionWorkspace({ examId, question }: Props) {
                           event.dataTransfer.setData("application/x-source-zone", zone.id);
                           event.dataTransfer.effectAllowed = allowItemReuse ? "copyMove" : "move";
                         }}
+                        title={itemLabel ?? undefined}
                       >
                         {itemLabel ? (
                           <>
-                            <span className={styles.overlayText}>{itemLabel}</span>
+                            <span className={styles.overlayText} title={itemLabel}>
+                              {itemLabel}
+                            </span>
                             <button
                               className={styles.overlayClear}
                               onClick={(event) => {
                                 event.stopPropagation();
-                                setAssignments((current) => ({ ...current, [zone.id]: null }));
-                                setZoneStatus({});
-                                setFeedback("");
+                                clearZoneAssignment(zone.id);
                               }}
                               aria-label={`Fjern brikke fra ${zone.label}`}
                             >
