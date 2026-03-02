@@ -487,7 +487,9 @@ export function QuestionWorkspace({ examId, question }: Props) {
     setFeedback("");
     setAssignments((current) => {
       const updated = { ...current };
-      if (sourceZoneId && sourceZoneId !== zoneId) {
+      // Dragging from one filled zone to another should duplicate the tile
+      // when reuse is allowed, and move it otherwise.
+      if (!allowItemReuse && sourceZoneId && sourceZoneId !== zoneId) {
         updated[sourceZoneId] = null;
       }
       if (!allowItemReuse) {
@@ -694,7 +696,7 @@ export function QuestionWorkspace({ examId, question }: Props) {
                           if (!itemId) return;
                           event.dataTransfer.setData("text/plain", itemId);
                           event.dataTransfer.setData("application/x-source-zone", zone.id);
-                          event.dataTransfer.effectAllowed = "move";
+                          event.dataTransfer.effectAllowed = allowItemReuse ? "copyMove" : "move";
                         }}
                       >
                         {itemLabel ? (
