@@ -561,7 +561,7 @@
           },
           {
             "id": "q04-token-2",
-            "itemId": "new_scanner",
+            "itemId": "next_int",
             "pageIndex": 0,
             "rect": {
               "x": 0.418,
@@ -572,7 +572,7 @@
           },
           {
             "id": "q04-token-3",
-            "itemId": "prompt",
+            "itemId": "fail",
             "pageIndex": 0,
             "rect": {
               "x": 0.64,
@@ -583,7 +583,7 @@
           },
           {
             "id": "q04-token-4",
-            "itemId": "next_int",
+            "itemId": "wrong_or",
             "pageIndex": 0,
             "rect": {
               "x": 0.1001,
@@ -594,7 +594,7 @@
           },
           {
             "id": "q04-token-5",
-            "itemId": "valid_if",
+            "itemId": "ok",
             "pageIndex": 0,
             "rect": {
               "x": 0.2792,
@@ -605,7 +605,7 @@
           },
           {
             "id": "q04-token-6",
-            "itemId": "ok",
+            "itemId": "valid_if",
             "pageIndex": 0,
             "rect": {
               "x": 0.3633,
@@ -616,7 +616,7 @@
           },
           {
             "id": "q04-token-7",
-            "itemId": "fail",
+            "itemId": "prompt",
             "pageIndex": 0,
             "rect": {
               "x": 0.5694,
@@ -627,7 +627,7 @@
           },
           {
             "id": "q04-token-8",
-            "itemId": "wrong_or",
+            "itemId": "wrong_system_in",
             "pageIndex": 0,
             "rect": {
               "x": 0.7368,
@@ -660,7 +660,7 @@
           },
           {
             "id": "q04-token-11",
-            "itemId": "wrong_system_in",
+            "itemId": "new_scanner",
             "pageIndex": 0,
             "rect": {
               "x": 0.3146,

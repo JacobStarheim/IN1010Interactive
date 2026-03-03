@@ -657,7 +657,7 @@
         "tokenZones": [
           {
             "id": "q03-token-1",
-            "itemId": "q3_wrong_v",
+            "itemId": "q3_wrong_i",
             "pageIndex": 0,
             "rect": {
               "x": 0.1001,
@@ -679,7 +679,7 @@
           },
           {
             "id": "q03-token-3",
-            "itemId": "q3_min0",
+            "itemId": "q3_read",
             "pageIndex": 0,
             "rect": {
               "x": 0.2742,
@@ -712,7 +712,7 @@
           },
           {
             "id": "q03-token-6",
-            "itemId": "q3_for",
+            "itemId": "q3_set",
             "pageIndex": 0,
             "rect": {
               "x": 0.7687,
@@ -723,7 +723,7 @@
           },
           {
             "id": "q03-token-7",
-            "itemId": "q3_read",
+            "itemId": "q3_if",
             "pageIndex": 0,
             "rect": {
               "x": 0.1001,
@@ -734,7 +734,7 @@
           },
           {
             "id": "q03-token-8",
-            "itemId": "q3_if",
+            "itemId": "q3_wrong_v",
             "pageIndex": 0,
             "rect": {
               "x": 0.2641,
@@ -745,7 +745,7 @@
           },
           {
             "id": "q03-token-9",
-            "itemId": "q3_wrong_i",
+            "itemId": "q3_out",
             "pageIndex": 0,
             "rect": {
               "x": 0.3154,
@@ -767,7 +767,7 @@
           },
           {
             "id": "q03-token-11",
-            "itemId": "q3_set",
+            "itemId": "q3_min0",
             "pageIndex": 0,
             "rect": {
               "x": 0.4971,
@@ -778,7 +778,7 @@
           },
           {
             "id": "q03-token-12",
-            "itemId": "q3_out",
+            "itemId": "q3_for",
             "pageIndex": 0,
             "rect": {
               "x": 0.6005,
