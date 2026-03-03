@@ -391,6 +391,8 @@
   padding: 0.12rem 0.3rem;
   font: inherit;
   font-size: clamp(0.56rem, 1.05vw, 0.85rem);
+  color: #102a3b;
+  -webkit-text-fill-color: #102a3b;
 }
 
 .choiceZoneInput:focus {
@@ -447,6 +449,8 @@
   padding: 0.12rem 0.35rem;
   font: inherit;
   font-size: clamp(0.56rem, 1.1vw, 0.9rem);
+  color: #102a3b;
+  -webkit-text-fill-color: #102a3b;
 }
 
 .choiceMarkInput:focus {
@@ -571,5 +575,10 @@
 
   .textarea {
     min-height: 260px;
+  }
+
+  .choiceZoneInput,
+  .choiceMarkInput {
+    font-size: 16px;
   }
 }

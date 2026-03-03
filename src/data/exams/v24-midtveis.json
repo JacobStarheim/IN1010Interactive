@@ -145,7 +145,7 @@
         "tokenZones": [
           {
             "id": "q01-token-1",
-            "itemId": "q1_main",
+            "itemId": "q1_assign",
             "pageIndex": 0,
             "rect": {
               "x": 0.1001,
@@ -156,7 +156,7 @@
           },
           {
             "id": "q01-token-2",
-            "itemId": "q1_decl",
+            "itemId": "q1_main",
             "pageIndex": 0,
             "rect": {
               "x": 0.2212,
@@ -178,7 +178,7 @@
           },
           {
             "id": "q01-token-4",
-            "itemId": "q1_assign",
+            "itemId": "q1_read",
             "pageIndex": 0,
             "rect": {
               "x": 0.1001,
@@ -189,7 +189,7 @@
           },
           {
             "id": "q01-token-5",
-            "itemId": "q1_read",
+            "itemId": "q1_decl",
             "pageIndex": 0,
             "rect": {
               "x": 0.3028,
