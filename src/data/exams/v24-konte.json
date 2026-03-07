@@ -1475,40 +1475,64 @@
         "instructions": "Sett inn riktig kode i hver metode.",
         "draggableItems": [
           {
-            "id": "q6_first_a",
-            "label": "første"
-          },
-          {
-            "id": "q6_move_first",
-            "label": "første = første.neste"
-          },
-          {
-            "id": "q6_ret_a",
-            "label": "resP.data"
+            "id": "q6_first_data",
+            "label": "første.data"
           },
           {
             "id": "q6_last",
             "label": "siste"
           },
           {
+            "id": "q6_nodep_data",
+            "label": "nodeP.data"
+          },
+          {
+            "id": "q6_null",
+            "label": "null"
+          },
+          {
+            "id": "q6_nodep",
+            "label": "nodeP"
+          },
+          {
+            "id": "q6_move_first",
+            "label": "første = første.neste"
+          },
+          {
+            "id": "q6_last_data",
+            "label": "siste.data"
+          },
+          {
+            "id": "q6_resp",
+            "label": "resP"
+          },
+          {
+            "id": "q6_last_prev",
+            "label": "siste.forrige"
+          },
+          {
+            "id": "q6_first_a",
+            "label": "første"
+          },
+          {
+            "id": "q6_resp_next",
+            "label": "resP = resP.neste;"
+          },
+          {
             "id": "q6_move_last",
             "label": "siste = siste.forrige"
-          },
-          {
-            "id": "q6_ret_b",
-            "label": "resP.data"
-          },
-          {
-            "id": "q6_first_b",
-            "label": "første"
           },
           {
             "id": "q6_loop",
             "label": "nodeP = nodeP.neste"
           },
           {
-            "id": "q6_ret_c",
-            "label": "nodeP.data"
+            "id": "q6_ret_a",
+            "label": "resP.data"
+          },
+          {
+            "id": "q6_first_next",
+            "label": "første.neste"
           }
         ],
         "dropZones": [
@@ -1586,7 +1610,7 @@
             "id": "q6_slot_6",
             "label": "Plass 6",
             "accepts": [
-              "q6_ret_b"
+              "q6_ret_a"
             ],
             "pageIndex": 0,
             "rect": {
@@ -1600,7 +1624,7 @@
             "id": "q6_slot_7",
             "label": "Plass 7",
             "accepts": [
-              "q6_first_b"
+              "q6_first_a"
             ],
             "pageIndex": 0,
             "rect": {
@@ -1628,7 +1652,7 @@
             "id": "q6_slot_9",
             "label": "Plass 9",
             "accepts": [
-              "q6_ret_c"
+              "q6_nodep_data"
             ],
             "pageIndex": 0,
             "rect": {
@@ -1642,29 +1666,95 @@
         "tokenZones": [
           {
             "id": "q06-token-1",
-            "itemId": "q6_first_a",
+            "itemId": "q6_first_data",
             "pageIndex": 0,
             "rect": {
               "x": 0.1001,
-              "y": 0.9079,
+              "y": 0.8331,
               "w": 0.1934,
               "h": 0.0285
             }
           },
           {
             "id": "q06-token-2",
-            "itemId": "q6_move_first",
+            "itemId": "q6_last",
             "pageIndex": 0,
             "rect": {
               "x": 0.3053,
-              "y": 0.9079,
+              "y": 0.8331,
               "w": 0.1934,
               "h": 0.0285
             }
           },
           {
             "id": "q06-token-3",
-            "itemId": "q6_ret_a",
+            "itemId": "q6_nodep_data",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5114,
+              "y": 0.8331,
+              "w": 0.1934,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q06-token-4",
+            "itemId": "q6_null",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8705,
+              "w": 0.1934,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q06-token-5",
+            "itemId": "q6_nodep",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3053,
+              "y": 0.8705,
+              "w": 0.1934,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q06-token-6",
+            "itemId": "q6_move_first",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5114,
+              "y": 0.8705,
+              "w": 0.1934,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q06-token-7",
+            "itemId": "q6_last_data",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.9079,
+              "w": 0.1934,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q06-token-8",
+            "itemId": "q6_resp",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3053,
+              "y": 0.9079,
+              "w": 0.1934,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q06-token-9",
+            "itemId": "q6_last_prev",
             "pageIndex": 0,
             "rect": {
               "x": 0.5114,
@@ -1674,8 +1764,8 @@
             }
           },
           {
-            "id": "q06-token-4",
-            "itemId": "q6_last",
+            "id": "q06-token-10",
+            "itemId": "q6_first_a",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -1685,8 +1775,8 @@
             }
           },
           {
-            "id": "q06-token-5",
-            "itemId": "q6_move_last",
+            "id": "q06-token-11",
+            "itemId": "q6_resp_next",
             "pageIndex": 1,
             "rect": {
               "x": 0.3053,
@@ -1696,8 +1786,8 @@
             }
           },
           {
-            "id": "q06-token-6",
-            "itemId": "q6_ret_b",
+            "id": "q06-token-12",
+            "itemId": "q6_move_last",
             "pageIndex": 1,
             "rect": {
               "x": 0.5114,
@@ -1707,8 +1797,8 @@
             }
           },
           {
-            "id": "q06-token-7",
-            "itemId": "q6_first_b",
+            "id": "q06-token-13",
+            "itemId": "q6_loop",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -1718,8 +1808,8 @@
             }
           },
           {
-            "id": "q06-token-8",
-            "itemId": "q6_loop",
+            "id": "q06-token-14",
+            "itemId": "q6_ret_a",
             "pageIndex": 1,
             "rect": {
               "x": 0.3053,
@@ -1729,8 +1819,8 @@
             }
           },
           {
-            "id": "q06-token-9",
-            "itemId": "q6_ret_c",
+            "id": "q06-token-15",
+            "itemId": "q6_first_next",
             "pageIndex": 1,
             "rect": {
               "x": 0.5114,
@@ -1739,7 +1829,8 @@
               "h": 0.0291
             }
           }
-        ]
+        ],
+        "allowItemReuse": true
       }
     },
     {
@@ -1760,36 +1851,60 @@
         "instructions": "Dra kodebitene så programmet finner eldste kanin korrekt.",
         "draggableItems": [
           {
-            "id": "q7_find",
-            "label": "første.letEtterEldste()"
+            "id": "q7_this",
+            "label": "this"
+          },
+          {
+            "id": "q7_call_wrong",
+            "label": "letEtterEldste(neste)"
           },
           {
             "id": "q7_ctor",
             "label": "alder = a"
           },
           {
-            "id": "q7_this",
-            "label": "this"
-          },
-          {
-            "id": "q7_if",
-            "label": "neste != null"
-          },
-          {
-            "id": "q7_old",
-            "label": "neste.letEtterEldste()"
+            "id": "q7_null",
+            "label": "null"
           },
           {
             "id": "q7_cmp",
             "label": "gammel.alder > alder"
           },
           {
-            "id": "q7_set",
-            "label": "resultat = gammel"
+            "id": "q7_if",
+            "label": "neste != null"
+          },
+          {
+            "id": "q7_zero",
+            "label": "0"
+          },
+          {
+            "id": "q7_old",
+            "label": "neste.letEtterEldste()"
           },
           {
             "id": "q7_ret",
             "label": "resultat"
+          },
+          {
+            "id": "q7_find",
+            "label": "første.letEtterEldste()"
+          },
+          {
+            "id": "q7_gammel",
+            "label": "gammel"
+          },
+          {
+            "id": "q7_set",
+            "label": "resultat = gammel"
+          },
+          {
+            "id": "q7_old_not_null",
+            "label": "gammel != null"
+          },
+          {
+            "id": "q7_next_null",
+            "label": "neste == null"
           }
         ],
         "dropZones": [
@@ -1909,7 +2024,7 @@
         "tokenZones": [
           {
             "id": "q07-token-1",
-            "itemId": "q7_find",
+            "itemId": "q7_this",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -1920,7 +2035,7 @@
           },
           {
             "id": "q07-token-2",
-            "itemId": "q7_ctor",
+            "itemId": "q7_call_wrong",
             "pageIndex": 1,
             "rect": {
               "x": 0.307,
@@ -1931,7 +2046,7 @@
           },
           {
             "id": "q07-token-3",
-            "itemId": "q7_this",
+            "itemId": "q7_ctor",
             "pageIndex": 1,
             "rect": {
               "x": 0.5139,
@@ -1942,7 +2057,7 @@
           },
           {
             "id": "q07-token-4",
-            "itemId": "q7_if",
+            "itemId": "q7_null",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -1953,7 +2068,7 @@
           },
           {
             "id": "q07-token-5",
-            "itemId": "q7_old",
+            "itemId": "q7_cmp",
             "pageIndex": 1,
             "rect": {
               "x": 0.307,
@@ -1964,7 +2079,7 @@
           },
           {
             "id": "q07-token-6",
-            "itemId": "q7_cmp",
+            "itemId": "q7_if",
             "pageIndex": 1,
             "rect": {
               "x": 0.5139,
@@ -1975,7 +2090,7 @@
           },
           {
             "id": "q07-token-7",
-            "itemId": "q7_set",
+            "itemId": "q7_zero",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -1986,11 +2101,77 @@
           },
           {
             "id": "q07-token-8",
-            "itemId": "q7_ret",
+            "itemId": "q7_old",
             "pageIndex": 1,
             "rect": {
               "x": 0.307,
               "y": 0.1866,
+              "w": 0.1943,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-9",
+            "itemId": "q7_ret",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.5139,
+              "y": 0.1866,
+              "w": 0.1943,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-10",
+            "itemId": "q7_find",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.224,
+              "w": 0.1943,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-11",
+            "itemId": "q7_gammel",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.307,
+              "y": 0.224,
+              "w": 0.1943,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-12",
+            "itemId": "q7_set",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.5139,
+              "y": 0.224,
+              "w": 0.1943,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-13",
+            "itemId": "q7_old_not_null",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.2614,
+              "w": 0.1943,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q07-token-14",
+            "itemId": "q7_next_null",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.307,
+              "y": 0.2614,
               "w": 0.1943,
               "h": 0.0291
             }
@@ -2094,28 +2275,52 @@
         "instructions": "Sett inn riktige kodelinjer i Bilkø-metodene.",
         "draggableItems": [
           {
-            "id": "q9_unlink",
-            "label": "b.forrige.neste = b.neste; b.neste.forrige = b.forrige;"
-          },
-          {
             "id": "q9_nulls",
             "label": "b.neste = null; b.forrige = null;"
           },
           {
-            "id": "q9_if",
-            "label": "første == null"
+            "id": "q9_first_eq_last",
+            "label": "første == siste"
           },
           {
-            "id": "q9_first",
-            "label": "første = b;"
+            "id": "q9_last_null",
+            "label": "siste = null;"
           },
           {
             "id": "q9_link",
             "label": "b.forrige = siste; siste.neste = b;"
           },
           {
+            "id": "q9_unlink",
+            "label": "b.forrige.neste = b.neste; b.neste.forrige = b.forrige;"
+          },
+          {
+            "id": "q9_broken_next_prev",
+            "label": "b.neste.neste = b.neste; b.forrige.forrige = b.forrige;"
+          },
+          {
+            "id": "q9_first",
+            "label": "første = b;"
+          },
+          {
             "id": "q9_last",
             "label": "siste = b;"
+          },
+          {
+            "id": "q9_if",
+            "label": "første == null"
+          },
+          {
+            "id": "q9_first_eq_last_assign",
+            "label": "første = siste"
+          },
+          {
+            "id": "q9_wrong_link_first",
+            "label": "b.forrige = første; siste.neste = null;"
+          },
+          {
+            "id": "q9_broken_null",
+            "label": "b.neste = null; første.neste = null;"
           }
         ],
         "dropZones": [
@@ -2207,7 +2412,73 @@
         "tokenZones": [
           {
             "id": "q09-token-1",
+            "itemId": "q9_nulls",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.774,
+              "w": 0.4155,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-2",
+            "itemId": "q9_first_eq_last",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8114,
+              "w": 0.4155,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-3",
+            "itemId": "q9_last_null",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8488,
+              "w": 0.4155,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-4",
+            "itemId": "q9_link",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.8862,
+              "w": 0.4155,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-5",
             "itemId": "q9_unlink",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.9236,
+              "w": 0.4155,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-6",
+            "itemId": "q9_broken_next_prev",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.961,
+              "w": 0.4155,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q09-token-7",
+            "itemId": "q9_first",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -2217,8 +2488,8 @@
             }
           },
           {
-            "id": "q09-token-2",
-            "itemId": "q9_nulls",
+            "id": "q09-token-8",
+            "itemId": "q9_last",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -2228,7 +2499,7 @@
             }
           },
           {
-            "id": "q09-token-3",
+            "id": "q09-token-9",
             "itemId": "q9_if",
             "pageIndex": 1,
             "rect": {
@@ -2239,8 +2510,8 @@
             }
           },
           {
-            "id": "q09-token-4",
-            "itemId": "q9_first",
+            "id": "q09-token-10",
+            "itemId": "q9_first_eq_last_assign",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -2250,8 +2521,8 @@
             }
           },
           {
-            "id": "q09-token-5",
-            "itemId": "q9_link",
+            "id": "q09-token-11",
+            "itemId": "q9_wrong_link_first",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
@@ -2261,8 +2532,8 @@
             }
           },
           {
-            "id": "q09-token-6",
-            "itemId": "q9_last",
+            "id": "q09-token-12",
+            "itemId": "q9_broken_null",
             "pageIndex": 1,
             "rect": {
               "x": 0.1001,
