@@ -1243,12 +1243,52 @@
         "instructions": "Fyll inn de to manglende bitene i den rekursive summen.",
         "draggableItems": [
           {
+            "id": "q5_wrong_finnsum0",
+            "label": "finnSum(0,a)"
+          },
+          {
+            "id": "q5_wrong_a0",
+            "label": "a[0]"
+          },
+          {
+            "id": "q5_wrong_one",
+            "label": "1"
+          },
+          {
+            "id": "q5_wrong_start_plus_one",
+            "label": "start+1"
+          },
+          {
+            "id": "q5_wrong_finnsum_start",
+            "label": "finnSum(start,a)"
+          },
+          {
             "id": "q5_zero",
             "label": "0"
           },
           {
+            "id": "q5_wrong_split_sum",
+            "label": "finnSum(0,a) + finnSum(1,a)"
+          },
+          {
+            "id": "q5_wrong_a_start",
+            "label": "a[start]"
+          },
+          {
+            "id": "q5_wrong_start",
+            "label": "start"
+          },
+          {
+            "id": "q5_wrong_start_minus_one",
+            "label": "start-1"
+          },
+          {
             "id": "q5_rec",
             "label": "finnSum(start+1,a)"
+          },
+          {
+            "id": "q5_wrong_finnsum_length",
+            "label": "finnSum(a.length,a)"
           }
         ],
         "dropZones": [
@@ -1284,7 +1324,18 @@
         "tokenZones": [
           {
             "id": "q05-token-1",
-            "itemId": "q5_zero",
+            "itemId": "q5_wrong_finnsum0",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0993,
+              "y": 0.5443,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-2",
+            "itemId": "q5_wrong_a0",
             "pageIndex": 0,
             "rect": {
               "x": 0.3558,
@@ -1294,12 +1345,111 @@
             }
           },
           {
-            "id": "q05-token-2",
-            "itemId": "q5_rec",
+            "id": "q05-token-3",
+            "itemId": "q5_wrong_one",
             "pageIndex": 0,
             "rect": {
               "x": 0.6123,
               "y": 0.5443,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-4",
+            "itemId": "q5_wrong_start_plus_one",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0993,
+              "y": 0.5837,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-5",
+            "itemId": "q5_wrong_finnsum_start",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3558,
+              "y": 0.5837,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-6",
+            "itemId": "q5_zero",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6123,
+              "y": 0.5837,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-7",
+            "itemId": "q5_wrong_split_sum",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0993,
+              "y": 0.6231,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-8",
+            "itemId": "q5_wrong_a_start",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3558,
+              "y": 0.6231,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-9",
+            "itemId": "q5_wrong_start",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6123,
+              "y": 0.6231,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-10",
+            "itemId": "q5_wrong_start_minus_one",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0993,
+              "y": 0.6625,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-11",
+            "itemId": "q5_rec",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3558,
+              "y": 0.6625,
+              "w": 0.2439,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q05-token-12",
+            "itemId": "q5_wrong_finnsum_length",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6123,
+              "y": 0.6625,
               "w": 0.2439,
               "h": 0.0285
             }
