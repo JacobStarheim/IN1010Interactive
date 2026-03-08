@@ -432,6 +432,26 @@
     rgba(255, 255, 255, 0.25);
 }
 
+.choiceZoneCircleCorrect {
+  border-color: #43a047;
+  background:
+    radial-gradient(circle at center, #43a047 0, #43a047 42%, transparent 44%),
+    rgba(232, 247, 233, 0.9);
+}
+
+.choiceZoneCircleWrong {
+  border-color: #e53935;
+  background:
+    radial-gradient(circle at center, #e53935 0, #e53935 42%, transparent 44%),
+    rgba(255, 235, 238, 0.92);
+}
+
+.choiceZoneCircleEmpty {
+  border-color: #99b6cb;
+  border-style: dashed;
+  background: rgba(245, 251, 255, 0.5);
+}
+
 .choiceZoneBox {
   width: 100%;
   height: 100%;
@@ -446,6 +466,24 @@
 .choiceZoneBoxActive {
   border-color: #2f8d43;
   background: rgba(231, 247, 236, 0.95);
+}
+
+.choiceZoneBoxCorrect {
+  border-color: #43a047;
+  background: rgba(232, 247, 233, 0.96);
+  color: #1f7d3c;
+}
+
+.choiceZoneBoxWrong {
+  border-color: #e53935;
+  background: rgba(255, 235, 238, 0.96);
+  color: #b42318;
+}
+
+.choiceZoneBoxEmpty {
+  border-style: dashed;
+  border-color: #99b6cb;
+  background: rgba(245, 251, 255, 0.9);
 }
 
 .choiceMarkText {

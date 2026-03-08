@@ -712,6 +712,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   const checkChoiceZones = () => {
     const result = evaluateChoiceZones(choiceZoneValues, choiceZones);
     const statusMap: Record<string, ValidationStatus> = {};
+    const zonesById = Object.fromEntries(choiceZones.map((zone) => [zone.id, zone]));
     choiceZones.forEach((zone) => {
       if (zone.kind !== "text") {
         return;
@@ -737,6 +738,55 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
       const expectedSet = new Set(expectedValues.map(normalize));
       statusMap[zone.id] = expectedSet.has(normalize(rawValue)) ? "correct" : "wrong";
     });
+
+    Object.values(choiceZonesByGroup).forEach((zoneIds) => {
+      const expectedId = zoneIds.find((zoneId) => zonesById[zoneId]?.correct === true);
+      if (!expectedId) {
+        return;
+      }
+
+      const selectedIds = zoneIds.filter((zoneId) => Boolean(choiceZoneValues[zoneId]));
+
+      if (selectedIds.length === 0) {
+        zoneIds.forEach((zoneId) => {
+          statusMap[zoneId] = "empty";
+        });
+        return;
+      }
+
+      zoneIds.forEach((zoneId) => {
+        if (zoneId === expectedId) {
+          statusMap[zoneId] = "correct";
+        }
+      });
+
+      selectedIds.forEach((zoneId) => {
+        if (zoneId !== expectedId) {
+          statusMap[zoneId] = "wrong";
+        }
+      });
+    });
+
+    choiceZones
+      .filter((zone) => zone.kind !== "text" && !zone.group && typeof zone.correct === "boolean")
+      .forEach((zone) => {
+        const selected = Boolean(choiceZoneValues[zone.id]);
+        const expected = Boolean(zone.correct);
+
+        if (!selected && expected) {
+          statusMap[zone.id] = "empty";
+          return;
+        }
+
+        if (selected && expected) {
+          statusMap[zone.id] = "correct";
+          return;
+        }
+
+        if (selected && !expected) {
+          statusMap[zone.id] = "wrong";
+        }
+      });
     setChoiceZoneStatus(statusMap);
 
     if (result.total === 0) {
@@ -1002,17 +1052,39 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                                       Boolean(choiceZoneValues[zone.id])
                                         ? styles.choiceZoneBoxActive
                                         : ""
+                                    } ${
+                                      status === "correct"
+                                        ? styles.choiceZoneBoxCorrect
+                                        : status === "wrong"
+                                        ? styles.choiceZoneBoxWrong
+                                        : status === "empty"
+                                        ? styles.choiceZoneBoxEmpty
+                                        : ""
                                     }`
                                   : `${styles.choiceZoneCircle} ${
                                       Boolean(choiceZoneValues[zone.id])
                                         ? styles.choiceZoneCircleActive
+                                        : ""
+                                    } ${
+                                      status === "correct"
+                                        ? styles.choiceZoneCircleCorrect
+                                        : status === "wrong"
+                                        ? styles.choiceZoneCircleWrong
+                                        : status === "empty"
+                                        ? styles.choiceZoneCircleEmpty
                                         : ""
                                     }`
                               }
                               onClick={() => toggleChoiceZoneCircle(zone.id, zone.group)}
                               aria-label={Boolean(choiceZoneValues[zone.id]) ? "Fjern markering" : "Marker"}
                             >
-                              {zone.kind === "box" && Boolean(choiceZoneValues[zone.id]) ? "✓" : ""}
+                              {zone.kind === "box"
+                                ? status === "wrong"
+                                  ? "×"
+                                  : Boolean(choiceZoneValues[zone.id]) || status === "correct"
+                                  ? "✓"
+                                  : ""
+                                : ""}
                             </button>
                           )}
                         </div>
