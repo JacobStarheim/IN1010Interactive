@@ -37,6 +37,7 @@ type ChoiceMark = {
 };
 
 type ChoiceZoneValues = Record<string, string | boolean>;
+type ValidationStatus = "correct" | "wrong" | "empty";
 
 const storageKey = (kind: string, examId: string, questionId: string) =>
   `in1010:${kind}:${examId}:${questionId}`;
@@ -71,9 +72,8 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   const [explanationOpen, setExplanationOpen] = useState(false);
   const [codeText, setCodeText] = useState(question.interaction?.codeTemplate ?? "");
   const [feedback, setFeedback] = useState<string>("");
-  const [zoneStatus, setZoneStatus] = useState<Record<string, "correct" | "wrong" | "empty">>(
-    {}
-  );
+  const [zoneStatus, setZoneStatus] = useState<Record<string, ValidationStatus>>({});
+  const [choiceZoneStatus, setChoiceZoneStatus] = useState<Record<string, ValidationStatus>>({});
   const [choiceTool, setChoiceTool] = useState<"none" | "text" | "circle">("none");
   const [choiceMarks, setChoiceMarks] = useState<ChoiceMark[]>([]);
   const [choiceZoneValues, setChoiceZoneValues] = useState<ChoiceZoneValues>({});
@@ -324,6 +324,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     }
     setFeedback("");
     setZoneStatus({});
+    setChoiceZoneStatus({});
     if (dropZones.length > 0) {
       const emptyState = Object.fromEntries(dropZones.map((zone) => [zone.id, null])) as DragAssignments;
       const draggableItemIdSet = new Set(draggableItems.map((item) => item.id));
@@ -612,10 +613,14 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   };
 
   const updateChoiceZoneText = (zoneId: string, value: string) => {
+    setChoiceZoneStatus({});
+    setFeedback("");
     setChoiceZoneValues((current) => ({ ...current, [zoneId]: value }));
   };
 
   const toggleChoiceZoneCircle = (zoneId: string, group?: string) => {
+    setChoiceZoneStatus({});
+    setFeedback("");
     setChoiceZoneValues((current) => {
       if (!group) {
         return { ...current, [zoneId]: !Boolean(current[zoneId]) };
@@ -640,6 +645,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
 
   const clearChoiceZones = () => {
     setChoiceZoneValues(buildDefaultChoiceZoneValues(choiceZones));
+    setChoiceZoneStatus({});
     setFeedback("");
   };
 
@@ -705,6 +711,34 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
 
   const checkChoiceZones = () => {
     const result = evaluateChoiceZones(choiceZoneValues, choiceZones);
+    const statusMap: Record<string, ValidationStatus> = {};
+    choiceZones.forEach((zone) => {
+      if (zone.kind !== "text") {
+        return;
+      }
+
+      const rawValue = String(choiceZoneValues[zone.id] ?? "").trim();
+      const expectedValues = [
+        typeof zone.answer === "string" ? zone.answer : null,
+        ...(zone.answers ?? []),
+      ].filter((value): value is string => Boolean(value));
+
+      if (expectedValues.length === 0) {
+        return;
+      }
+
+      if (rawValue.length === 0) {
+        statusMap[zone.id] = "empty";
+        return;
+      }
+
+      const normalize = (value: string) =>
+        value.trim().toLowerCase().replace(/[()]/g, "").replace(/\s+/g, "");
+      const expectedSet = new Set(expectedValues.map(normalize));
+      statusMap[zone.id] = expectedSet.has(normalize(rawValue)) ? "correct" : "wrong";
+    });
+    setChoiceZoneStatus(statusMap);
+
     if (result.total === 0) {
       setFeedback("Denne oppgaven har ikke sjekkbar fasit ennå.");
       return;
@@ -929,6 +963,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                   <div className={`${styles.overlayLayer} ${styles.choiceOverlayLayer}`}>
                     {zonesOnPage.map((zone) => {
                       const mappedRect = mapRectForPage(zone.rect, page, requiredBottom);
+                      const status = choiceZoneStatus[zone.id];
                       return (
                         <div
                           key={zone.id}
@@ -943,11 +978,20 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                           {zone.kind === "text" ? (
                             <input
                               type="text"
-                              className={styles.choiceZoneInput}
+                              className={`${styles.choiceZoneInput} ${
+                                status === "correct"
+                                  ? styles.choiceZoneInputCorrect
+                                  : status === "wrong"
+                                  ? styles.choiceZoneInputWrong
+                                  : status === "empty"
+                                  ? styles.choiceZoneInputEmpty
+                                  : ""
+                              }`}
                               value={(choiceZoneValues[zone.id] as string) ?? ""}
                               placeholder={zone.placeholder ?? ""}
                               onChange={(event) => updateChoiceZoneText(zone.id, event.target.value)}
                               aria-label={`Svarfelt ${zone.id}`}
+                              aria-invalid={status === "wrong"}
                             />
                           ) : (
                             <button

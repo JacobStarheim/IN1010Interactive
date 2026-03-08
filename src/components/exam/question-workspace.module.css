@@ -400,6 +400,22 @@
   outline-offset: 1px;
 }
 
+.choiceZoneInputCorrect {
+  border-color: #43a047;
+  background: rgba(232, 247, 233, 0.96);
+}
+
+.choiceZoneInputWrong {
+  border-color: #e53935;
+  background: rgba(255, 235, 238, 0.96);
+}
+
+.choiceZoneInputEmpty {
+  border-style: dashed;
+  border-color: #99b6cb;
+  background: rgba(245, 251, 255, 0.9);
+}
+
 .choiceZoneCircle {
   width: 100%;
   height: 100%;
