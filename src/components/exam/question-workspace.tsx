@@ -143,7 +143,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
 
     return patched;
   }, [draggableItems, tokenZones]);
-  const allowItemReuse = question.interaction?.allowItemReuse ?? false;
+  const allowItemReuse = question.type === "drag-drop";
   const hasPresetChoiceZones = choiceZones.length > 0;
   const hasAutoChoice = question.interaction?.checkMode === "auto" && options.length > 0;
   const hasAutoDrag =
