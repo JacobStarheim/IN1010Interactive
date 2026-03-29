@@ -18,5 +18,13 @@
   {
     "id": "v25-konte",
     "file": "./v25-konte.json"
+  },
+  {
+    "id": "v26-midtveis",
+    "file": "./v26-midtveis.json"
+  },
+  {
+    "id": "v26-prove",
+    "file": "./v26-prove.json"
   }
 ]

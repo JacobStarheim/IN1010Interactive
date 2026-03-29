@@ -6,6 +6,8 @@ export const EXAM_IDS: ExamId[] = [
   "v24-prove",
   "v25-midtveis",
   "v25-konte",
+  "v26-midtveis",
+  "v26-prove",
 ];
 
 export function isExamId(value: string): value is ExamId {

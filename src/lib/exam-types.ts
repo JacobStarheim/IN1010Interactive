@@ -3,7 +3,9 @@ export type ExamId =
   | "v24-konte"
   | "v24-prove"
   | "v25-midtveis"
-  | "v25-konte";
+  | "v25-konte"
+  | "v26-midtveis"
+  | "v26-prove";
 
 export type QuestionType = "official-only" | "drag-drop" | "choice-grid" | "code-editor";
 

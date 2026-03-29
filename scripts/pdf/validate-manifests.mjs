@@ -42,8 +42,8 @@ async function main() {
     }
   }
 
-  if (totalQuestions !== 47) {
-    throw new Error(`Expected 47 questions, found ${totalQuestions}`);
+  if (totalQuestions !== 67) {
+    throw new Error(`Expected 67 questions, found ${totalQuestions}`);
   }
 
   console.log(`Manifest validation succeeded (${files.length} files, ${totalQuestions} questions).`);

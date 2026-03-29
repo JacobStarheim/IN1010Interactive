@@ -1,0 +1,2475 @@
+{
+  "id": "v26-prove",
+  "title": "IN1010 Midtveis 2026 Prøve",
+  "sourcePromptPdf": "in1010-midt-2026-prove-uten-fasit.pdf",
+  "sourceSolutionPdf": "in1010-midt-2026-prove-med-fasit.pdf",
+  "questionOrder": [
+    "q01",
+    "q02",
+    "q03",
+    "q04",
+    "q05",
+    "q06",
+    "q07",
+    "q08",
+    "q09",
+    "q10"
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "number": 1,
+      "title": "Hvilke 8 tall skrives ut?",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-02.png",
+        "/assets/exams/v26-prove/prompt/page-03.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-02.png",
+        "/assets/exams/v26-prove/solution/page-03.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Skriv de åtte tallene i feltene og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q01-text-1",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1007,
+              "y": 0.0888,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "0"
+          },
+          {
+            "id": "q01-text-2",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1007,
+              "y": 0.128,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "1"
+          },
+          {
+            "id": "q01-text-3",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1007,
+              "y": 0.1673,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "1"
+          },
+          {
+            "id": "q01-text-4",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1007,
+              "y": 0.2065,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "2"
+          },
+          {
+            "id": "q01-text-5",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1007,
+              "y": 0.2457,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "3"
+          },
+          {
+            "id": "q01-text-6",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1007,
+              "y": 0.2849,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "5"
+          },
+          {
+            "id": "q01-text-7",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1007,
+              "y": 0.3241,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "8"
+          },
+          {
+            "id": "q01-text-8",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0996,
+              "y": 0.3633,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "13"
+          }
+        ]
+      }
+    },
+    {
+      "id": "q02",
+      "number": 2,
+      "title": "settInnIArray og hentFraArray",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-04.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-04.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodebit inn i hvert tomrom og trykk Sjekk svar.",
+        "draggableItems": [
+          {
+            "id": "q02_assign",
+            "label": "a[ix] = v"
+          },
+          {
+            "id": "q02_in_bounds",
+            "label": "ix >= 0 && ix < a.length"
+          },
+          {
+            "id": "q02_a_length",
+            "label": "a.length"
+          },
+          {
+            "id": "q02_wrong_or",
+            "label": "ix >= 0 || ix < a.length"
+          },
+          {
+            "id": "q02_last_elem",
+            "label": "a[a.length-1]"
+          },
+          {
+            "id": "q02_sett_inn",
+            "label": "settInnIArray"
+          },
+          {
+            "id": "q02_wrong_legal",
+            "label": "a.legalIndex(ix)"
+          },
+          {
+            "id": "q02_wrong_inc",
+            "label": "a[ix]++"
+          },
+          {
+            "id": "q02_wrong_y_ix",
+            "label": "a[y] = ix"
+          },
+          {
+            "id": "q02_hent_fra",
+            "label": "hentFraArray"
+          },
+          {
+            "id": "q02_wrong_math",
+            "label": "0 <= ix < a.length"
+          },
+          {
+            "id": "q02_return_elem",
+            "label": "a[ix]"
+          },
+          {
+            "id": "q02_one",
+            "label": "1"
+          },
+          {
+            "id": "q02_zero",
+            "label": "0"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q02_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q02_sett_inn"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2403,
+              "y": 0.2513,
+              "w": 0.2008,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q02_in_bounds"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1412,
+              "y": 0.2822,
+              "w": 0.2025,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q02_assign"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1361,
+              "y": 0.3143,
+              "w": 0.2,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q02_hent_fra"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2218,
+              "y": 0.4034,
+              "w": 0.2,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q02_zero"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2151,
+              "y": 0.4545,
+              "w": 0.2008,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q02_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q02_a_length"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2319,
+              "y": 0.4866,
+              "w": 0.2,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q02_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q02_last_elem"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1891,
+              "y": 0.5187,
+              "w": 0.2,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q02_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q02_return_elem"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1891,
+              "y": 0.5692,
+              "w": 0.2,
+              "h": 0.0279
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q02-token-1",
+            "itemId": "q02_assign",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5294,
+              "y": 0.6566,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-2",
+            "itemId": "q02_in_bounds",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.6928,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-3",
+            "itemId": "q02_a_length",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3143,
+              "y": 0.6928,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-4",
+            "itemId": "q02_wrong_or",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5294,
+              "y": 0.6928,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-5",
+            "itemId": "q02_last_elem",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.7291,
+              "w": 0.2034,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q02-token-6",
+            "itemId": "q02_sett_inn",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3143,
+              "y": 0.7291,
+              "w": 0.2034,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q02-token-7",
+            "itemId": "q02_wrong_legal",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5294,
+              "y": 0.7291,
+              "w": 0.2034,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q02-token-8",
+            "itemId": "q02_wrong_inc",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.7659,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-9",
+            "itemId": "q02_wrong_y_ix",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3143,
+              "y": 0.7659,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-10",
+            "itemId": "q02_hent_fra",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5294,
+              "y": 0.7659,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-11",
+            "itemId": "q02_wrong_math",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.8021,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-12",
+            "itemId": "q02_return_elem",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3143,
+              "y": 0.8021,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-13",
+            "itemId": "q02_one",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5294,
+              "y": 0.8021,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-14",
+            "itemId": "q02_zero",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.839,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "q03",
+      "number": 3,
+      "title": "Les første linje fra fil",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-05.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-05.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodebit inn i hvert tomrom og trykk Sjekk svar.",
+        "draggableItems": [
+          {
+            "id": "q03_data_txt",
+            "label": "\"data.txt\""
+          },
+          {
+            "id": "q03_args",
+            "label": "args"
+          },
+          {
+            "id": "q03_break",
+            "label": "break"
+          },
+          {
+            "id": "q03_catch",
+            "label": "catch"
+          },
+          {
+            "id": "q03_exit",
+            "label": "exit"
+          },
+          {
+            "id": "q03_file",
+            "label": "File"
+          },
+          {
+            "id": "q03_fnf",
+            "label": "FileNotFoundException"
+          },
+          {
+            "id": "q03_finally",
+            "label": "finally"
+          },
+          {
+            "id": "q03_import_scanner",
+            "label": "java.util.Scanner"
+          },
+          {
+            "id": "q03_has_next",
+            "label": "s.hasNextLine()"
+          },
+          {
+            "id": "q03_next",
+            "label": "s.next()"
+          },
+          {
+            "id": "q03_next_line",
+            "label": "s.nextLine()"
+          },
+          {
+            "id": "q03_scanner",
+            "label": "Scanner"
+          },
+          {
+            "id": "q03_string",
+            "label": "String"
+          },
+          {
+            "id": "q03_try",
+            "label": "try"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q03_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q03_import_scanner"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1513,
+              "y": 0.183,
+              "w": 0.2017,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q03_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q03_try"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1261,
+              "y": 0.2721,
+              "w": 0.2017,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q03_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q03_scanner"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2252,
+              "y": 0.3036,
+              "w": 0.2017,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q03_file"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4975,
+              "y": 0.3036,
+              "w": 0.2017,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q03_data_txt"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0941,
+              "y": 0.3333,
+              "w": 0.2017,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q03_catch"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1471,
+              "y": 0.3654,
+              "w": 0.2017,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q03_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q03_exit"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2277,
+              "y": 0.4159,
+              "w": 0.2017,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q03_next_line"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2941,
+              "y": 0.467,
+              "w": 0.2025,
+              "h": 0.0273
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q03-token-1",
+            "itemId": "q03_data_txt",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.5538,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-2",
+            "itemId": "q03_args",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.316,
+              "y": 0.5538,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-3",
+            "itemId": "q03_break",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5319,
+              "y": 0.5538,
+              "w": 0.205,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-4",
+            "itemId": "q03_catch",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.5906,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-5",
+            "itemId": "q03_exit",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.316,
+              "y": 0.5906,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-6",
+            "itemId": "q03_file",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5319,
+              "y": 0.5906,
+              "w": 0.205,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-7",
+            "itemId": "q03_fnf",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.6269,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-8",
+            "itemId": "q03_finally",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.316,
+              "y": 0.6269,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-9",
+            "itemId": "q03_import_scanner",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5319,
+              "y": 0.6269,
+              "w": 0.205,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-10",
+            "itemId": "q03_has_next",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.6637,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-11",
+            "itemId": "q03_next",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.316,
+              "y": 0.6637,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-12",
+            "itemId": "q03_next_line",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5319,
+              "y": 0.6637,
+              "w": 0.205,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-13",
+            "itemId": "q03_scanner",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.6999,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-14",
+            "itemId": "q03_string",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.316,
+              "y": 0.6999,
+              "w": 0.2042,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q03-token-15",
+            "itemId": "q03_try",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5319,
+              "y": 0.6999,
+              "w": 0.205,
+              "h": 0.0279
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "q04",
+      "number": 4,
+      "title": "Arv eller komposisjon",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-06.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-06.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Klikk i tabellen for hver rad og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q04-r1-c1",
+            "kind": "circle",
+            "group": "q04-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.1862,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r1-c2",
+            "kind": "circle",
+            "group": "q04-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7929,
+              "y": 0.1862,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r2-c1",
+            "kind": "circle",
+            "group": "q04-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.2255,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r2-c2",
+            "kind": "circle",
+            "group": "q04-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7929,
+              "y": 0.2255,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r3-c1",
+            "kind": "circle",
+            "group": "q04-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.2647,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r3-c2",
+            "kind": "circle",
+            "group": "q04-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7929,
+              "y": 0.2647,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r4-c1",
+            "kind": "circle",
+            "group": "q04-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.3039,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r4-c2",
+            "kind": "circle",
+            "group": "q04-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7929,
+              "y": 0.3039,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r5-c1",
+            "kind": "circle",
+            "group": "q04-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.3431,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r5-c2",
+            "kind": "circle",
+            "group": "q04-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7945,
+              "y": 0.3431,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r6-c1",
+            "kind": "circle",
+            "group": "q04-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.3823,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r6-c2",
+            "kind": "circle",
+            "group": "q04-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7945,
+              "y": 0.3812,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r7-c1",
+            "kind": "circle",
+            "group": "q04-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.4204,
+              "w": 0.0487,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q04-r7-c2",
+            "kind": "circle",
+            "group": "q04-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7945,
+              "y": 0.4204,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r8-c1",
+            "kind": "circle",
+            "group": "q04-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5878,
+              "y": 0.4596,
+              "w": 0.0487,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q04-r8-c2",
+            "kind": "circle",
+            "group": "q04-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7945,
+              "y": 0.4596,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "q05",
+      "number": 5,
+      "title": "Kompilerer og kjører?",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-07.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-07.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Marker riktig kolonne for hver linje og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q05-r1-c1",
+            "kind": "circle",
+            "group": "q05-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.4632,
+              "w": 0.0487,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r1-c2",
+            "kind": "circle",
+            "group": "q05-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.4632,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r1-c3",
+            "kind": "circle",
+            "group": "q05-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.4632,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r2-c1",
+            "kind": "circle",
+            "group": "q05-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.5024,
+              "w": 0.0487,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r2-c2",
+            "kind": "circle",
+            "group": "q05-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.5024,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r2-c3",
+            "kind": "circle",
+            "group": "q05-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.5024,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r3-c1",
+            "kind": "circle",
+            "group": "q05-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.5416,
+              "w": 0.0487,
+              "h": 0.0345
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r3-c2",
+            "kind": "circle",
+            "group": "q05-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.5416,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r3-c3",
+            "kind": "circle",
+            "group": "q05-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.5416,
+              "w": 0.0463,
+              "h": 0.0345
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r4-c1",
+            "kind": "circle",
+            "group": "q05-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.5814,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r4-c2",
+            "kind": "circle",
+            "group": "q05-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.5814,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r4-c3",
+            "kind": "circle",
+            "group": "q05-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.5814,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r5-c1",
+            "kind": "circle",
+            "group": "q05-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.6206,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r5-c2",
+            "kind": "circle",
+            "group": "q05-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.6206,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r5-c3",
+            "kind": "circle",
+            "group": "q05-r5",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.6206,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r6-c1",
+            "kind": "circle",
+            "group": "q05-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.6598,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r6-c2",
+            "kind": "circle",
+            "group": "q05-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.6598,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r6-c3",
+            "kind": "circle",
+            "group": "q05-r6",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.6598,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r7-c1",
+            "kind": "circle",
+            "group": "q05-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.699,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r7-c2",
+            "kind": "circle",
+            "group": "q05-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.699,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r7-c3",
+            "kind": "circle",
+            "group": "q05-r7",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.699,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r8-c1",
+            "kind": "circle",
+            "group": "q05-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.7382,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r8-c2",
+            "kind": "circle",
+            "group": "q05-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.7382,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r8-c3",
+            "kind": "circle",
+            "group": "q05-r8",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.7382,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r9-c1",
+            "kind": "circle",
+            "group": "q05-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.7775,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r9-c2",
+            "kind": "circle",
+            "group": "q05-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.7775,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r9-c3",
+            "kind": "circle",
+            "group": "q05-r9",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.7775,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r10-c1",
+            "kind": "circle",
+            "group": "q05-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4794,
+              "y": 0.8167,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q05-r10-c2",
+            "kind": "circle",
+            "group": "q05-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6407,
+              "y": 0.8167,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q05-r10-c3",
+            "kind": "circle",
+            "group": "q05-r10",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7844,
+              "y": 0.8167,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "q06",
+      "number": 6,
+      "title": "Hvilke navn skrives ut?",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-08.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-09.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Marker riktig navn for hver rad og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q06-r1-c1",
+            "kind": "circle",
+            "group": "q06-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3962,
+              "y": 0.7186,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r1-c2",
+            "kind": "circle",
+            "group": "q06-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.55,
+              "y": 0.7186,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r1-c3",
+            "kind": "circle",
+            "group": "q06-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.676,
+              "y": 0.7186,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r1-c4",
+            "kind": "circle",
+            "group": "q06-r1",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7928,
+              "y": 0.7186,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q06-r2-c1",
+            "kind": "circle",
+            "group": "q06-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3962,
+              "y": 0.7578,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r2-c2",
+            "kind": "circle",
+            "group": "q06-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.55,
+              "y": 0.7578,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q06-r2-c3",
+            "kind": "circle",
+            "group": "q06-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.676,
+              "y": 0.7578,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r2-c4",
+            "kind": "circle",
+            "group": "q06-r2",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7928,
+              "y": 0.7578,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r3-c1",
+            "kind": "circle",
+            "group": "q06-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3962,
+              "y": 0.7971,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r3-c2",
+            "kind": "circle",
+            "group": "q06-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.55,
+              "y": 0.7971,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r3-c3",
+            "kind": "circle",
+            "group": "q06-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.676,
+              "y": 0.7971,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r3-c4",
+            "kind": "circle",
+            "group": "q06-r3",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7928,
+              "y": 0.7971,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q06-r4-c1",
+            "kind": "circle",
+            "group": "q06-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3962,
+              "y": 0.8363,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r4-c2",
+            "kind": "circle",
+            "group": "q06-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.55,
+              "y": 0.8363,
+              "w": 0.0487,
+              "h": 0.0327
+            },
+            "correct": true
+          },
+          {
+            "id": "q06-r4-c3",
+            "kind": "circle",
+            "group": "q06-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.676,
+              "y": 0.8363,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          },
+          {
+            "id": "q06-r4-c4",
+            "kind": "circle",
+            "group": "q06-r4",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.7928,
+              "y": 0.8363,
+              "w": 0.0463,
+              "h": 0.0327
+            },
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "q07",
+      "number": 7,
+      "title": "EnVeisBeholder",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-10.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-11.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodebit inn i hvert tomrom og trykk Sjekk svar.",
+        "draggableItems": [
+          {
+            "id": "q07_forste_cast",
+            "label": "første = (E) første.neste;"
+          },
+          {
+            "id": "q07_extends",
+            "label": "E extends EnVeis"
+          },
+          {
+            "id": "q07_append",
+            "label": "siste.neste = ny; siste = ny;"
+          },
+          {
+            "id": "q07_init",
+            "label": "første = ny; siste = ny;"
+          },
+          {
+            "id": "q07_clear",
+            "label": "første = null; siste = null;"
+          },
+          {
+            "id": "q07_ny",
+            "label": "E ny"
+          },
+          {
+            "id": "q07_return_null",
+            "label": "return null;"
+          },
+          {
+            "id": "q07_neste",
+            "label": "EnVeis neste"
+          },
+          {
+            "id": "q07_return_ut",
+            "label": "return ut;"
+          },
+          {
+            "id": "q07_private_fields",
+            "label": "private E første, siste;"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q07_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q07_neste"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1059,
+              "y": 0.1996,
+              "w": 0.2277,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q07_extends"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2941,
+              "y": 0.2507,
+              "w": 0.2286,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q07_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q07_private_fields"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.116,
+              "y": 0.2828,
+              "w": 0.2277,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q07_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q07_ny"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.321,
+              "y": 0.3143,
+              "w": 0.2277,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q07_init"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2815,
+              "y": 0.3464,
+              "w": 0.2286,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q07_append"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1916,
+              "y": 0.3779,
+              "w": 0.2303,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q07_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q07_return_null"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2866,
+              "y": 0.448,
+              "w": 0.2286,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q07_clear"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2958,
+              "y": 0.4991,
+              "w": 0.2303,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q07_slot_9",
+            "label": "Plass 9",
+            "accepts": [
+              "q07_forste_cast"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1866,
+              "y": 0.5306,
+              "w": 0.2303,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07_slot_10",
+            "label": "Plass 10",
+            "accepts": [
+              "q07_return_ut"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1361,
+              "y": 0.5627,
+              "w": 0.2277,
+              "h": 0.0279
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q07-token-1",
+            "itemId": "q07_forste_cast",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.669,
+              "w": 0.2311,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07-token-2",
+            "itemId": "q07_extends",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.342,
+              "y": 0.669,
+              "w": 0.2311,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07-token-3",
+            "itemId": "q07_append",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5849,
+              "y": 0.669,
+              "w": 0.2311,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07-token-4",
+            "itemId": "q07_init",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.7053,
+              "w": 0.2311,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07-token-5",
+            "itemId": "q07_clear",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.342,
+              "y": 0.7053,
+              "w": 0.2311,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07-token-6",
+            "itemId": "q07_ny",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5849,
+              "y": 0.7053,
+              "w": 0.2311,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q07-token-7",
+            "itemId": "q07_return_null",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.7415,
+              "w": 0.2311,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q07-token-8",
+            "itemId": "q07_neste",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.342,
+              "y": 0.7415,
+              "w": 0.2311,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q07-token-9",
+            "itemId": "q07_return_ut",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5849,
+              "y": 0.7415,
+              "w": 0.2311,
+              "h": 0.0285
+            }
+          },
+          {
+            "id": "q07-token-10",
+            "itemId": "q07_private_fields",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.7784,
+              "w": 0.2311,
+              "h": 0.0279
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "q08",
+      "number": 8,
+      "title": "LagerIterator",
+      "type": "drag-drop",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-11.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-12.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Dra riktig kodebit inn i hvert tomrom og trykk Sjekk svar.",
+        "draggableItems": [
+          {
+            "id": "q08_iter_string",
+            "label": "Iterator <String>"
+          },
+          {
+            "id": "q08_iterator",
+            "label": "iterator"
+          },
+          {
+            "id": "q08_ix_ge_zero",
+            "label": "ix >= 0"
+          },
+          {
+            "id": "q08_innhold_ix",
+            "label": "innhold[ix]"
+          },
+          {
+            "id": "q08_length_minus",
+            "label": "innhold.length - 1"
+          },
+          {
+            "id": "q08_iterable_string",
+            "label": "Iterable <String>"
+          },
+          {
+            "id": "q08_ix_dec",
+            "label": "ix = ix - 1"
+          },
+          {
+            "id": "q08_new_lager",
+            "label": "new LagerIterator ()"
+          }
+        ],
+        "dropZones": [
+          {
+            "id": "q08_slot_1",
+            "label": "Plass 1",
+            "accepts": [
+              "q08_iterable_string"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2941,
+              "y": 0.1456,
+              "w": 0.1782,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q08_slot_2",
+            "label": "Plass 2",
+            "accepts": [
+              "q08_iter_string"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.263,
+              "y": 0.2151,
+              "w": 0.1782,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q08_slot_3",
+            "label": "Plass 3",
+            "accepts": [
+              "q08_iterator"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.458,
+              "y": 0.2151,
+              "w": 0.1756,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q08_slot_4",
+            "label": "Plass 4",
+            "accepts": [
+              "q08_new_lager"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1891,
+              "y": 0.2472,
+              "w": 0.1773,
+              "h": 0.0273
+            }
+          },
+          {
+            "id": "q08_slot_5",
+            "label": "Plass 5",
+            "accepts": [
+              "q08_iter_string"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3723,
+              "y": 0.3173,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08_slot_6",
+            "label": "Plass 6",
+            "accepts": [
+              "q08_length_minus"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.195,
+              "y": 0.3482,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08_slot_7",
+            "label": "Plass 7",
+            "accepts": [
+              "q08_ix_ge_zero"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2101,
+              "y": 0.3999,
+              "w": 0.1756,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08_slot_8",
+            "label": "Plass 8",
+            "accepts": [
+              "q08_innhold_ix"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2563,
+              "y": 0.4694,
+              "w": 0.1756,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08_slot_9",
+            "label": "Plass 9",
+            "accepts": [
+              "q08_ix_dec"
+            ],
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1563,
+              "y": 0.5015,
+              "w": 0.1748,
+              "h": 0.0279
+            }
+          }
+        ],
+        "tokenZones": [
+          {
+            "id": "q08-token-1",
+            "itemId": "q08_iter_string",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.6263,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08-token-2",
+            "itemId": "q08_iterator",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2891,
+              "y": 0.6263,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08-token-3",
+            "itemId": "q08_ix_ge_zero",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4798,
+              "y": 0.6263,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08-token-4",
+            "itemId": "q08_innhold_ix",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6697,
+              "y": 0.6263,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08-token-5",
+            "itemId": "q08_length_minus",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.0992,
+              "y": 0.6625,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08-token-6",
+            "itemId": "q08_iterable_string",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2891,
+              "y": 0.6625,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08-token-7",
+            "itemId": "q08_ix_dec",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.4798,
+              "y": 0.6625,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q08-token-8",
+            "itemId": "q08_new_lager",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.6697,
+              "y": 0.6625,
+              "w": 0.1782,
+              "h": 0.0279
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "q09",
+      "number": 9,
+      "title": "Bokpriser",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-12.png",
+        "/assets/exams/v26-prove/prompt/page-13.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-13.png",
+        "/assets/exams/v26-prove/solution/page-14.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Skriv internprisene i feltene og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q09-text-1",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2601,
+              "y": 0.7882,
+              "w": 0.0651,
+              "h": 0.0238
+            },
+            "answer": "1000"
+          },
+          {
+            "id": "q09-text-2",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2548,
+              "y": 0.8274,
+              "w": 0.0536,
+              "h": 0.0238
+            },
+            "answer": "320"
+          },
+          {
+            "id": "q09-text-3",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2002,
+              "y": 0.8666,
+              "w": 0.0536,
+              "h": 0.0238
+            },
+            "answer": "480"
+          },
+          {
+            "id": "q09-text-4",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.2139,
+              "y": 0.9052,
+              "w": 0.0651,
+              "h": 0.0238
+            },
+            "answer": "2000"
+          },
+          {
+            "id": "q09-text-5",
+            "kind": "text",
+            "pageIndex": 1,
+            "rect": {
+              "x": 0.2691,
+              "y": 0.0383,
+              "w": 0.0536,
+              "h": 0.0238
+            },
+            "answer": "180"
+          }
+        ]
+      }
+    },
+    {
+      "id": "q10",
+      "number": 10,
+      "title": "Hvilke 8 tall skrives ut?",
+      "type": "choice-grid",
+      "promptPages": [
+        "/assets/exams/v26-prove/prompt/page-14.png",
+        "/assets/exams/v26-prove/prompt/page-15.png"
+      ],
+      "solutionPages": [
+        "/assets/exams/v26-prove/solution/page-15.png",
+        "/assets/exams/v26-prove/solution/page-16.png"
+      ],
+      "interaction": {
+        "checkMode": "auto",
+        "instructions": "Skriv de åtte tallene i feltene og trykk Sjekk svar.",
+        "choiceZones": [
+          {
+            "id": "q10-text-1",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1108,
+              "y": 0.1061,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "2"
+          },
+          {
+            "id": "q10-text-2",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1108,
+              "y": 0.1453,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "5"
+          },
+          {
+            "id": "q10-text-3",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1108,
+              "y": 0.1845,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "6"
+          },
+          {
+            "id": "q10-text-4",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1108,
+              "y": 0.2237,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "6"
+          },
+          {
+            "id": "q10-text-5",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1108,
+              "y": 0.2617,
+              "w": 0.0388,
+              "h": 0.0238
+            },
+            "answer": "5"
+          },
+          {
+            "id": "q10-text-6",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1097,
+              "y": 0.301,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "10"
+          },
+          {
+            "id": "q10-text-7",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1097,
+              "y": 0.3402,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "25"
+          },
+          {
+            "id": "q10-text-8",
+            "kind": "text",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1097,
+              "y": 0.3794,
+              "w": 0.0399,
+              "h": 0.0238
+            },
+            "answer": "15"
+          }
+        ]
+      }
+    }
+  ]
+}

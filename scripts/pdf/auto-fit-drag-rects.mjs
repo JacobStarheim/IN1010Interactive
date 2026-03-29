@@ -11,6 +11,8 @@ const manifestFiles = [
   "v24-prove.json",
   "v25-midtveis.json",
   "v25-konte.json",
+  "v26-midtveis.json",
+  "v26-prove.json",
 ];
 
 function isGreen(r, g, b) {

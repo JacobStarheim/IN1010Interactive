@@ -733,5 +733,330 @@
     "width": 760,
     "height": 1176,
     "bottom": 1
+  },
+  "/assets/exams/v26-midtveis/prompt/page-01.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.4902
+  },
+  "/assets/exams/v26-midtveis/prompt/page-02.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3434
+  },
+  "/assets/exams/v26-midtveis/prompt/page-03.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6447
+  },
+  "/assets/exams/v26-midtveis/prompt/page-04.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8051
+  },
+  "/assets/exams/v26-midtveis/prompt/page-05.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3975
+  },
+  "/assets/exams/v26-midtveis/prompt/page-06.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6607
+  },
+  "/assets/exams/v26-midtveis/prompt/page-07.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6732
+  },
+  "/assets/exams/v26-midtveis/prompt/page-08.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7314
+  },
+  "/assets/exams/v26-midtveis/prompt/page-09.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3767
+  },
+  "/assets/exams/v26-midtveis/prompt/page-10.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8295
+  },
+  "/assets/exams/v26-midtveis/prompt/page-11.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3209
+  },
+  "/assets/exams/v26-midtveis/prompt/page-12.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7706
+  },
+  "/assets/exams/v26-midtveis/prompt/page-13.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6904
+  },
+  "/assets/exams/v26-midtveis/prompt/page-14.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8966
+  },
+  "/assets/exams/v26-midtveis/prompt/page-15.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.2
+  },
+  "/assets/exams/v26-midtveis/prompt/page-16.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7908
+  },
+  "/assets/exams/v26-midtveis/prompt/page-17.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6863
+  },
+  "/assets/exams/v26-midtveis/solution/page-01.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.4902
+  },
+  "/assets/exams/v26-midtveis/solution/page-02.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3434
+  },
+  "/assets/exams/v26-midtveis/solution/page-03.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6447
+  },
+  "/assets/exams/v26-midtveis/solution/page-04.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8051
+  },
+  "/assets/exams/v26-midtveis/solution/page-05.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3975
+  },
+  "/assets/exams/v26-midtveis/solution/page-06.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6607
+  },
+  "/assets/exams/v26-midtveis/solution/page-07.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6732
+  },
+  "/assets/exams/v26-midtveis/solution/page-08.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7314
+  },
+  "/assets/exams/v26-midtveis/solution/page-09.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3767
+  },
+  "/assets/exams/v26-midtveis/solution/page-10.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8295
+  },
+  "/assets/exams/v26-midtveis/solution/page-11.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.3209
+  },
+  "/assets/exams/v26-midtveis/solution/page-12.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7706
+  },
+  "/assets/exams/v26-midtveis/solution/page-13.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7368
+  },
+  "/assets/exams/v26-midtveis/solution/page-14.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8966
+  },
+  "/assets/exams/v26-midtveis/solution/page-15.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.2
+  },
+  "/assets/exams/v26-midtveis/solution/page-16.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8515
+  },
+  "/assets/exams/v26-midtveis/solution/page-17.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6863
+  },
+  "/assets/exams/v26-prove/prompt/page-01.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.5419
+  },
+  "/assets/exams/v26-prove/prompt/page-02.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.4403
+  },
+  "/assets/exams/v26-prove/prompt/page-03.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6251
+  },
+  "/assets/exams/v26-prove/prompt/page-04.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9317
+  },
+  "/assets/exams/v26-prove/prompt/page-05.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7926
+  },
+  "/assets/exams/v26-prove/prompt/page-06.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.5758
+  },
+  "/assets/exams/v26-prove/prompt/page-07.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9323
+  },
+  "/assets/exams/v26-prove/prompt/page-08.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8984
+  },
+  "/assets/exams/v26-prove/prompt/page-09.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.2
+  },
+  "/assets/exams/v26-prove/prompt/page-10.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8711
+  },
+  "/assets/exams/v26-prove/prompt/page-11.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7564
+  },
+  "/assets/exams/v26-prove/prompt/page-12.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9447
+  },
+  "/assets/exams/v26-prove/prompt/page-13.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.2
+  },
+  "/assets/exams/v26-prove/prompt/page-14.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.4569
+  },
+  "/assets/exams/v26-prove/prompt/page-15.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9133
+  },
+  "/assets/exams/v26-prove/solution/page-01.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.5419
+  },
+  "/assets/exams/v26-prove/solution/page-02.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.4403
+  },
+  "/assets/exams/v26-prove/solution/page-03.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6251
+  },
+  "/assets/exams/v26-prove/solution/page-04.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9317
+  },
+  "/assets/exams/v26-prove/solution/page-05.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7926
+  },
+  "/assets/exams/v26-prove/solution/page-06.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.6132
+  },
+  "/assets/exams/v26-prove/solution/page-07.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9251
+  },
+  "/assets/exams/v26-prove/solution/page-08.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.2
+  },
+  "/assets/exams/v26-prove/solution/page-09.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9168
+  },
+  "/assets/exams/v26-prove/solution/page-10.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.2
+  },
+  "/assets/exams/v26-prove/solution/page-11.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.8711
+  },
+  "/assets/exams/v26-prove/solution/page-12.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.7564
+  },
+  "/assets/exams/v26-prove/solution/page-13.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9447
+  },
+  "/assets/exams/v26-prove/solution/page-14.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.2
+  },
+  "/assets/exams/v26-prove/solution/page-15.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.4569
+  },
+  "/assets/exams/v26-prove/solution/page-16.png": {
+    "width": 1190,
+    "height": 1683,
+    "bottom": 0.9133
   }
 }

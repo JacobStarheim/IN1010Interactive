@@ -12,6 +12,8 @@ const MANIFEST_FILES = [
   "v24-prove.json",
   "v25-midtveis.json",
   "v25-konte.json",
+  "v26-midtveis.json",
+  "v26-prove.json",
 ];
 
 const TABLE_SPECS = {
@@ -96,6 +98,62 @@ const TABLE_SPECS = {
     correctColumnsByRow: [1, 2, 1, 1, 1, 2, 2, 1, 2, 2],
     instructions: "Klikk i tabellen for hver rad og trykk Sjekk svar.",
   },
+  "v26-midtveis:q08": {
+    pageIndex: 0,
+    rows: 10,
+    cols: 2,
+    minX: 0.56,
+    minY: 0.22,
+    correctColumnsByRow: [1, 2, 1, 1, 2, 2, 2, 1, 1, 1],
+    instructions: "Klikk i tabellen for hver rad og trykk Sjekk svar.",
+  },
+  "v26-midtveis:q10": {
+    pageIndex: 0,
+    rows: 13,
+    cols: 2,
+    minX: 0.52,
+    minY: 0.2,
+    correctColumnsByRow: [2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2],
+    instructions: "Marker om tilordningen er tillatt eller ikke og trykk Sjekk svar.",
+  },
+  "v26-prove:q04": {
+    pageIndex: 0,
+    rows: 8,
+    cols: 2,
+    minX: 0.5,
+    minY: 0.16,
+    correctColumnsByRow: [2, 1, 2, 2, 1, 1, 2, 1],
+    instructions: "Klikk i tabellen for hver rad og trykk Sjekk svar.",
+  },
+  "v26-prove:q05": {
+    pageIndex: 0,
+    rows: 10,
+    cols: 3,
+    minX: 0.45,
+    minY: 0.46,
+    correctColumnsByRow: [2, 2, 1, 3, 3, 1, 1, 3, 3, 1],
+    instructions: "Marker riktig kolonne for hver linje og trykk Sjekk svar.",
+  },
+  "v26-prove:q06": {
+    pageIndex: 0,
+    rows: 4,
+    cols: 4,
+    minX: 0.33,
+    minY: 0.68,
+    correctColumnsByRow: [4, 2, 4, 2],
+    instructions: "Marker riktig navn for hver rad og trykk Sjekk svar.",
+  },
+};
+
+const RADIO_SPECS = {
+  "v26-midtveis:q03": {
+    pageIndex: 0,
+    rows: 6,
+    maxX: 0.22,
+    minY: 0.08,
+    correctRow: 1,
+    instructions: "Velg ett alternativ og trykk Sjekk svar.",
+  },
 };
 
 const CHECKBOX_SPECS = {
@@ -167,6 +225,39 @@ const TEXT_SPECS = {
     answers: ["8000", "2500", "3200", "100", "1100", "10", "20", "0"],
     regions: [{ pageIndex: 0, minY: 0.1 }],
     instructions: "Skriv pris/lengde-verdiene i feltene og trykk Sjekk svar.",
+  },
+  "v26-midtveis:q01": {
+    answers: ["0", "3", "7", "12", "18", "25"],
+    regions: [{ pageIndex: 0, minY: 0.05 }],
+    instructions: "Skriv verdiene i feltene og trykk Sjekk svar.",
+  },
+  "v26-midtveis:q06": {
+    answers: ["1106", "1011", "1050", "1106", "1011"],
+    regions: [{ pageIndex: 0, minY: 0.1 }],
+    instructions: "Skriv tallene i feltene og trykk Sjekk svar.",
+  },
+  "v26-midtveis:q07": {
+    answers: ["20", "10", "20", "3", "20", "7"],
+    regions: [{ pageIndex: 0, minY: 0.1 }],
+    instructions: "Skriv verdiene i feltene og trykk Sjekk svar.",
+  },
+  "v26-prove:q01": {
+    answers: ["0", "1", "1", "2", "3", "5", "8", "13"],
+    regions: [{ pageIndex: 0, minY: 0.05 }],
+    instructions: "Skriv de åtte tallene i feltene og trykk Sjekk svar.",
+  },
+  "v26-prove:q09": {
+    answers: ["1000", "320", "480", "2000", "180"],
+    regions: [
+      { pageIndex: 0, minY: 0.74 },
+      { pageIndex: 1, minY: 0 },
+    ],
+    instructions: "Skriv internprisene i feltene og trykk Sjekk svar.",
+  },
+  "v26-prove:q10": {
+    answers: ["2", "5", "6", "6", "5", "10", "25", "15"],
+    regions: [{ pageIndex: 0, minY: 0.05 }],
+    instructions: "Skriv de åtte tallene i feltene og trykk Sjekk svar.",
   },
 };
 
@@ -626,6 +717,36 @@ function buildCheckboxZones(question, spec) {
   });
 }
 
+function buildRadioZones(question, spec) {
+  const asset = question.promptPages[spec.pageIndex];
+  if (!asset) {
+    throw new Error(`${question.id}: missing prompt page ${spec.pageIndex}`);
+  }
+
+  return loadPng(asset).then((png) => {
+    const circles = detectCircles(png)
+      .filter(
+        (circle) =>
+          circle.cx <= png.width * spec.maxX && circle.cy >= png.height * (spec.minY ?? 0)
+      )
+      .sort((a, b) => a.cy - b.cy || a.cx - b.cx)
+      .slice(0, spec.rows);
+
+    if (circles.length !== spec.rows) {
+      throw new Error(`${question.id}: expected ${spec.rows} radio circles, got ${circles.length}`);
+    }
+
+    return circles.map((circle, index) => ({
+      id: `${question.id}-choice-${index + 1}`,
+      kind: "circle",
+      group: `${question.id}-radio`,
+      pageIndex: spec.pageIndex,
+      rect: inflateRectFromShape(circle, png.width, png.height, 2.9, 2.9),
+      correct: index + 1 === spec.correctRow,
+    }));
+  });
+}
+
 function inferTextRectFromToken(token, width, height) {
   const tokenW = token.maxX - token.minX + 1;
   const tokenH = token.maxY - token.minY + 1;
@@ -704,13 +825,32 @@ function getQuestion(manifest, questionId) {
 
 function applyDragSpec(manifest, questionId, spec) {
   const question = getQuestion(manifest, questionId);
+  const existingInteraction = question.interaction ?? {};
+  const existingDropZones = new Map(
+    (existingInteraction.dropZones ?? []).map((zone) => [zone.id, zone])
+  );
+
+  const mergedDropZones = spec.dropZones.map((zone) => {
+    const existingZone = existingDropZones.get(zone.id);
+    if (!existingZone) {
+      return zone;
+    }
+
+    return {
+      ...zone,
+      ...(typeof existingZone.pageIndex === "number" ? { pageIndex: existingZone.pageIndex } : {}),
+      ...(existingZone.rect ? { rect: existingZone.rect } : {}),
+    };
+  });
+
   question.type = "drag-drop";
   question.interaction = {
     checkMode: "auto",
     instructions: spec.instructions,
     allowItemReuse: spec.allowItemReuse,
     draggableItems: spec.draggableItems,
-    dropZones: spec.dropZones,
+    dropZones: mergedDropZones,
+    ...(existingInteraction.tokenZones?.length ? { tokenZones: existingInteraction.tokenZones } : {}),
   };
 }
 
@@ -728,6 +868,17 @@ async function applyTableSpec(manifest, questionId, spec) {
 async function applyCheckboxSpec(manifest, questionId, spec) {
   const question = getQuestion(manifest, questionId);
   const zones = await buildCheckboxZones(question, spec);
+  question.type = "choice-grid";
+  question.interaction = {
+    checkMode: "auto",
+    instructions: spec.instructions,
+    choiceZones: zones,
+  };
+}
+
+async function applyRadioSpec(manifest, questionId, spec) {
+  const question = getQuestion(manifest, questionId);
+  const zones = await buildRadioZones(question, spec);
   question.type = "choice-grid";
   question.interaction = {
     checkMode: "auto",
@@ -768,6 +919,12 @@ async function main() {
       const [examId, questionId] = key.split(":");
       if (examId !== manifest.id) continue;
       await applyCheckboxSpec(manifest, questionId, spec);
+    }
+
+    for (const [key, spec] of Object.entries(RADIO_SPECS)) {
+      const [examId, questionId] = key.split(":");
+      if (examId !== manifest.id) continue;
+      await applyRadioSpec(manifest, questionId, spec);
     }
 
     for (const [key, spec] of Object.entries(TEXT_SPECS)) {

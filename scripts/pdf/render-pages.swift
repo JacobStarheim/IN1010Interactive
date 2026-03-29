@@ -20,7 +20,11 @@ let targets: [RenderTarget] = [
     .init(examId: "v25-midtveis", variant: "prompt", pdfPath: "/Users/jacob/Downloads/IN1010-midtveis/in1010-v25-midtveis.pdf"),
     .init(examId: "v25-midtveis", variant: "solution", pdfPath: "/Users/jacob/Downloads/IN1010-midtveis/in1010-v25-midtveis-fasit.pdf"),
     .init(examId: "v25-konte", variant: "prompt", pdfPath: "/Users/jacob/Downloads/IN1010-midtveis/in1010-v25-midt-konte-uten-svar.pdf"),
-    .init(examId: "v25-konte", variant: "solution", pdfPath: "/Users/jacob/Downloads/IN1010-midtveis/in1010-v25-midt-konte-med-svar.pdf")
+    .init(examId: "v25-konte", variant: "solution", pdfPath: "/Users/jacob/Downloads/IN1010-midtveis/in1010-v25-midt-konte-med-svar.pdf"),
+    .init(examId: "v26-midtveis", variant: "prompt", pdfPath: "/Users/jacob/Downloads/in1010-midt-2026-uten-fasit.pdf"),
+    .init(examId: "v26-midtveis", variant: "solution", pdfPath: "/Users/jacob/Downloads/in1010-midt-2026-med-fasit.pdf"),
+    .init(examId: "v26-prove", variant: "prompt", pdfPath: "/Users/jacob/Downloads/in1010-midt-2026-prove-uten-fasit.pdf"),
+    .init(examId: "v26-prove", variant: "solution", pdfPath: "/Users/jacob/Downloads/in1010-midt-2026-prove-med-fasit.pdf")
 ]
 
 func makeDir(_ path: String) throws {
