@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from "react";
 
 import { QuestionWorkspace } from "@/components/exam/question-workspace";
 import type { ChoiceZone, ExamManifest } from "@/lib/exam-types";
@@ -43,6 +43,25 @@ export function ExamSession({ exam }: Props) {
   const [resetToken, setResetToken] = useState(0);
   const [submission, setSubmission] = useState<SubmissionResult | null>(null);
   const [timerState, setTimerState] = useState<ExamTimerState>(defaultExamTimerState);
+  const [isEditingTimer, setIsEditingTimer] = useState(false);
+  const [timerDraft, setTimerDraft] = useState({
+    hours: "2",
+    minutes: "00",
+    seconds: "00",
+  });
+
+  const syncTimerDraftFromState = useCallback((state: ExamTimerState) => {
+    const totalSeconds = Math.max(0, Math.floor(state.remainingMs / 1000));
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    setTimerDraft({
+      hours: String(hours),
+      minutes: String(minutes).padStart(2, "0"),
+      seconds: String(seconds).padStart(2, "0"),
+    });
+  }, []);
 
   const persistTimerState = useCallback(
     (next: ExamTimerState) => {
@@ -51,7 +70,15 @@ export function ExamSession({ exam }: Props) {
         return;
       }
 
-      if (next.status === "idle") {
+      const isDefaultIdle =
+        next.status === "idle" &&
+        next.durationMs === EXAM_DURATION_MS &&
+        next.remainingMs === EXAM_DURATION_MS &&
+        !next.startedAt &&
+        !next.endsAt &&
+        !next.finishedAt;
+
+      if (isDefaultIdle) {
         storage.removeItem(timerStorageKey(exam.id));
         return;
       }
@@ -83,11 +110,12 @@ export function ExamSession({ exam }: Props) {
     const saved = readJson<ExamTimerState | null>(storage, timerStorageKey(exam.id), null);
     const resolved = resolveExamTimerState(saved);
     setTimerState(resolved);
+    syncTimerDraftFromState(resolved);
 
     if (saved && JSON.stringify(saved) !== JSON.stringify(resolved)) {
       storage.setItem(timerStorageKey(exam.id), JSON.stringify(resolved));
     }
-  }, [exam.id]);
+  }, [exam.id, syncTimerDraftFromState]);
 
   useEffect(() => {
     if (timerState.status !== "running") {
@@ -153,7 +181,10 @@ export function ExamSession({ exam }: Props) {
 
     keysToDelete.forEach((key) => storage.removeItem(key));
     setSubmission(null);
-    setTimerState(defaultExamTimerState());
+    const resetTimer = defaultExamTimerState();
+    setTimerState(resetTimer);
+    syncTimerDraftFromState(resetTimer);
+    setIsEditingTimer(false);
     setResetToken((current) => current + 1);
   };
 
@@ -251,18 +282,77 @@ export function ExamSession({ exam }: Props) {
     setSubmission(result);
   };
 
+  const handleTimerDraftChange =
+    (field: "hours" | "minutes" | "seconds") =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const digitsOnly = event.target.value.replace(/\D/g, "");
+      setTimerDraft((current) => ({
+        ...current,
+        [field]: digitsOnly,
+      }));
+    };
+
+  const handleOpenTimerEditor = () => {
+    syncTimerDraftFromState(timerState);
+    setIsEditingTimer(true);
+  };
+
+  const handleCancelTimerEditor = () => {
+    syncTimerDraftFromState(timerState);
+    setIsEditingTimer(false);
+  };
+
+  const handleApplyTimerDraft = () => {
+    const hours = Number(timerDraft.hours || "0");
+    const minutes = Number(timerDraft.minutes || "0");
+    const seconds = Number(timerDraft.seconds || "0");
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+    if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) {
+      window.alert("Velg en tid som er større enn 0 sekunder.");
+      return;
+    }
+
+    const nextDurationMs = totalSeconds * 1000;
+    const now = Date.now();
+    const next: ExamTimerState =
+      timerState.status === "running"
+        ? {
+            status: "running",
+            durationMs: nextDurationMs,
+            remainingMs: nextDurationMs,
+            startedAt: new Date(now).toISOString(),
+            endsAt: new Date(now + nextDurationMs).toISOString(),
+            finishedAt: null,
+          }
+        : {
+            status: timerState.status === "paused" ? "paused" : "idle",
+            durationMs: nextDurationMs,
+            remainingMs: nextDurationMs,
+            startedAt: null,
+            endsAt: null,
+            finishedAt: null,
+          };
+
+    setTimerState(next);
+    persistTimerState(next);
+    syncTimerDraftFromState(next);
+    setIsEditingTimer(false);
+  };
+
   const handleStartTimer = () => {
     const now = Date.now();
     const next: ExamTimerState = {
       status: "running",
-      durationMs: EXAM_DURATION_MS,
-      remainingMs: EXAM_DURATION_MS,
+      durationMs: timerState.durationMs || EXAM_DURATION_MS,
+      remainingMs: timerState.durationMs || EXAM_DURATION_MS,
       startedAt: new Date(now).toISOString(),
-      endsAt: new Date(now + EXAM_DURATION_MS).toISOString(),
+      endsAt: new Date(now + (timerState.durationMs || EXAM_DURATION_MS)).toISOString(),
       finishedAt: null,
     };
     setTimerState(next);
     persistTimerState(next);
+    setIsEditingTimer(false);
   };
 
   const handlePauseTimer = () => {
@@ -278,6 +368,7 @@ export function ExamSession({ exam }: Props) {
         endsAt: null,
       };
       persistTimerState(next);
+      syncTimerDraftFromState(next);
       return next;
     });
   };
@@ -297,6 +388,7 @@ export function ExamSession({ exam }: Props) {
         finishedAt: null,
       };
       persistTimerState(next);
+      setIsEditingTimer(false);
       return next;
     });
   };
@@ -310,6 +402,8 @@ export function ExamSession({ exam }: Props) {
     const next = defaultExamTimerState();
     setTimerState(next);
     persistTimerState(next);
+    syncTimerDraftFromState(next);
+    setIsEditingTimer(false);
   };
 
   const timerProgress = Math.max(
@@ -331,7 +425,11 @@ export function ExamSession({ exam }: Props) {
         ? "Timer pauset"
         : timerState.status === "running"
           ? "Eksamensmodus pågår"
-          : "Klar for 2 timers simulering";
+          : timerState.durationMs === EXAM_DURATION_MS
+            ? "Klar for 2 timers simulering"
+            : "Klar for tilpasset simulering";
+  const startButtonLabel =
+    timerState.durationMs === EXAM_DURATION_MS ? "Start 2t timer" : "Start timer";
 
   return (
     <>
@@ -382,7 +480,61 @@ export function ExamSession({ exam }: Props) {
               <strong className={styles.timerLabel}>{timerLabel}</strong>
             </div>
 
-            <p className={styles.timerValue}>{formatDuration(timerState.remainingMs)}</p>
+            <button
+              type="button"
+              className={styles.timerValueButton}
+              onClick={handleOpenTimerEditor}
+              aria-label="Endre tid på eksamenstimeren"
+            >
+              <span className={styles.timerValue}>{formatDuration(timerState.remainingMs)}</span>
+              <span className={styles.timerValueHint}>Trykk for å endre tid</span>
+            </button>
+
+            {isEditingTimer ? (
+              <div className={styles.timerEditor}>
+                <div className={styles.timerInputs}>
+                  <label className={styles.timerField}>
+                    <span>Timer</span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={timerDraft.hours}
+                      onChange={handleTimerDraftChange("hours")}
+                    />
+                  </label>
+                  <label className={styles.timerField}>
+                    <span>Min</span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={timerDraft.minutes}
+                      onChange={handleTimerDraftChange("minutes")}
+                    />
+                  </label>
+                  <label className={styles.timerField}>
+                    <span>Sek</span>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={timerDraft.seconds}
+                      onChange={handleTimerDraftChange("seconds")}
+                    />
+                  </label>
+                </div>
+                <div className={styles.timerEditorActions}>
+                  <button type="button" className={styles.primaryButton} onClick={handleApplyTimerDraft}>
+                    Lagre tid
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.secondaryButton}
+                    onClick={handleCancelTimerEditor}
+                  >
+                    Avbryt
+                  </button>
+                </div>
+              </div>
+            ) : null}
 
             <div className={styles.timerTrack} aria-hidden="true">
               <div className={styles.timerFill} style={{ width: `${timerProgress}%` }} />
@@ -398,9 +550,15 @@ export function ExamSession({ exam }: Props) {
             </p>
 
             <div className={styles.timerActions}>
+              {!isEditingTimer ? (
+                <button type="button" className={styles.secondaryButton} onClick={handleOpenTimerEditor}>
+                  Endre tid
+                </button>
+              ) : null}
+
               {timerState.status === "idle" ? (
                 <button type="button" className={styles.primaryButton} onClick={handleStartTimer}>
-                  Start 2t timer
+                  {startButtonLabel}
                 </button>
               ) : null}
 

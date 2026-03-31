@@ -127,12 +127,71 @@
   font-size: 1rem;
 }
 
+.timerValueButton {
+  display: grid;
+  gap: 0.2rem;
+  justify-items: start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
 .timerValue {
   margin: 0;
   font-size: clamp(1.8rem, 4vw, 2.55rem);
   line-height: 1;
   font-weight: 800;
   letter-spacing: 0.04em;
+}
+
+.timerValueHint {
+  color: #4e7389;
+  font-size: 0.79rem;
+  font-weight: 600;
+}
+
+.timerEditor {
+  border: 1px solid rgba(16, 32, 45, 0.1);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 0.7rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.timerInputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.timerField {
+  display: grid;
+  gap: 0.28rem;
+  font-size: 0.78rem;
+  color: #4a687d;
+  font-weight: 700;
+}
+
+.timerField input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #b8cede;
+  border-radius: 0.6rem;
+  background: #fff;
+  padding: 0.55rem 0.62rem;
+  font: inherit;
+  font-size: 0.98rem;
+  color: var(--ink);
+}
+
+.timerEditorActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
 }
 
 .timerTrack {
@@ -183,6 +242,12 @@
 
 @media (max-width: 900px) {
   .controlsLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .timerInputs {
     grid-template-columns: 1fr;
   }
 }
