@@ -42,6 +42,15 @@ type ValidationStatus = "correct" | "wrong" | "empty";
 const storageKey = (kind: string, examId: string, questionId: string) =>
   `in1010:${kind}:${examId}:${questionId}`;
 
+const isNumericChoiceZone = (zone: ChoiceZone) => {
+  const answers = [
+    zone.answer,
+    ...(zone.answers ?? []),
+  ].filter((value): value is string => typeof value === "string" && value.trim().length > 0);
+
+  return answers.length > 0 && answers.every((value) => /^-?\d+$/.test(value.trim()));
+};
+
 const getStorage = () => {
   if (typeof window === "undefined") {
     return null;
@@ -1040,6 +1049,10 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                               value={(choiceZoneValues[zone.id] as string) ?? ""}
                               placeholder={zone.placeholder ?? ""}
                               onChange={(event) => updateChoiceZoneText(zone.id, event.target.value)}
+                              inputMode={isNumericChoiceZone(zone) ? "numeric" : "text"}
+                              pattern={isNumericChoiceZone(zone) ? "[0-9-]*" : undefined}
+                              autoComplete="off"
+                              spellCheck={false}
                               aria-label={`Svarfelt ${zone.id}`}
                               aria-invalid={status === "wrong"}
                             />

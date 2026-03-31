@@ -380,6 +380,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .choiceZoneInput {
@@ -393,6 +394,8 @@
   font-size: clamp(0.56rem, 1.05vw, 0.85rem);
   color: #102a3b;
   -webkit-text-fill-color: #102a3b;
+  text-align: center;
+  caret-color: #102a3b;
 }
 
 .choiceZoneInput:focus {
@@ -492,6 +495,7 @@
   align-items: center;
   gap: 0.2rem;
   pointer-events: auto;
+  overflow: visible;
 }
 
 .choiceMarkInput {
@@ -505,6 +509,8 @@
   font-size: clamp(0.56rem, 1.1vw, 0.9rem);
   color: #102a3b;
   -webkit-text-fill-color: #102a3b;
+  text-align: center;
+  caret-color: #102a3b;
 }
 
 .choiceMarkInput:focus {
@@ -658,6 +664,23 @@
 
   .choiceZoneInput,
   .choiceMarkInput {
+    font-size: 12px;
+    padding: 0.04rem 0.12rem;
+  }
+
+  .choiceZoneInput:focus,
+  .choiceZoneInput:focus-visible,
+  .choiceMarkInput:focus,
+  .choiceMarkInput:focus-visible {
+    width: max(100%, 3.5rem);
+    min-width: 3.5rem;
+    padding: 0.16rem 0.28rem;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.99);
+    box-shadow:
+      0 0 0 2px rgba(0, 107, 176, 0.2),
+      0 10px 22px rgba(8, 34, 55, 0.16);
+    position: relative;
+    z-index: 4;
   }
 }
