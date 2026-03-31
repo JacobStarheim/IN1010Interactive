@@ -13,7 +13,7 @@ import {
 } from "@/lib/interaction";
 import type { ChoiceZone, QuestionManifest, Rect, TokenZone } from "@/lib/exam-types";
 import { getQuestionExplanation } from "@/lib/question-explanations";
-import { getEffectivePageBottom, getPageCrop, mapRectToCroppedPage } from "@/lib/page-crops";
+import { getEffectivePageCrop, getPageCrop, mapRectToCroppedPage } from "@/lib/page-crops";
 import styles from "@/components/exam/question-workspace.module.css";
 
 type Props = {
@@ -243,6 +243,28 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     });
     return perPage;
   }, [choiceZonesByPage]);
+  const requiredTopByPage = useMemo(() => {
+    const perPage: Record<number, number> = {};
+    const registerRect = (pageIndex: number, rect: Rect) => {
+      const candidate = Math.max(0, rect.y - 0.015);
+      perPage[pageIndex] = perPage[pageIndex] === undefined ? candidate : Math.min(perPage[pageIndex], candidate);
+    };
+
+    Object.entries(dropZonesByPage).forEach(([rawPageIndex, zones]) => {
+      const pageIndex = Number(rawPageIndex);
+      zones.forEach((zone, index) => registerRect(pageIndex, zone.rect ?? getAutoRectForZone(index, zones.length)));
+    });
+    Object.entries(tokenZonesByPage).forEach(([rawPageIndex, zones]) => {
+      const pageIndex = Number(rawPageIndex);
+      zones.forEach((zone) => registerRect(pageIndex, zone.rect));
+    });
+    Object.entries(choiceZonesByPage).forEach(([rawPageIndex, zones]) => {
+      const pageIndex = Number(rawPageIndex);
+      zones.forEach((zone) => registerRect(pageIndex, zone.rect));
+    });
+
+    return perPage;
+  }, [choiceZonesByPage, dropZonesByPage, tokenZonesByPage]);
   const choiceZonesByGroup = useMemo(() => {
     const grouped: Record<string, string[]> = {};
     choiceZones.forEach((zone) => {
@@ -302,8 +324,13 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   };
 
   const mapRectForPage = (rect: Rect, pagePath: string, requiredBottom = 0) => {
-    const effectiveBottom = getEffectivePageBottom(pagePath, requiredBottom);
-    return mapRectToCroppedPage(rect, effectiveBottom);
+    const pageIndex = question.promptPages.indexOf(pagePath);
+    const effectiveCrop = getEffectivePageCrop(
+      pagePath,
+      pageIndex >= 0 ? (requiredTopByPage[pageIndex] ?? 1) : 1,
+      requiredBottom
+    );
+    return mapRectToCroppedPage(rect, effectiveCrop.top, effectiveCrop.bottom);
   };
 
   useEffect(() => {
@@ -873,7 +900,11 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
           const zonesOnPage = dropZonesByPage[pageIndex] ?? [];
           const tokenZonesOnPage = tokenZonesByPage[pageIndex] ?? [];
           const requiredBottom = requiredDragBottomByPage[pageIndex] ?? 0;
-          const effectiveBottom = getEffectivePageBottom(page, requiredBottom);
+          const effectiveCrop = getEffectivePageCrop(
+            page,
+            requiredTopByPage[pageIndex] ?? 1,
+            requiredBottom
+          );
           const crop = getPageCrop(page);
 
           return (
@@ -881,15 +912,21 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               <div
                 className={styles.cropFrame}
                 style={{
-                  aspectRatio: `${crop.width} / ${crop.height * effectiveBottom}`,
+                  aspectRatio: `${crop.width} / ${crop.height * (effectiveCrop.bottom - effectiveCrop.top)}`,
                 }}
               >
-                <img
-                  src={page}
-                  alt={`Oppgaveside ${pageIndex + 1}`}
-                  className={styles.overlayImage}
-                  loading={pageIndex === 0 ? "eager" : "lazy"}
-                />
+                  <img
+                    src={page}
+                    alt={`Oppgaveside ${pageIndex + 1}`}
+                    className={styles.overlayImage}
+                    style={{
+                      transform:
+                        effectiveCrop.top > 0
+                          ? `translateY(-${effectiveCrop.top * 100}%)`
+                          : undefined,
+                    }}
+                    loading={pageIndex === 0 ? "eager" : "lazy"}
+                  />
                 <div className={styles.overlayLayer}>
                   {tokenZonesOnPage.map((zone) => {
                     const mappedRect = mapRectForPage(zone.rect, page, requiredBottom);
@@ -1015,7 +1052,11 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
           {question.promptPages.map((page, pageIndex) => {
             const zonesOnPage = choiceZonesByPage[pageIndex] ?? [];
             const requiredBottom = requiredChoiceBottomByPage[pageIndex] ?? 0;
-            const effectiveBottom = getEffectivePageBottom(page, requiredBottom);
+            const effectiveCrop = getEffectivePageCrop(
+              page,
+              requiredTopByPage[pageIndex] ?? 1,
+              requiredBottom
+            );
             const crop = getPageCrop(page);
 
             return (
@@ -1023,13 +1064,19 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                 <div
                   className={styles.cropFrame}
                   style={{
-                    aspectRatio: `${crop.width} / ${crop.height * effectiveBottom}`,
+                    aspectRatio: `${crop.width} / ${crop.height * (effectiveCrop.bottom - effectiveCrop.top)}`,
                   }}
                 >
                   <img
                     src={page}
                     alt={`Oppgaveside ${pageIndex + 1}`}
                     className={styles.overlayImage}
+                    style={{
+                      transform:
+                        effectiveCrop.top > 0
+                          ? `translateY(-${effectiveCrop.top * 100}%)`
+                          : undefined,
+                    }}
                     loading={pageIndex === 0 ? "eager" : "lazy"}
                   />
                   <div className={`${styles.overlayLayer} ${styles.choiceOverlayLayer}`}>
@@ -1135,7 +1182,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
       <div className={styles.overlayStack}>
         {question.promptPages.map((page, pageIndex) => {
           const marksOnPage = choiceMarksByPage[pageIndex] ?? [];
-          const effectiveBottom = getEffectivePageBottom(page, 0);
+          const effectiveCrop = getEffectivePageCrop(page, requiredTopByPage[pageIndex] ?? 1, 0);
           const crop = getPageCrop(page);
 
           return (
@@ -1143,13 +1190,19 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               <div
                 className={styles.cropFrame}
                 style={{
-                  aspectRatio: `${crop.width} / ${crop.height * effectiveBottom}`,
+                  aspectRatio: `${crop.width} / ${crop.height * (effectiveCrop.bottom - effectiveCrop.top)}`,
                 }}
               >
                 <img
                   src={page}
                   alt={`Oppgaveside ${pageIndex + 1}`}
                   className={styles.overlayImage}
+                  style={{
+                    transform:
+                      effectiveCrop.top > 0
+                        ? `translateY(-${effectiveCrop.top * 100}%)`
+                        : undefined,
+                  }}
                   loading={pageIndex === 0 ? "eager" : "lazy"}
                 />
                 <div

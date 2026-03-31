@@ -64,6 +64,39 @@ function detectBottomContentRatio(png) {
   return Number(ratio.toFixed(4));
 }
 
+function detectTopContentRatio(png) {
+  const { width, height, data } = png;
+  const darkThreshold = 232;
+  const rightIgnoreX = Math.floor(width * 0.9);
+  const minDarkPixelsOnRow = Math.max(5, Math.floor(width * 0.0025));
+  const safetyMarginPx = 20;
+
+  for (let y = 0; y < height; y += 1) {
+    let darkCount = 0;
+    for (let x = 0; x < rightIgnoreX; x += 1) {
+      const idx = (y * width + x) * 4;
+      const r = data[idx];
+      const g = data[idx + 1];
+      const b = data[idx + 2];
+      const a = data[idx + 3];
+      if (a < 200) continue;
+      if (r < darkThreshold || g < darkThreshold || b < darkThreshold) {
+        darkCount += 1;
+      }
+    }
+
+    if (darkCount >= minDarkPixelsOnRow) {
+      let ratio = (y - safetyMarginPx) / height;
+      if (ratio < 0.02) ratio = 0;
+      if (ratio < 0) ratio = 0;
+      if (ratio > 0.8) ratio = 0.8;
+      return Number(ratio.toFixed(4));
+    }
+  }
+
+  return 0;
+}
+
 async function main() {
   const files = await collectPngFiles(PUBLIC_ASSETS_DIR);
   const crops = {};
@@ -75,6 +108,7 @@ async function main() {
     crops[assetPath] = {
       width: png.width,
       height: png.height,
+      top: detectTopContentRatio(png),
       bottom: detectBottomContentRatio(png),
     };
   }
