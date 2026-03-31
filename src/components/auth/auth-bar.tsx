@@ -36,6 +36,10 @@ export function AuthBar() {
   const [message, setMessage] = useState<{ text: string; kind: "error" | "success" } | null>(null);
   const syncTimeoutRef = useRef<number | null>(null);
   const bootstrappedUserRef = useRef<string | null>(null);
+  const localProgressCount =
+    typeof window === "undefined"
+      ? 0
+      : Object.keys(createLocalProgressSnapshot(window.localStorage).entries).length;
 
   const refreshSession = useCallback(async () => {
     const response = await fetch("/api/auth/session", {
@@ -63,6 +67,56 @@ export function AuthBar() {
       );
     }
   }, [isEnglish]);
+
+  const overwriteCloudWithLocal = useCallback(async () => {
+    if (!session?.authenticated || !session.user || typeof window === "undefined") {
+      return;
+    }
+
+    const approved = window.confirm(
+      isEnglish
+        ? "Use the local progress on this device and overwrite the saved cloud progress for this user?"
+        : "Bruke lokal progresjon på denne enheten og overskrive lagret skyprogresjon for denne brukeren?"
+    );
+    if (!approved) {
+      return;
+    }
+
+    try {
+      const snapshot = createLocalProgressSnapshot(window.localStorage);
+      setSyncState("saving");
+      await pushSnapshot({
+        ...snapshot,
+        updatedAt: new Date().toISOString(),
+      });
+      window.localStorage.setItem(CLOUD_OWNER_STORAGE_KEY, session.user.username);
+      window.sessionStorage.setItem(bootstrapKey(session.user.username), "1");
+      bootstrappedUserRef.current = session.user.username;
+      setSyncState("saved");
+      setMessage({
+        text:
+          Object.keys(snapshot.entries).length > 0
+            ? isEnglish
+              ? "Local progress is now saved on your user."
+              : "Lokal progresjon er nå lagret på brukeren din."
+            : isEnglish
+              ? "Cloud progress was cleared because this device has no local progress right now."
+              : "Skyprogresjonen ble tømt fordi denne enheten ikke har lokal progresjon akkurat nå.",
+        kind: "success",
+      });
+    } catch (error) {
+      setSyncState("error");
+      setMessage({
+        text:
+          error instanceof Error
+            ? error.message
+            : isEnglish
+              ? "Could not overwrite cloud progress with local data."
+              : "Kunne ikke overskrive skyprogresjon med lokale data.",
+        kind: "error",
+      });
+    }
+  }, [isEnglish, pushSnapshot, session]);
 
   const bootstrapCloudState = useCallback(
     async (currentSession: SessionPayload) => {
@@ -277,25 +331,54 @@ export function AuthBar() {
         }
 
         const nextSession = await refreshSession();
-        setUsername(nextSession.user?.username ?? username.trim().toLowerCase());
+        const normalizedUsername = nextSession.user?.username ?? username.trim().toLowerCase();
+        const localSnapshot =
+          typeof window === "undefined"
+            ? createEmptyProgressSnapshot()
+            : createLocalProgressSnapshot(window.localStorage);
+        const hasLocalData = Object.keys(localSnapshot.entries).length > 0;
+
+        setUsername(normalizedUsername);
+
+        if (mode === "register" && hasLocalData) {
+          await pushSnapshot({
+            ...localSnapshot,
+            updatedAt: new Date().toISOString(),
+          });
+        }
+
+        await bootstrapCloudState(nextSession);
         setMessage({
           text:
             mode === "register"
-              ? isEnglish
-                ? "Account created. Your results are now saved to your user."
-                : "Konto opprettet. Resultatene dine lagres nå på brukeren."
+              ? hasLocalData
+                ? isEnglish
+                  ? "Account created. Your existing local progress was copied to this user."
+                  : "Konto opprettet. Den lokale progresjonen din ble kopiert til denne brukeren."
+                : isEnglish
+                  ? "Account created. New progress will now be saved to this user."
+                  : "Konto opprettet. Ny progresjon lagres nå på denne brukeren."
               : isEnglish
-              ? "Logged in. Cloud sync is active."
-              : "Innlogget. Sky-lagring er aktiv.",
+                ? "Logged in. Cloud sync is active."
+                : "Innlogget. Sky-lagring er aktiv.",
           kind: "success",
         });
-        await bootstrapCloudState(nextSession);
         setPassword("");
+      } catch (error) {
+        setMessage({
+          text:
+            error instanceof Error
+              ? error.message
+              : isEnglish
+                ? "Authentication failed."
+                : "Innlogging feilet.",
+          kind: "error",
+        });
       } finally {
         setAuthAction(null);
       }
     },
-    [bootstrapCloudState, isEnglish, password, refreshSession, username]
+    [bootstrapCloudState, isEnglish, password, pushSnapshot, refreshSession, username]
   );
 
   const handleLoginSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -388,9 +471,9 @@ export function AuthBar() {
             {session === null ? (
               <span className={styles.pill}>{isEnglish ? "Checking login..." : "Sjekker login..."}</span>
             ) : session.enabled ? (
-              <div className={styles.statusRow}>
-                {session.authenticated && session.user ? (
-                  <>
+              session.authenticated && session.user ? (
+                <div className={styles.accountTools}>
+                  <div className={styles.statusRow}>
                     <span className={`${styles.pill} ${styles.pillGood}`}>
                       {isEnglish ? "Signed in as" : "Logget inn som"} {session.user.username}
                     </span>
@@ -398,11 +481,30 @@ export function AuthBar() {
                     <button type="button" className={styles.secondaryButton} onClick={handleLogout}>
                       {isEnglish ? "Log out" : "Logg ut"}
                     </button>
-                  </>
-                ) : (
-                  <span className={styles.pill}>{isEnglish ? "Not signed in" : "Ikke logget inn"}</span>
-                )}
-              </div>
+                  </div>
+                  <div className={styles.syncActions}>
+                    <button
+                      type="button"
+                      className={styles.secondaryButton}
+                      onClick={() => void overwriteCloudWithLocal()}
+                      disabled={syncState === "saving" || syncState === "bootstrapping" || authAction !== null}
+                    >
+                      {isEnglish ? "Use local progress" : "Bruk lokal progresjon"}
+                    </button>
+                    <p className={styles.syncHint}>
+                      {localProgressCount > 0
+                        ? isEnglish
+                          ? "Copies the progress currently stored on this device to your user."
+                          : "Kopierer progresjonen som ligger på denne enheten over til brukeren din."
+                        : isEnglish
+                          ? "This device has no local progress right now, so the cloud copy would be cleared."
+                          : "Denne enheten har ikke lokal progresjon akkurat nå, så skylagringen ville blitt tømt."}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <span className={styles.pill}>{isEnglish ? "Not signed in" : "Ikke logget inn"}</span>
+              )
             ) : (
               <span className={`${styles.pill} ${styles.pillWarn}`}>
                 {isEnglish ? "Cloud login is not configured yet" : "Sky-login ikke konfigurert ennå"}
