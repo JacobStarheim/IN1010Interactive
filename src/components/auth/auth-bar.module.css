@@ -61,11 +61,6 @@
   justify-items: end;
 }
 
-.accountTools {
-  display: grid;
-  gap: 0.55rem;
-}
-
 .languageRow {
   display: flex;
   align-items: center;
@@ -170,20 +165,6 @@
   flex-wrap: wrap;
 }
 
-.syncActions {
-  display: grid;
-  gap: 0.3rem;
-  justify-items: end;
-}
-
-.syncHint {
-  margin: 0;
-  max-width: 28rem;
-  text-align: right;
-  color: #5a7485;
-  font-size: 0.82rem;
-}
-
 .primaryButton,
 .secondaryButton {
   border: 1px solid #8db4cf;
@@ -245,14 +226,6 @@
   .statusBlock {
     width: 100%;
     justify-items: start;
-  }
-
-  .syncActions {
-    justify-items: start;
-  }
-
-  .syncHint {
-    text-align: left;
   }
 
   .languageRow {
