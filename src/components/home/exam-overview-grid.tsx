@@ -18,6 +18,23 @@ type Props = {
 
 type SubmissionMap = Partial<Record<ExamId, SubmissionResult>>;
 
+const formatHomeExamTitle = (examId: ExamId) => {
+  const [, yearSuffix, variant] = examId.match(/^v(\d{2})-(.+)$/) ?? [];
+  const year = yearSuffix ? `20${yearSuffix}` : examId;
+
+  if (variant === "midtveis") {
+    return `${year} Midtveis`;
+  }
+  if (variant === "konte") {
+    return `${year} Midtveis Konte`;
+  }
+  if (variant === "prove") {
+    return `${year} Midtveis Prøve`;
+  }
+
+  return examId;
+};
+
 const readSubmissionMap = (exams: ExamManifest[]): SubmissionMap => {
   const storage = getBrowserStorage();
   if (!storage) {
@@ -94,10 +111,8 @@ export function ExamOverviewGrid({ exams }: Props) {
           >
             <div className={styles.examHeader}>
               <div>
-                <h2>{exam.title}</h2>
-                <p>
-                  {exam.questions.length} oppgaver · {exam.sourcePromptPdf}
-                </p>
+                <h2>{formatHomeExamTitle(exam.id)}</h2>
+                <p>{exam.questions.length} oppgaver</p>
               </div>
 
               {submission ? (
