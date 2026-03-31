@@ -16,7 +16,6 @@ import type { ChoiceZone, QuestionManifest, Rect, TokenZone } from "@/lib/exam-t
 import {
   formatPageAlt,
   formatQuestionHeading,
-  translateInteractionInstruction,
 } from "@/lib/i18n";
 import { getQuestionExplanation } from "@/lib/question-explanations";
 import { getEffectivePageCrop, getPageCrop, mapRectToCroppedPage } from "@/lib/page-crops";
@@ -312,10 +311,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   const explanation = useMemo(
     () => getQuestionExplanation(locale, examId, question),
     [examId, locale, question]
-  );
-  const translatedInstructions = translateInteractionInstruction(
-    question.interaction?.instructions,
-    locale
   );
 
   const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) => {
@@ -1490,7 +1485,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
       if (draggableItems.length === 0 || dropZones.length === 0) {
         return (
           <div className={styles.manualBlock}>
-            <p className={styles.note}>{translatedInstructions}</p>
             <p className={styles.note}>
               {isEnglish
                 ? "Interactive drag and drop for this question is not fully specified in the manifest yet."
@@ -1526,7 +1520,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     if (question.type === "code-editor") {
       return (
         <div>
-          <p className={styles.note}>{translatedInstructions}</p>
           <textarea
             className={styles.codeArea}
             value={codeText}
