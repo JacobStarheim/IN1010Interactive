@@ -13,7 +13,6 @@ import {
   mergeProgressSnapshots,
   type ProgressSnapshot,
 } from "@/lib/cloud-progress";
-import { submissionStorageKey, type SubmissionResult } from "@/lib/exam-progress";
 import { getLocaleLabel } from "@/lib/i18n";
 
 type SessionPayload = {
@@ -25,8 +24,6 @@ type SessionPayload = {
 type SyncState = "idle" | "bootstrapping" | "saving" | "saved" | "error";
 
 const bootstrapKey = (username: string) => `in1010-cloud-bootstrapped:${username}`;
-const resultRepairKey = (username: string) => `in1010-repaired-v26-midtveis:${username}`;
-const MIDTERM_2026_SUBMISSION_KEY = submissionStorageKey("v26-midtveis");
 
 export function AuthBar() {
   const { locale, setLocale } = useLocale();
@@ -252,74 +249,6 @@ export function AuthBar() {
       }
     };
   }, [isEnglish, pushSnapshot, session]);
-
-  useEffect(() => {
-    if (
-      !session?.authenticated ||
-      !session.user ||
-      syncState !== "saved" ||
-      typeof window === "undefined"
-    ) {
-      return;
-    }
-
-    const repairKey = resultRepairKey(session.user.username);
-    if (window.sessionStorage.getItem(repairKey)) {
-      return;
-    }
-
-    const storage = window.localStorage;
-    const submissionKeys: string[] = [];
-    for (let i = 0; i < storage.length; i += 1) {
-      const key = storage.key(i);
-      if (key?.startsWith("in1010:submission:")) {
-        submissionKeys.push(key);
-      }
-    }
-
-    if (submissionKeys.length !== 1 || submissionKeys[0] !== MIDTERM_2026_SUBMISSION_KEY) {
-      return;
-    }
-
-    let currentSubmission: SubmissionResult | null = null;
-    try {
-      const raw = storage.getItem(MIDTERM_2026_SUBMISSION_KEY);
-      currentSubmission = raw ? (JSON.parse(raw) as SubmissionResult) : null;
-    } catch {
-      currentSubmission = null;
-    }
-
-    if (!currentSubmission) {
-      return;
-    }
-
-    const needsRepair =
-      currentSubmission.grade === "F" &&
-      currentSubmission.totalPossible === 83 &&
-      currentSubmission.totalCorrect < 83;
-
-    if (!needsRepair) {
-      return;
-    }
-
-    const repairedSubmission: SubmissionResult = {
-      submittedAt: new Date().toISOString(),
-      gradedQuestions: Math.max(currentSubmission.gradedQuestions, 1),
-      totalCorrect: 83,
-      totalPossible: 83,
-      points100: 100,
-      grade: "A",
-    };
-
-    storage.setItem(MIDTERM_2026_SUBMISSION_KEY, JSON.stringify(repairedSubmission));
-    window.sessionStorage.setItem(repairKey, "1");
-    setMessage({
-      text: isEnglish
-        ? "Restored your 2026 midterm result on this user."
-        : "Gjenopprettet 2026 midtveis-resultatet ditt på denne brukeren.",
-      kind: "success",
-    });
-  }, [isEnglish, session, syncState]);
 
   const handleAuthSubmit = useCallback(
     async (mode: "login" | "register") => {
