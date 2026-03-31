@@ -13,8 +13,9 @@ import {
 import { LOCAL_PROGRESS_CHANGE_EVENT } from "@/lib/cloud-progress";
 import {
   DEFAULT_LOCALE,
-  getLocaleTag,
+  getHtmlLang,
   isLocale,
+  LOCALE_COOKIE_NAME,
   LOCALE_STORAGE_KEY,
   type Locale,
 } from "@/lib/i18n";
@@ -39,7 +40,8 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(() => readStoredLocale());
 
   useEffect(() => {
-    document.documentElement.lang = getLocaleTag(locale);
+    document.documentElement.lang = getHtmlLang(locale);
+    document.cookie = `${LOCALE_COOKIE_NAME}=${locale}; path=/; max-age=31536000; samesite=lax`;
   }, [locale]);
 
   useEffect(() => {
@@ -62,6 +64,8 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     }
 
     window.localStorage.setItem(LOCALE_STORAGE_KEY, nextLocale);
+    document.documentElement.lang = getHtmlLang(nextLocale);
+    document.cookie = `${LOCALE_COOKIE_NAME}=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
     window.dispatchEvent(new Event(LOCAL_PROGRESS_CHANGE_EVENT));
   }, []);
 
