@@ -406,6 +406,11 @@
   outline-offset: 1px;
 }
 
+.choiceZoneInputLongValue {
+  position: relative;
+  z-index: 3;
+}
+
 .choiceZoneInputCorrect {
   border-color: #43a047;
   background: rgba(232, 247, 233, 0.96);
@@ -670,9 +675,14 @@
 
   .choiceZoneInput,
   .choiceMarkInput {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1.05;
-    padding: 0.08rem 0.12rem;
+    padding: 0.04rem 0.08rem;
+  }
+
+  .choiceZoneInputLongValue {
+    width: max(100%, 2.3rem);
+    min-width: 2.3rem;
   }
 
   .choiceZoneInput:focus,
@@ -686,6 +696,7 @@
     padding: 0.22rem 0.3rem;
     font-size: 16px;
     line-height: 1.2;
+    text-align: left;
     background: rgba(255, 255, 255, 0.99);
     box-shadow:
       0 0 0 2px rgba(0, 107, 176, 0.2),

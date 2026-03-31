@@ -51,6 +51,19 @@ const isNumericChoiceZone = (zone: ChoiceZone) => {
   return answers.length > 0 && answers.every((value) => /^-?\d+$/.test(value.trim()));
 };
 
+const moveCaretToEnd = (input: HTMLInputElement) => {
+  const end = input.value.length;
+  window.requestAnimationFrame(() => {
+    try {
+      input.focus();
+      input.setSelectionRange(end, end);
+      input.scrollLeft = input.scrollWidth;
+    } catch {
+      // Some mobile browsers can reject selection updates on certain input states.
+    }
+  });
+};
+
 const getStorage = () => {
   if (typeof window === "undefined") {
     return null;
@@ -1038,6 +1051,11 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                             <input
                               type="text"
                               className={`${styles.choiceZoneInput} ${
+                                typeof choiceZoneValues[zone.id] === "string" &&
+                                (choiceZoneValues[zone.id] as string).trim().length > 2
+                                  ? styles.choiceZoneInputLongValue
+                                  : ""
+                              } ${
                                 status === "correct"
                                   ? styles.choiceZoneInputCorrect
                                   : status === "wrong"
@@ -1053,6 +1071,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                               pattern={isNumericChoiceZone(zone) ? "[0-9-]*" : undefined}
                               autoComplete="off"
                               spellCheck={false}
+                              onFocus={(event) => moveCaretToEnd(event.currentTarget)}
                               aria-label={`Svarfelt ${zone.id}`}
                               aria-invalid={status === "wrong"}
                             />
