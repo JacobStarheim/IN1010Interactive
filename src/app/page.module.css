@@ -10,6 +10,7 @@
   background: linear-gradient(180deg, #ffffff, #f8fbfe);
   padding: 0.9rem;
   display: grid;
+  align-content: start;
   gap: 0.65rem;
   transition: transform 140ms ease, box-shadow 140ms ease;
   position: relative;
@@ -147,6 +148,9 @@
 }
 
 .open {
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
   justify-self: start;
   padding: 0.24rem 0.6rem;
   border-radius: 999px;
