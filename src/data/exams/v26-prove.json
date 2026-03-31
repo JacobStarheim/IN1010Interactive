@@ -176,20 +176,24 @@
             "label": "a.legalIndex(ix)"
           },
           {
+            "id": "q02_wrong_past_end",
+            "label": "a[a.length]"
+          },
+          {
             "id": "q02_wrong_inc",
             "label": "a[ix]++"
           },
           {
-            "id": "q02_wrong_y_ix",
-            "label": "a[y] = ix"
+            "id": "q02_wrong_v_ix",
+            "label": "a[v] = ix"
           },
           {
             "id": "q02_hent_fra",
             "label": "hentFraArray"
           },
           {
-            "id": "q02_wrong_math",
-            "label": "0 <= ix < a.length"
+            "id": "q02_wrong_length_call",
+            "label": "a.length()"
           },
           {
             "id": "q02_return_elem",
@@ -198,6 +202,10 @@
           {
             "id": "q02_one",
             "label": "1"
+          },
+          {
+            "id": "q02_wrong_math",
+            "label": "0 <= ix < a.length"
           },
           {
             "id": "q02_zero",
@@ -324,7 +332,7 @@
             "itemId": "q02_assign",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5294,
+              "x": 0.0992,
               "y": 0.6566,
               "w": 0.2034,
               "h": 0.0279
@@ -335,8 +343,8 @@
             "itemId": "q02_in_bounds",
             "pageIndex": 0,
             "rect": {
-              "x": 0.0992,
-              "y": 0.6928,
+              "x": 0.3143,
+              "y": 0.6566,
               "w": 0.2034,
               "h": 0.0279
             }
@@ -346,8 +354,8 @@
             "itemId": "q02_a_length",
             "pageIndex": 0,
             "rect": {
-              "x": 0.3143,
-              "y": 0.6928,
+              "x": 0.5294,
+              "y": 0.6566,
               "w": 0.2034,
               "h": 0.0279
             }
@@ -357,7 +365,7 @@
             "itemId": "q02_wrong_or",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5294,
+              "x": 0.0992,
               "y": 0.6928,
               "w": 0.2034,
               "h": 0.0279
@@ -368,10 +376,10 @@
             "itemId": "q02_last_elem",
             "pageIndex": 0,
             "rect": {
-              "x": 0.0992,
-              "y": 0.7291,
+              "x": 0.3143,
+              "y": 0.6928,
               "w": 0.2034,
-              "h": 0.0285
+              "h": 0.0279
             }
           },
           {
@@ -379,10 +387,10 @@
             "itemId": "q02_sett_inn",
             "pageIndex": 0,
             "rect": {
-              "x": 0.3143,
-              "y": 0.7291,
+              "x": 0.5294,
+              "y": 0.6928,
               "w": 0.2034,
-              "h": 0.0285
+              "h": 0.0279
             }
           },
           {
@@ -390,7 +398,7 @@
             "itemId": "q02_wrong_legal",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5294,
+              "x": 0.0992,
               "y": 0.7291,
               "w": 0.2034,
               "h": 0.0285
@@ -398,32 +406,32 @@
           },
           {
             "id": "q02-token-8",
-            "itemId": "q02_wrong_inc",
+            "itemId": "q02_wrong_past_end",
             "pageIndex": 0,
             "rect": {
-              "x": 0.0992,
-              "y": 0.7659,
+              "x": 0.3143,
+              "y": 0.7291,
               "w": 0.2034,
-              "h": 0.0279
+              "h": 0.0285
             }
           },
           {
             "id": "q02-token-9",
-            "itemId": "q02_wrong_y_ix",
+            "itemId": "q02_wrong_inc",
             "pageIndex": 0,
             "rect": {
-              "x": 0.3143,
-              "y": 0.7659,
+              "x": 0.5294,
+              "y": 0.7291,
               "w": 0.2034,
-              "h": 0.0279
+              "h": 0.0285
             }
           },
           {
             "id": "q02-token-10",
-            "itemId": "q02_hent_fra",
+            "itemId": "q02_wrong_v_ix",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5294,
+              "x": 0.0992,
               "y": 0.7659,
               "w": 0.2034,
               "h": 0.0279
@@ -431,7 +439,29 @@
           },
           {
             "id": "q02-token-11",
-            "itemId": "q02_wrong_math",
+            "itemId": "q02_hent_fra",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.3143,
+              "y": 0.7659,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-12",
+            "itemId": "q02_wrong_length_call",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.5294,
+              "y": 0.7659,
+              "w": 0.2034,
+              "h": 0.0279
+            }
+          },
+          {
+            "id": "q02-token-13",
+            "itemId": "q02_return_elem",
             "pageIndex": 0,
             "rect": {
               "x": 0.0992,
@@ -441,8 +471,8 @@
             }
           },
           {
-            "id": "q02-token-12",
-            "itemId": "q02_return_elem",
+            "id": "q02-token-14",
+            "itemId": "q02_one",
             "pageIndex": 0,
             "rect": {
               "x": 0.3143,
@@ -452,8 +482,8 @@
             }
           },
           {
-            "id": "q02-token-13",
-            "itemId": "q02_one",
+            "id": "q02-token-15",
+            "itemId": "q02_wrong_math",
             "pageIndex": 0,
             "rect": {
               "x": 0.5294,
@@ -463,7 +493,7 @@
             }
           },
           {
-            "id": "q02-token-14",
+            "id": "q02-token-16",
             "itemId": "q02_zero",
             "pageIndex": 0,
             "rect": {
