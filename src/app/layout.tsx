@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { AuthBar } from "@/components/auth/auth-bar";
+import { LocaleProvider } from "@/components/i18n/locale-provider";
 
 import "./globals.css";
 
@@ -17,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="nb">
       <body>
-        <AuthBar />
-        {children}
+        <LocaleProvider>
+          <AuthBar />
+          {children}
+        </LocaleProvider>
       </body>
     </html>
   );

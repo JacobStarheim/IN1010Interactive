@@ -5,6 +5,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { PageImageStack } from "@/components/exam/page-image-stack";
+import { useLocale } from "@/components/i18n/locale-provider";
 import type { DragAssignments, DragCheckResult } from "@/lib/interaction";
 import {
   evaluateChoiceZones,
@@ -12,6 +13,11 @@ import {
   evaluateDragAssignments,
 } from "@/lib/interaction";
 import type { ChoiceZone, QuestionManifest, Rect, TokenZone } from "@/lib/exam-types";
+import {
+  formatPageAlt,
+  formatQuestionHeading,
+  translateInteractionInstruction,
+} from "@/lib/i18n";
 import { getQuestionExplanation } from "@/lib/question-explanations";
 import { getEffectivePageCrop, getPageCrop, mapRectToCroppedPage } from "@/lib/page-crops";
 import styles from "@/components/exam/question-workspace.module.css";
@@ -85,6 +91,8 @@ const defaultNotesOpenForViewport = () => {
 };
 
 export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
+  const { locale } = useLocale();
+  const isEnglish = locale === "en";
   const [showSolution, setShowSolution] = useState(false);
   const [selectedChoices, setSelectedChoices] = useState<string[]>([]);
   const [assignments, setAssignments] = useState<DragAssignments>({});
@@ -301,7 +309,14 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     question.type === "drag-drop" &&
     normalizedTokenZones.length > 0 &&
     normalizedTokenZones.length === draggableItems.length;
-  const explanation = useMemo(() => getQuestionExplanation(examId, question), [examId, question]);
+  const explanation = useMemo(
+    () => getQuestionExplanation(locale, examId, question),
+    [examId, locale, question]
+  );
+  const translatedInstructions = translateInteractionInstruction(
+    question.interaction?.instructions,
+    locale
+  );
 
   const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) => {
     return zones.reduce<ChoiceZoneValues>((acc, zone) => {
@@ -748,14 +763,18 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   const checkChoice = () => {
     const result = evaluateChoiceSelection(selectedChoices, options);
     if (result.isPerfect) {
-      setFeedback(`Riktig: ${result.correct}/${result.total}`);
+      setFeedback(
+        isEnglish ? `Correct: ${result.correct}/${result.total}` : `Riktig: ${result.correct}/${result.total}`
+      );
       return;
     }
 
     const missing = result.missing.length;
     const incorrect = result.incorrect.length;
     setFeedback(
-      `Delvis riktig: ${result.correct}/${result.total}. Mangler: ${missing}, feil valgt: ${incorrect}.`
+      isEnglish
+        ? `Partly correct: ${result.correct}/${result.total}. Missing: ${missing}, incorrect selections: ${incorrect}.`
+        : `Delvis riktig: ${result.correct}/${result.total}. Mangler: ${missing}, feil valgt: ${incorrect}.`
     );
   };
 
@@ -840,17 +859,25 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     setChoiceZoneStatus(statusMap);
 
     if (result.total === 0) {
-      setFeedback("Denne oppgaven har ikke sjekkbar fasit ennå.");
+      setFeedback(
+        isEnglish
+          ? "This question does not have a checkable answer key yet."
+          : "Denne oppgaven har ikke sjekkbar fasit ennå."
+      );
       return;
     }
 
     if (result.isPerfect) {
-      setFeedback(`Riktig: ${result.correct}/${result.total}`);
+      setFeedback(
+        isEnglish ? `Correct: ${result.correct}/${result.total}` : `Riktig: ${result.correct}/${result.total}`
+      );
       return;
     }
 
     setFeedback(
-      `Delvis riktig: ${result.correct}/${result.total}. Mangler: ${result.missing}, feil: ${result.wrong}.`
+      isEnglish
+        ? `Partly correct: ${result.correct}/${result.total}. Missing: ${result.missing}, wrong: ${result.wrong}.`
+        : `Delvis riktig: ${result.correct}/${result.total}. Mangler: ${result.missing}, feil: ${result.wrong}.`
     );
   };
 
@@ -870,11 +897,17 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     setZoneStatus(statusMap);
 
     if (result.isPerfect) {
-      setFeedback(`Riktig plassering: ${result.correct}/${result.total}`);
+      setFeedback(
+        isEnglish
+          ? `Correct placement: ${result.correct}/${result.total}`
+          : `Riktig plassering: ${result.correct}/${result.total}`
+      );
       return;
     }
     setFeedback(
-      `Delvis riktig: ${result.correct}/${result.total}. Tomme: ${result.empty.length}, feil: ${result.wrong.length}.`
+      isEnglish
+        ? `Partly correct: ${result.correct}/${result.total}. Empty: ${result.empty.length}, wrong: ${result.wrong.length}.`
+        : `Delvis riktig: ${result.correct}/${result.total}. Tomme: ${result.empty.length}, feil: ${result.wrong.length}.`
     );
   };
 
@@ -918,7 +951,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               >
                   <img
                     src={page}
-                    alt={`Oppgaveside ${pageIndex + 1}`}
+                    alt={formatPageAlt(pageIndex, locale)}
                     className={styles.overlayImage}
                     style={{
                       transform:
@@ -956,7 +989,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                         }}
                         onClick={() => setActiveItemId(item.id)}
                         title={item.label}
-                        aria-label={`Brikke ${item.label}`}
+                        aria-label={`${isEnglish ? "Tile" : "Brikke"} ${item.label}`}
                       >
                         <span className={styles.inCanvasTokenText}>{item.label}</span>
                       </button>
@@ -1028,7 +1061,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                                 event.stopPropagation();
                                 clearZoneAssignment(zone.id);
                               }}
-                              aria-label={`Fjern brikke fra ${zone.label}`}
+                              aria-label={`${isEnglish ? "Remove tile from" : "Fjern brikke fra"} ${zone.label}`}
                             >
                               ×
                             </button>
@@ -1070,7 +1103,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                 >
                   <img
                     src={page}
-                    alt={`Oppgaveside ${pageIndex + 1}`}
+                    alt={formatPageAlt(pageIndex, locale)}
                     className={styles.overlayImage}
                     style={{
                       transform:
@@ -1120,7 +1153,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                               autoComplete="off"
                               spellCheck={false}
                               onFocus={(event) => moveCaretToEnd(event.currentTarget)}
-                              aria-label={`Svarfelt ${zone.id}`}
+                              aria-label={`${isEnglish ? "Answer field" : "Svarfelt"} ${zone.id}`}
                               aria-invalid={status === "wrong"}
                             />
                           ) : (
@@ -1156,7 +1189,15 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                                     }`
                               }
                               onClick={() => toggleChoiceZoneCircle(zone.id, zone.group)}
-                              aria-label={Boolean(choiceZoneValues[zone.id]) ? "Fjern markering" : "Marker"}
+                              aria-label={
+                                Boolean(choiceZoneValues[zone.id])
+                                  ? isEnglish
+                                    ? "Clear mark"
+                                    : "Fjern markering"
+                                  : isEnglish
+                                    ? "Mark"
+                                    : "Marker"
+                              }
                             >
                               {zone.kind === "box"
                                 ? status === "wrong"
@@ -1196,7 +1237,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               >
                 <img
                   src={page}
-                  alt={`Oppgaveside ${pageIndex + 1}`}
+                  alt={formatPageAlt(pageIndex, locale)}
                   className={styles.overlayImage}
                   style={{
                     transform:
@@ -1239,8 +1280,8 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                             value={mark.text}
                             onClick={(event) => event.stopPropagation()}
                             onChange={(event) => updateChoiceMarkText(mark.id, event.target.value)}
-                            placeholder="Skriv..."
-                            aria-label="Tekstfelt i oppgave"
+                            placeholder={isEnglish ? "Type..." : "Skriv..."}
+                            aria-label={isEnglish ? "Text field in question" : "Tekstfelt i oppgave"}
                           />
                           <button
                             type="button"
@@ -1249,7 +1290,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                               event.stopPropagation();
                               removeChoiceMark(mark.id);
                             }}
-                            aria-label="Fjern tekstfelt"
+                            aria-label={isEnglish ? "Remove text field" : "Fjern tekstfelt"}
                           >
                             ×
                           </button>
@@ -1277,7 +1318,15 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                             event.stopPropagation();
                             toggleChoiceCircle(mark.id);
                           }}
-                          aria-label={mark.checked ? "Fjern markering" : "Marker sirkel"}
+                          aria-label={
+                            mark.checked
+                              ? isEnglish
+                                ? "Clear mark"
+                                : "Fjern markering"
+                              : isEnglish
+                                ? "Mark circle"
+                                : "Marker sirkel"
+                          }
                         />
                         <button
                           type="button"
@@ -1286,7 +1335,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                             event.stopPropagation();
                             removeChoiceMark(mark.id);
                           }}
-                          aria-label="Fjern sirkel"
+                          aria-label={isEnglish ? "Remove circle" : "Fjern sirkel"}
                         >
                           ×
                         </button>
@@ -1306,7 +1355,16 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     if (question.type === "official-only") {
       return (
         <p className={styles.note}>
-          Denne oppgaven vises i originalformat. Bruk <strong>Vis fasit</strong> for svar.
+          {isEnglish ? (
+            <>
+              This question is shown in its original format. Use <strong>Show answer key</strong> to see the
+              answer.
+            </>
+          ) : (
+            <>
+              Denne oppgaven vises i originalformat. Bruk <strong>Vis fasit</strong> for svar.
+            </>
+          )}
         </p>
       );
     }
@@ -1326,7 +1384,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                   className={styles.primaryButton}
                   onClick={checkChoiceZones}
                 >
-                  Sjekk svar
+                  {isEnglish ? "Check answer" : "Sjekk svar"}
                 </button>
               ) : null}
               <button
@@ -1335,7 +1393,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                 onClick={clearChoiceZones}
                 disabled={!hasZoneValues}
               >
-                Nullstill
+                {isEnglish ? "Reset" : "Nullstill"}
               </button>
             </div>
           </div>
@@ -1367,10 +1425,10 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                 disabled={!hasAutoChoice}
                 onClick={checkChoice}
               >
-                Sjekk svar
+                {isEnglish ? "Check answer" : "Sjekk svar"}
               </button>
               <button className={styles.secondaryButton} onClick={resetChoices}>
-                Nullstill
+                {isEnglish ? "Reset" : "Nullstill"}
               </button>
             </div>
           </div>
@@ -1387,7 +1445,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               }`}
               onClick={() => setChoiceTool("text")}
             >
-              Tekstboks
+              {isEnglish ? "Text box" : "Tekstboks"}
             </button>
             <button
               type="button"
@@ -1396,7 +1454,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               }`}
               onClick={() => setChoiceTool("circle")}
             >
-              Sirkel
+              {isEnglish ? "Circle" : "Sirkel"}
             </button>
             <button
               type="button"
@@ -1405,7 +1463,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               }`}
               onClick={() => setChoiceTool("none")}
             >
-              Peker
+              {isEnglish ? "Pointer" : "Peker"}
             </button>
             <button
               type="button"
@@ -1413,7 +1471,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               onClick={undoChoiceMark}
               disabled={choiceMarks.length === 0}
             >
-              Angre
+              {isEnglish ? "Undo" : "Angre"}
             </button>
             <button
               type="button"
@@ -1421,7 +1479,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               onClick={clearChoiceMarks}
               disabled={choiceMarks.length === 0}
             >
-              Nullstill markeringer
+              {isEnglish ? "Reset markings" : "Nullstill markeringer"}
             </button>
           </div>
         </div>
@@ -1432,9 +1490,11 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
       if (draggableItems.length === 0 || dropZones.length === 0) {
         return (
           <div className={styles.manualBlock}>
-            <p className={styles.note}>{question.interaction?.instructions}</p>
+            <p className={styles.note}>{translatedInstructions}</p>
             <p className={styles.note}>
-              Interaktiv drag/drop for denne oppgaven er ikke spesifisert fullt ut i manifestet ennå.
+              {isEnglish
+                ? "Interactive drag and drop for this question is not fully specified in the manifest yet."
+                : "Interaktiv drag/drop for denne oppgaven er ikke spesifisert fullt ut i manifestet ennå."}
             </p>
           </div>
         );
@@ -1444,15 +1504,19 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
         <div className={styles.manualBlock}>
           <p className={styles.subtle}>
             {hasInCanvasTokenBank
-              ? "Brikkene ligger i oppgaven. Klikk en brikke og trykk i feltet, eller dra direkte."
-              : "Klikk en brikke og trykk i feltet, eller dra direkte inn i feltet."}
+              ? isEnglish
+                ? "The tiles are already inside the question. Click a tile and click a slot, or drag directly."
+                : "Brikkene ligger i oppgaven. Klikk en brikke og trykk i feltet, eller dra direkte."
+              : isEnglish
+                ? "Click a tile and click the slot, or drag it directly into place."
+                : "Klikk en brikke og trykk i feltet, eller dra direkte inn i feltet."}
           </p>
           <div className={styles.actions}>
             <button className={styles.primaryButton} disabled={!hasAutoDrag} onClick={checkDrag}>
-              Sjekk svar
+              {isEnglish ? "Check answer" : "Sjekk svar"}
             </button>
             <button className={styles.secondaryButton} onClick={clearDrag}>
-              Nullstill
+              {isEnglish ? "Reset" : "Nullstill"}
             </button>
           </div>
         </div>
@@ -1462,7 +1526,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     if (question.type === "code-editor") {
       return (
         <div>
-          <p className={styles.note}>{question.interaction?.instructions}</p>
+          <p className={styles.note}>{translatedInstructions}</p>
           <textarea
             className={styles.codeArea}
             value={codeText}
@@ -1471,7 +1535,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
           />
           <div className={styles.actions}>
             <button className={styles.secondaryButton} onClick={resetCode}>
-              Nullstill kodefelt
+              {isEnglish ? "Reset code field" : "Nullstill kodefelt"}
             </button>
           </div>
           {showSolution && question.interaction?.solutionText ? (
@@ -1489,7 +1553,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
       <div className={styles.topbar}>
         <div>
           <h1 className={styles.title}>
-            Oppgave {question.number}: {question.title}
+            {formatQuestionHeading(question.number, question.title, locale)}
           </h1>
         </div>
         <button
@@ -1499,7 +1563,13 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
             setFeedback("");
           }}
         >
-          {showSolution ? "Skjul fasit" : "Vis fasit"}
+          {showSolution
+            ? isEnglish
+              ? "Hide answer key"
+              : "Skjul fasit"
+            : isEnglish
+              ? "Show answer key"
+              : "Vis fasit"}
         </button>
       </div>
 
@@ -1512,7 +1582,15 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
             : (
               <PageImageStack
                 pages={showSolution ? question.solutionPages : question.promptPages}
-                label={showSolution ? "Fasitside" : "Oppgaveside"}
+                label={
+                  showSolution
+                    ? isEnglish
+                      ? "Answer key page"
+                      : "Fasitside"
+                    : isEnglish
+                      ? "Question page"
+                      : "Oppgaveside"
+                }
               />
             )}
           {question.type === "drag-drop" &&
@@ -1521,7 +1599,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
           !hasInCanvasTokenBank ? (
             <div className={styles.dragDock}>
               <div className={styles.panel}>
-                <h3>Brikker</h3>
+                <h3>{isEnglish ? "Tiles" : "Brikker"}</h3>
                 <div className={styles.tokenList}>
                   {draggableItems.map((item) => {
                     const used = assignedItemIds.has(item.id);
@@ -1555,20 +1633,26 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               className={styles.secondaryButton}
               onClick={() => setNotesOpen((current) => !current)}
             >
-              {notesOpen ? "Skjul notatblokk" : "Vis notatblokk"}
+              {notesOpen
+                ? isEnglish
+                  ? "Hide notes"
+                  : "Skjul notatblokk"
+                : isEnglish
+                  ? "Show notes"
+                  : "Vis notatblokk"}
             </button>
           </div>
           {notesOpen ? (
             <div className={styles.notesPanel}>
               <label className={styles.label} htmlFor="manual-notes">
-                Notatblokk
+                {isEnglish ? "Notes" : "Notatblokk"}
               </label>
               <textarea
                 id="manual-notes"
                 className={styles.textarea}
                 value={manualNotes}
                 onChange={(event) => setManualNotes(event.target.value)}
-                placeholder="Skriv notater her..."
+                placeholder={isEnglish ? "Write notes here..." : "Skriv notater her..."}
               />
               <div className={styles.actions}>
                 <button
@@ -1577,7 +1661,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                   onClick={() => setManualNotes("")}
                   disabled={manualNotes.trim().length === 0}
                 >
-                  Tøm notater
+                  {isEnglish ? "Clear notes" : "Tøm notater"}
                 </button>
               </div>
             </div>
@@ -1588,7 +1672,13 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
               className={styles.secondaryButton}
               onClick={() => setExplanationOpen((current) => !current)}
             >
-              {explanationOpen ? "Skjul forklaring" : "Forklar oppgaven"}
+              {explanationOpen
+                ? isEnglish
+                  ? "Hide explanation"
+                  : "Skjul forklaring"
+                : isEnglish
+                  ? "Explain this question"
+                  : "Forklar oppgaven"}
             </button>
           </div>
           {explanationOpen ? (

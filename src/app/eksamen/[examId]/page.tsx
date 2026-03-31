@@ -1,10 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { examList, getExamById } from "@/data/exams";
-import { ExamSession } from "@/components/exam/exam-session";
+import { ExamPageShell } from "@/components/exam/exam-page-shell";
 import { isExamId } from "@/lib/exam-ids";
-import styles from "./page.module.css";
 
 type Props = {
   params: Promise<{ examId: string }>;
@@ -18,25 +16,7 @@ export default async function ExamPage({ params }: Props) {
 
   const exam = getExamById(examId);
 
-  return (
-    <main className="site-shell">
-      <Link href="/" className="top-link">
-        Tilbake til eksamensoversikt
-      </Link>
-
-      <section className="card">
-        <h1>{exam.title}</h1>
-        <p>
-          Oppgavesett: <code>{exam.sourcePromptPdf}</code> · Fasit: <code>{exam.sourceSolutionPdf}</code>
-        </p>
-        <p className={styles.info}>
-          Alle oppgavene vises under i kronologisk rekkefølge. Du kan scrolle eller hoppe direkte.
-        </p>
-      </section>
-
-      <ExamSession exam={exam} />
-    </main>
-  );
+  return <ExamPageShell exam={exam} />;
 }
 
 export function generateStaticParams() {

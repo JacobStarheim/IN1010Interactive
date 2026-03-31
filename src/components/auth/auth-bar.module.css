@@ -55,6 +55,50 @@
   flex-wrap: wrap;
 }
 
+.statusBlock {
+  display: grid;
+  gap: 0.55rem;
+  justify-items: end;
+}
+
+.languageRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.languageLabel {
+  font-size: 0.82rem;
+  color: #597283;
+  font-weight: 700;
+}
+
+.languageButtons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.localeButton {
+  border: 1px solid #c4d8e6;
+  border-radius: 999px;
+  background: #fff;
+  color: #21465f;
+  padding: 0.38rem 0.72rem;
+  font: inherit;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.localeButtonActive {
+  background: #0a7bc2;
+  border-color: #0a7bc2;
+  color: #fff;
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
@@ -177,5 +221,14 @@
 
   .field {
     min-width: 100%;
+  }
+
+  .statusBlock {
+    width: 100%;
+    justify-items: start;
+  }
+
+  .languageRow {
+    justify-content: flex-start;
   }
 }

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
+import { useLocale } from "@/components/i18n/locale-provider";
 import { LOCAL_PROGRESS_CHANGE_EVENT } from "@/lib/cloud-progress";
 import type { ExamManifest, ExamId } from "@/lib/exam-types";
 import {
@@ -11,6 +12,7 @@ import {
   submissionStorageKey,
   type SubmissionResult,
 } from "@/lib/exam-progress";
+import { formatDateTime, formatExamTitle } from "@/lib/i18n";
 import styles from "@/app/page.module.css";
 
 type Props = {
@@ -18,23 +20,6 @@ type Props = {
 };
 
 type SubmissionMap = Partial<Record<ExamId, SubmissionResult>>;
-
-const formatHomeExamTitle = (examId: ExamId) => {
-  const [, yearSuffix, variant] = examId.match(/^v(\d{2})-(.+)$/) ?? [];
-  const year = yearSuffix ? `20${yearSuffix}` : examId;
-
-  if (variant === "midtveis") {
-    return `${year} Midtveis`;
-  }
-  if (variant === "konte") {
-    return `${year} Midtveis Konte`;
-  }
-  if (variant === "prove") {
-    return `${year} Midtveis Prøve`;
-  }
-
-  return examId;
-};
 
 const readSubmissionMap = (exams: ExamManifest[]): SubmissionMap => {
   const storage = getBrowserStorage();
@@ -69,6 +54,7 @@ const gradeClassName = (grade: SubmissionResult["grade"]) => {
 };
 
 export function ExamOverviewGrid({ exams }: Props) {
+  const { locale } = useLocale();
   const [submissions, setSubmissions] = useState<SubmissionMap>({});
 
   const syncSubmissions = useMemo(
@@ -114,8 +100,10 @@ export function ExamOverviewGrid({ exams }: Props) {
           >
             <div className={styles.examHeader}>
               <div>
-                <h2>{formatHomeExamTitle(exam.id)}</h2>
-                <p>{exam.questions.length} oppgaver</p>
+                <h2>{formatExamTitle(exam.id, locale)}</h2>
+                <p>
+                  {exam.questions.length} {locale === "en" ? "questions" : "oppgaver"}
+                </p>
               </div>
 
               {submission ? (
@@ -132,19 +120,29 @@ export function ExamOverviewGrid({ exams }: Props) {
 
             {submission ? (
               <div className={styles.completionPanel}>
-                <span className={styles.completionKicker}>Fullført</span>
+                <span className={styles.completionKicker}>
+                  {locale === "en" ? "Completed" : "Fullført"}
+                </span>
                 <p className={styles.completionSummary}>
-                  {submission.points100.toFixed(1)} poeng · {submission.totalCorrect}/
-                  {submission.totalPossible} riktige
+                  {submission.points100.toFixed(1)} {locale === "en" ? "points" : "poeng"} ·{" "}
+                  {submission.totalCorrect}/{submission.totalPossible}{" "}
+                  {locale === "en" ? "correct" : "riktige"}
                 </p>
                 <p className={styles.completionMeta}>
-                  Levert {new Date(submission.submittedAt).toLocaleString("nb-NO")}
+                  {locale === "en" ? "Submitted" : "Levert"}{" "}
+                  {formatDateTime(submission.submittedAt, locale)}
                 </p>
               </div>
             ) : null}
 
             <span className={`${styles.open} ${completed ? styles.openCompleted : ""}`}>
-              {completed ? "Fortsett eller se resultat" : "Åpne eksamen"}
+              {completed
+                ? locale === "en"
+                  ? "Resume or view result"
+                  : "Fortsett eller se resultat"
+                : locale === "en"
+                ? "Open exam"
+                : "Åpne eksamen"}
             </span>
           </Link>
         );

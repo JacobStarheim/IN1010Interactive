@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+import { useLocale } from "@/components/i18n/locale-provider";
 import type { QuestionManifest } from "@/lib/exam-types";
+import { formatQuestionHeading, getQuestionTypeLabel } from "@/lib/i18n";
 import styles from "@/components/exam/exam-question-list.module.css";
 
 type Props = {
@@ -25,6 +27,7 @@ const getStorage = () => {
 };
 
 export function ExamQuestionList({ examId, questions }: Props) {
+  const { locale } = useLocale();
   const [visitedIds, setVisitedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -54,7 +57,8 @@ export function ExamQuestionList({ examId, questions }: Props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.summary}>
-        <strong>Fremdrift:</strong> {visitedCount}/{questions.length} åpnet
+        <strong>{locale === "en" ? "Progress:" : "Fremdrift:"}</strong> {visitedCount}/
+        {questions.length} {locale === "en" ? "opened" : "åpnet"}
       </div>
       <ul className={styles.list}>
         {questions.map((question) => (
@@ -62,11 +66,13 @@ export function ExamQuestionList({ examId, questions }: Props) {
             <Link href={`/eksamen/${examId}/oppgave/${question.id}`} className={styles.item}>
               <div>
                 <div className={styles.title}>
-                  Oppgave {question.number}: {question.title}
+                  {formatQuestionHeading(question.number, question.title, locale)}
                 </div>
-                <div className={styles.meta}>{question.type}</div>
+                <div className={styles.meta}>{getQuestionTypeLabel(question.type, locale)}</div>
               </div>
-              {visitedIds.has(question.id) ? <span className={styles.done}>Åpnet</span> : null}
+              {visitedIds.has(question.id) ? (
+                <span className={styles.done}>{locale === "en" ? "Opened" : "Åpnet"}</span>
+              ) : null}
             </Link>
           </li>
         ))}

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from "react";
 
 import { QuestionWorkspace } from "@/components/exam/question-workspace";
+import { useLocale } from "@/components/i18n/locale-provider";
 import type { ChoiceZone, ExamManifest } from "@/lib/exam-types";
 import {
   evaluateChoiceSelection,
@@ -25,6 +26,7 @@ import {
   type ExamTimerState,
   type SubmissionResult,
 } from "@/lib/exam-progress";
+import { formatDateTime, formatTime } from "@/lib/i18n";
 import styles from "@/components/exam/exam-session.module.css";
 
 type Props = {
@@ -40,6 +42,8 @@ const hasChoiceZoneAnswerKey = (choiceZones: ChoiceZone[]) =>
   );
 
 export function ExamSession({ exam }: Props) {
+  const { locale } = useLocale();
+  const isEnglish = locale === "en";
   const [resetToken, setResetToken] = useState(0);
   const [submission, setSubmission] = useState<SubmissionResult | null>(null);
   const [timerState, setTimerState] = useState<ExamTimerState>(defaultExamTimerState);
@@ -154,7 +158,9 @@ export function ExamSession({ exam }: Props) {
     }
 
     const approved = window.confirm(
-      "Nullstille hele eksamen? Dette sletter alle lagrede svar og notater for denne eksamenen."
+      isEnglish
+        ? "Reset the entire exam? This deletes all saved answers and notes for this exam."
+        : "Nullstille hele eksamen? Dette sletter alle lagrede svar og notater for denne eksamenen."
     );
     if (!approved) {
       return;
@@ -309,7 +315,11 @@ export function ExamSession({ exam }: Props) {
     const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
     if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) {
-      window.alert("Velg en tid som er større enn 0 sekunder.");
+      window.alert(
+        isEnglish
+          ? "Choose a time that is greater than 0 seconds."
+          : "Velg en tid som er større enn 0 sekunder."
+      );
       return;
     }
 
@@ -394,7 +404,11 @@ export function ExamSession({ exam }: Props) {
   };
 
   const handleResetTimer = () => {
-    const approved = window.confirm("Nullstille 2-timers timeren for denne eksamenen?");
+    const approved = window.confirm(
+      isEnglish
+        ? "Reset the timer for this exam simulation?"
+        : "Nullstille 2-timers timeren for denne eksamenen?"
+    );
     if (!approved) {
       return;
     }
@@ -420,16 +434,32 @@ export function ExamSession({ exam }: Props) {
           : styles.timerIdle;
   const timerLabel =
     timerState.status === "finished"
-      ? "Tiden er ute"
+      ? isEnglish
+        ? "Time is up"
+        : "Tiden er ute"
       : timerState.status === "paused"
-        ? "Timer pauset"
+        ? isEnglish
+          ? "Timer paused"
+          : "Timer pauset"
         : timerState.status === "running"
-          ? "Eksamensmodus pågår"
+          ? isEnglish
+            ? "Exam mode running"
+            : "Eksamensmodus pågår"
           : timerState.durationMs === EXAM_DURATION_MS
-            ? "Klar for 2 timers simulering"
-            : "Klar for tilpasset simulering";
+            ? isEnglish
+              ? "Ready for a 2-hour simulation"
+              : "Klar for 2 timers simulering"
+            : isEnglish
+              ? "Ready for a custom simulation"
+              : "Klar for tilpasset simulering";
   const startButtonLabel =
-    timerState.durationMs === EXAM_DURATION_MS ? "Start 2t timer" : "Start timer";
+    timerState.durationMs === EXAM_DURATION_MS
+      ? isEnglish
+        ? "Start 2h timer"
+        : "Start 2t timer"
+      : isEnglish
+        ? "Start timer"
+        : "Start timer";
 
   return (
     <>
@@ -438,45 +468,55 @@ export function ExamSession({ exam }: Props) {
           <div className={styles.controlPanel}>
             <div className={styles.buttonRow}>
               <button type="button" className={styles.primaryButton} onClick={handleSubmitExam}>
-                Lever eksamen
+                {isEnglish ? "Submit exam" : "Lever eksamen"}
               </button>
               <button type="button" className={styles.secondaryButton} onClick={handleResetExam}>
-                Nullstill hele eksamen
+                {isEnglish ? "Reset entire exam" : "Nullstill hele eksamen"}
               </button>
             </div>
 
             {submission ? (
               <div className={styles.resultCard}>
                 <p className={styles.resultGrade}>
-                  Karakter: <strong>{submission.grade}</strong>
+                  {isEnglish ? "Grade:" : "Karakter:"} <strong>{submission.grade}</strong>
                 </p>
                 <p>
-                  Poeng (0-100): <strong>{submission.points100.toFixed(1)}</strong>
+                  {isEnglish ? "Points (0-100):" : "Poeng (0-100):"}{" "}
+                  <strong>{submission.points100.toFixed(1)}</strong>
                 </p>
                 <p>
-                  Riktige svar: {submission.totalCorrect} / {submission.totalPossible} (
-                  {submission.gradedQuestions} autovurderte oppgaver)
+                  {isEnglish ? "Correct answers:" : "Riktige svar:"} {submission.totalCorrect} /{" "}
+                  {submission.totalPossible} (
+                  {submission.gradedQuestions}{" "}
+                  {isEnglish ? "auto-graded questions" : "autovurderte oppgaver"})
                 </p>
                 <p className={styles.resultMeta}>
-                  Karaktergrenser brukt: A 85+, B 75+, C 55+, D 45+, E 30+, F under 30.
+                  {isEnglish
+                    ? "Grade boundaries used: A 85+, B 75+, C 55+, D 45+, E 30+, F below 30."
+                    : "Karaktergrenser brukt: A 85+, B 75+, C 55+, D 45+, E 30+, F under 30."}
                 </p>
                 <p className={styles.resultMeta}>
-                  Tidspunkt: {new Date(submission.submittedAt).toLocaleString("nb-NO")}
+                  {isEnglish ? "Submitted:" : "Tidspunkt:"}{" "}
+                  {formatDateTime(submission.submittedAt, locale)}
                 </p>
                 <p className={styles.resultDisclaimer}>
-                  Merk: kun oppgaver med maskinlesbar fasit blir autovurdert.
+                  {isEnglish
+                    ? "Note: only questions with machine-readable answer keys are auto-graded."
+                    : "Merk: kun oppgaver med maskinlesbar fasit blir autovurdert."}
                 </p>
               </div>
             ) : (
               <p className={styles.resultMeta}>
-                Lever eksamen for å få autovurdering og karakter.
+                {isEnglish
+                  ? "Submit the exam to get an auto-graded result and grade."
+                  : "Lever eksamen for å få autovurdering og karakter."}
               </p>
             )}
           </div>
 
           <aside className={`${styles.timerCard} ${timerToneClass}`}>
             <div className={styles.timerHeader}>
-              <p className={styles.timerEyebrow}>Eksamensmodus</p>
+              <p className={styles.timerEyebrow}>{isEnglish ? "Exam mode" : "Eksamensmodus"}</p>
               <strong className={styles.timerLabel}>{timerLabel}</strong>
             </div>
 
@@ -484,17 +524,21 @@ export function ExamSession({ exam }: Props) {
               type="button"
               className={styles.timerValueButton}
               onClick={handleOpenTimerEditor}
-              aria-label="Endre tid på eksamenstimeren"
+              aria-label={
+                isEnglish ? "Change the time on the exam timer" : "Endre tid på eksamenstimeren"
+              }
             >
               <span className={styles.timerValue}>{formatDuration(timerState.remainingMs)}</span>
-              <span className={styles.timerValueHint}>Trykk for å endre tid</span>
+              <span className={styles.timerValueHint}>
+                {isEnglish ? "Tap to change time" : "Trykk for å endre tid"}
+              </span>
             </button>
 
             {isEditingTimer ? (
               <div className={styles.timerEditor}>
                 <div className={styles.timerInputs}>
                   <label className={styles.timerField}>
-                    <span>Timer</span>
+                    <span>{isEnglish ? "Hours" : "Timer"}</span>
                     <input
                       type="text"
                       inputMode="numeric"
@@ -503,7 +547,7 @@ export function ExamSession({ exam }: Props) {
                     />
                   </label>
                   <label className={styles.timerField}>
-                    <span>Min</span>
+                    <span>{isEnglish ? "Min" : "Min"}</span>
                     <input
                       type="text"
                       inputMode="numeric"
@@ -512,7 +556,7 @@ export function ExamSession({ exam }: Props) {
                     />
                   </label>
                   <label className={styles.timerField}>
-                    <span>Sek</span>
+                    <span>{isEnglish ? "Sec" : "Sek"}</span>
                     <input
                       type="text"
                       inputMode="numeric"
@@ -523,14 +567,14 @@ export function ExamSession({ exam }: Props) {
                 </div>
                 <div className={styles.timerEditorActions}>
                   <button type="button" className={styles.primaryButton} onClick={handleApplyTimerDraft}>
-                    Lagre tid
+                    {isEnglish ? "Save time" : "Lagre tid"}
                   </button>
                   <button
                     type="button"
                     className={styles.secondaryButton}
                     onClick={handleCancelTimerEditor}
                   >
-                    Avbryt
+                    {isEnglish ? "Cancel" : "Avbryt"}
                   </button>
                 </div>
               </div>
@@ -542,17 +586,16 @@ export function ExamSession({ exam }: Props) {
 
             <p className={styles.timerMeta}>
               {timerState.startedAt
-                ? `Startet ${new Date(timerState.startedAt).toLocaleTimeString("nb-NO", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}`
-                : "Trykk start når du vil kjøre en full 2-timers simulering."}
+                ? `${isEnglish ? "Started" : "Startet"} ${formatTime(timerState.startedAt, locale)}`
+                : isEnglish
+                  ? "Press start when you want to run a full timed exam simulation."
+                  : "Trykk start når du vil kjøre en full 2-timers simulering."}
             </p>
 
             <div className={styles.timerActions}>
               {!isEditingTimer ? (
                 <button type="button" className={styles.secondaryButton} onClick={handleOpenTimerEditor}>
-                  Endre tid
+                  {isEnglish ? "Change time" : "Endre tid"}
                 </button>
               ) : null}
 
@@ -564,25 +607,25 @@ export function ExamSession({ exam }: Props) {
 
               {timerState.status === "running" ? (
                 <button type="button" className={styles.secondaryButton} onClick={handlePauseTimer}>
-                  Pause
+                  {isEnglish ? "Pause" : "Pause"}
                 </button>
               ) : null}
 
               {timerState.status === "paused" ? (
                 <button type="button" className={styles.primaryButton} onClick={handleResumeTimer}>
-                  Fortsett
+                  {isEnglish ? "Resume" : "Fortsett"}
                 </button>
               ) : null}
 
               {timerState.status === "finished" ? (
                 <button type="button" className={styles.primaryButton} onClick={handleStartTimer}>
-                  Start ny 2t timer
+                  {isEnglish ? "Start new 2h timer" : "Start ny 2t timer"}
                 </button>
               ) : null}
 
               {timerState.status !== "idle" ? (
                 <button type="button" className={styles.secondaryButton} onClick={handleResetTimer}>
-                  Nullstill timer
+                  {isEnglish ? "Reset timer" : "Nullstill timer"}
                 </button>
               ) : null}
             </div>
@@ -593,7 +636,7 @@ export function ExamSession({ exam }: Props) {
       <section className={`card ${styles.jumpCard}`}>
         {jumpTargets.map((target) => (
           <a key={target.id} href={`#${target.id}`} className={styles.jumpLink}>
-            Oppgave {target.number}
+            {isEnglish ? "Question" : "Oppgave"} {target.number}
           </a>
         ))}
       </section>
