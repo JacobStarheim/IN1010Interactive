@@ -3,6 +3,18 @@
   gap: 0.75rem;
 }
 
+.controlsLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.95fr);
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.controlPanel {
+  display: grid;
+  gap: 0.75rem;
+}
+
 .buttonRow {
   display: flex;
   flex-wrap: wrap;
@@ -64,6 +76,92 @@
   font-size: 0.82rem;
 }
 
+.timerCard {
+  border: 1px solid #c9dceb;
+  border-radius: 1rem;
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+  background: linear-gradient(180deg, #fbfdff, #f1f8fd);
+}
+
+.timerIdle {
+  border-color: #c9dceb;
+}
+
+.timerRunning {
+  border-color: #8fc3df;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(94, 182, 228, 0.18), transparent 28%),
+    linear-gradient(180deg, #fbfdff, #edf7ff);
+}
+
+.timerPaused {
+  border-color: #e2c987;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(230, 190, 76, 0.2), transparent 28%),
+    linear-gradient(180deg, #fffef7, #fff6db);
+}
+
+.timerFinished {
+  border-color: #f0b0b0;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(233, 106, 106, 0.18), transparent 28%),
+    linear-gradient(180deg, #fffaf9, #fff0ef);
+}
+
+.timerHeader {
+  display: grid;
+  gap: 0.16rem;
+}
+
+.timerEyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #557386;
+}
+
+.timerLabel {
+  font-size: 1rem;
+}
+
+.timerValue {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.55rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.timerTrack {
+  width: 100%;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: rgba(16, 32, 45, 0.08);
+  overflow: hidden;
+}
+
+.timerFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #139ad4, #24c27c);
+  transition: width 240ms ease;
+}
+
+.timerMeta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.timerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
 .jumpCard {
   display: flex;
   gap: 0.45rem;
@@ -81,4 +179,10 @@
 .stack {
   display: grid;
   gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .controlsLayout {
+    grid-template-columns: 1fr;
+  }
 }

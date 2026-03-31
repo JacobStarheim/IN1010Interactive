@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { ExamOverviewGrid } from "@/components/home/exam-overview-grid";
 import { examList } from "@/data/exams";
 import styles from "@/app/page.module.css";
 
@@ -14,17 +13,7 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className={`card ${styles.grid}`}>
-        {examList.map((exam) => (
-          <Link key={exam.id} href={`/eksamen/${exam.id}`} className={styles.examCard}>
-            <h2>{exam.title}</h2>
-            <p>
-              {exam.questions.length} oppgaver · {exam.sourcePromptPdf}
-            </p>
-            <span className={styles.open}>Åpne eksamen</span>
-          </Link>
-        ))}
-      </section>
+      <ExamOverviewGrid exams={examList} />
 
       <section className={`card ${styles.openSource}`}>
         <p>
