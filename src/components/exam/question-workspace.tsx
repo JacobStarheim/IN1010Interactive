@@ -243,6 +243,7 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     });
     return perPage;
   }, [choiceZonesByPage]);
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const requiredTopByPage = useMemo(() => {
     const perPage: Record<number, number> = {};
     const registerRect = (pageIndex: number, rect: Rect) => {

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { AuthBar } from "@/components/auth/auth-bar";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nb">
-      <body>{children}</body>
+      <body>
+        <AuthBar />
+        {children}
+      </body>
     </html>
   );
 }

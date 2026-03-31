@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
+import { LOCAL_PROGRESS_CHANGE_EVENT } from "@/lib/cloud-progress";
 import type { ExamManifest, ExamId } from "@/lib/exam-types";
 import {
   getBrowserStorage,
@@ -88,11 +89,13 @@ export function ExamOverviewGrid({ exams }: Props) {
 
     window.addEventListener("focus", syncSubmissions);
     window.addEventListener("storage", syncSubmissions);
+    window.addEventListener(LOCAL_PROGRESS_CHANGE_EVENT, syncSubmissions);
     document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       window.removeEventListener("focus", syncSubmissions);
       window.removeEventListener("storage", syncSubmissions);
+      window.removeEventListener(LOCAL_PROGRESS_CHANGE_EVENT, syncSubmissions);
       document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, [syncSubmissions]);

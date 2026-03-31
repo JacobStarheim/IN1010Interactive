@@ -20,6 +20,7 @@
     "prepare:data": "npm run assets:verify && npm run assets:render && npm run assets:crop-meta && npm run manifests:generate && npm run manifests:interactive && npm run manifests:fit-rects && npm run manifests:validate"
   },
   "dependencies": {
+    "@vercel/blob": "^2.3.2",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

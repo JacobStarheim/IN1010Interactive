@@ -29,6 +29,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+.tmp-q07-overlay.png
+q07-overlay-after-*.png
 
 # env files (can opt-in for committing if needed)
 .env*
