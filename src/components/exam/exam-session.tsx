@@ -1,31 +1,20 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { QuestionWorkspace } from "@/components/exam/question-workspace";
+import { useExamTimer } from "@/components/exam/use-exam-timer";
 import { useLocale } from "@/components/i18n/locale-provider";
-import type { ChoiceZone, ExamManifest } from "@/lib/exam-types";
-import {
-  evaluateChoiceSelection,
-  evaluateChoiceZones,
-  evaluateDragAssignments,
-  type ChoiceZoneValues,
-  type DragAssignments,
-} from "@/lib/interaction";
+import type { ExamManifest } from "@/lib/exam-types";
 import {
   EXAM_DURATION_MS,
-  defaultExamTimerState,
   formatDuration,
-  gradeFromPoints,
   getBrowserStorage,
   readJson,
-  resolveExamTimerState,
-  storageKey,
   submissionStorageKey,
-  timerStorageKey,
-  type ExamTimerState,
   type SubmissionResult,
 } from "@/lib/exam-progress";
+import { clearExamProgress, gradeExamSubmission } from "@/lib/exam-submission";
 import { formatDateTime, formatTime } from "@/lib/i18n";
 import styles from "@/components/exam/exam-session.module.css";
 
@@ -33,64 +22,26 @@ type Props = {
   exam: ExamManifest;
 };
 
-const hasChoiceZoneAnswerKey = (choiceZones: ChoiceZone[]) =>
-  choiceZones.some(
-    (zone) =>
-      typeof zone.correct === "boolean" ||
-      typeof zone.answer === "string" ||
-      (zone.answers?.length ?? 0) > 0
-  );
-
 export function ExamSession({ exam }: Props) {
   const { locale } = useLocale();
   const isEnglish = locale === "en";
   const [resetToken, setResetToken] = useState(0);
   const [submission, setSubmission] = useState<SubmissionResult | null>(null);
-  const [timerState, setTimerState] = useState<ExamTimerState>(defaultExamTimerState);
-  const [isEditingTimer, setIsEditingTimer] = useState(false);
-  const [timerDraft, setTimerDraft] = useState({
-    hours: "2",
-    minutes: "00",
-    seconds: "00",
-  });
-
-  const syncTimerDraftFromState = useCallback((state: ExamTimerState) => {
-    const totalSeconds = Math.max(0, Math.floor(state.remainingMs / 1000));
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    setTimerDraft({
-      hours: String(hours),
-      minutes: String(minutes).padStart(2, "0"),
-      seconds: String(seconds).padStart(2, "0"),
-    });
-  }, []);
-
-  const persistTimerState = useCallback(
-    (next: ExamTimerState) => {
-      const storage = getBrowserStorage();
-      if (!storage) {
-        return;
-      }
-
-      const isDefaultIdle =
-        next.status === "idle" &&
-        next.durationMs === EXAM_DURATION_MS &&
-        next.remainingMs === EXAM_DURATION_MS &&
-        !next.startedAt &&
-        !next.endsAt &&
-        !next.finishedAt;
-
-      if (isDefaultIdle) {
-        storage.removeItem(timerStorageKey(exam.id));
-        return;
-      }
-
-      storage.setItem(timerStorageKey(exam.id), JSON.stringify(next));
-    },
-    [exam.id]
-  );
+  const {
+    timerState,
+    isEditingTimer,
+    timerDraft,
+    timerProgress,
+    handleTimerDraftChange,
+    handleOpenTimerEditor,
+    handleCancelTimerEditor,
+    handleApplyTimerDraft,
+    handleStartTimer,
+    handlePauseTimer,
+    handleResumeTimer,
+    handleResetTimer,
+    resetTimerState,
+  } = useExamTimer({ examId: exam.id, isEnglish });
 
   useEffect(() => {
     const storage = getBrowserStorage();
@@ -104,43 +55,6 @@ export function ExamSession({ exam }: Props) {
     );
     setSubmission(saved);
   }, [exam.id]);
-
-  useEffect(() => {
-    const storage = getBrowserStorage();
-    if (!storage) {
-      return;
-    }
-
-    const saved = readJson<ExamTimerState | null>(storage, timerStorageKey(exam.id), null);
-    const resolved = resolveExamTimerState(saved);
-    setTimerState(resolved);
-    syncTimerDraftFromState(resolved);
-
-    if (saved && JSON.stringify(saved) !== JSON.stringify(resolved)) {
-      storage.setItem(timerStorageKey(exam.id), JSON.stringify(resolved));
-    }
-  }, [exam.id, syncTimerDraftFromState]);
-
-  useEffect(() => {
-    if (timerState.status !== "running") {
-      return;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setTimerState((current) => {
-        const next = resolveExamTimerState(current, Date.now());
-        if (next.status !== current.status || next.remainingMs !== current.remainingMs) {
-          if (next.status === "finished") {
-            persistTimerState(next);
-          }
-          return next;
-        }
-        return current;
-      });
-    }, 1000);
-
-    return () => window.clearInterval(intervalId);
-  }, [persistTimerState, timerState.status]);
 
   const jumpTargets = useMemo(
     () =>
@@ -166,31 +80,9 @@ export function ExamSession({ exam }: Props) {
       return;
     }
 
-    const keysToDelete: string[] = [];
-    for (let i = 0; i < storage.length; i += 1) {
-      const key = storage.key(i);
-      if (!key) {
-        continue;
-      }
-      if (
-        key === `in1010:visited:${exam.id}` ||
-        key === submissionStorageKey(exam.id) ||
-        key === timerStorageKey(exam.id)
-      ) {
-        keysToDelete.push(key);
-        continue;
-      }
-      if (key.startsWith("in1010:") && key.includes(`:${exam.id}:`)) {
-        keysToDelete.push(key);
-      }
-    }
-
-    keysToDelete.forEach((key) => storage.removeItem(key));
+    clearExamProgress(exam.id, storage);
     setSubmission(null);
-    const resetTimer = defaultExamTimerState();
-    setTimerState(resetTimer);
-    syncTimerDraftFromState(resetTimer);
-    setIsEditingTimer(false);
+    resetTimerState();
     setResetToken((current) => current + 1);
   };
 
@@ -200,230 +92,15 @@ export function ExamSession({ exam }: Props) {
       return;
     }
 
-    let totalCorrect = 0;
-    let totalPossible = 0;
-    let gradedQuestions = 0;
-
-    exam.questions.forEach((question) => {
-      const interaction = question.interaction;
-      if (!interaction) {
-        return;
-      }
-
-      const dropZones = interaction.dropZones ?? [];
-      const draggableItems = interaction.draggableItems ?? [];
-      if (question.type === "drag-drop" && dropZones.length > 0 && draggableItems.length > 0) {
-        const emptyAssignments = Object.fromEntries(
-          dropZones.map((zone) => [zone.id, null])
-        ) as DragAssignments;
-        const savedAssignments = readJson<DragAssignments>(
-          storage,
-          storageKey("drag", exam.id, question.id),
-          emptyAssignments
-        );
-        const result = evaluateDragAssignments(savedAssignments, dropZones);
-        gradedQuestions += 1;
-        totalCorrect += result.correct;
-        totalPossible += result.total;
-        return;
-      }
-
-      const choiceZones = interaction.choiceZones ?? [];
-      if (
-        question.type === "choice-grid" &&
-        choiceZones.length > 0 &&
-        hasChoiceZoneAnswerKey(choiceZones)
-      ) {
-        const defaultValues = choiceZones.reduce<ChoiceZoneValues>((acc, zone) => {
-          acc[zone.id] = zone.kind === "text" ? "" : false;
-          return acc;
-        }, {});
-        const savedValues = readJson<ChoiceZoneValues>(
-          storage,
-          storageKey("choice-zones", exam.id, question.id),
-          defaultValues
-        );
-        const result = evaluateChoiceZones(savedValues, choiceZones);
-        if (result.total > 0) {
-          gradedQuestions += 1;
-          totalCorrect += result.correct;
-          totalPossible += result.total;
-        }
-        return;
-      }
-
-      const options = interaction.options ?? [];
-      if (question.type === "choice-grid" && options.length > 0) {
-        const validOptionIds = new Set(options.map((option) => option.id));
-        const savedSelected = readJson<string[]>(
-          storage,
-          storageKey("choice", exam.id, question.id),
-          []
-        ).filter((id) => validOptionIds.has(id));
-        const result = evaluateChoiceSelection(savedSelected, options);
-        if (result.total > 0) {
-          gradedQuestions += 1;
-          totalCorrect += result.correct;
-          totalPossible += result.total;
-        }
-      }
-    });
-
-    if (totalPossible === 0) {
+    const result = gradeExamSubmission(exam, storage);
+    if (!result) {
       setSubmission(null);
       return;
     }
 
-    const points100 = Number(((totalCorrect / totalPossible) * 100).toFixed(1));
-    const result: SubmissionResult = {
-      submittedAt: new Date().toISOString(),
-      gradedQuestions,
-      totalCorrect,
-      totalPossible,
-      points100,
-      grade: gradeFromPoints(points100),
-    };
-
     storage.setItem(submissionStorageKey(exam.id), JSON.stringify(result));
     setSubmission(result);
   };
-
-  const handleTimerDraftChange =
-    (field: "hours" | "minutes" | "seconds") =>
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const digitsOnly = event.target.value.replace(/\D/g, "");
-      setTimerDraft((current) => ({
-        ...current,
-        [field]: digitsOnly,
-      }));
-    };
-
-  const handleOpenTimerEditor = () => {
-    syncTimerDraftFromState(timerState);
-    setIsEditingTimer(true);
-  };
-
-  const handleCancelTimerEditor = () => {
-    syncTimerDraftFromState(timerState);
-    setIsEditingTimer(false);
-  };
-
-  const handleApplyTimerDraft = () => {
-    const hours = Number(timerDraft.hours || "0");
-    const minutes = Number(timerDraft.minutes || "0");
-    const seconds = Number(timerDraft.seconds || "0");
-    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-
-    if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) {
-      window.alert(
-        isEnglish
-          ? "Choose a time that is greater than 0 seconds."
-          : "Velg en tid som er større enn 0 sekunder."
-      );
-      return;
-    }
-
-    const nextDurationMs = totalSeconds * 1000;
-    const now = Date.now();
-    const next: ExamTimerState =
-      timerState.status === "running"
-        ? {
-            status: "running",
-            durationMs: nextDurationMs,
-            remainingMs: nextDurationMs,
-            startedAt: new Date(now).toISOString(),
-            endsAt: new Date(now + nextDurationMs).toISOString(),
-            finishedAt: null,
-          }
-        : {
-            status: timerState.status === "paused" ? "paused" : "idle",
-            durationMs: nextDurationMs,
-            remainingMs: nextDurationMs,
-            startedAt: null,
-            endsAt: null,
-            finishedAt: null,
-          };
-
-    setTimerState(next);
-    persistTimerState(next);
-    syncTimerDraftFromState(next);
-    setIsEditingTimer(false);
-  };
-
-  const handleStartTimer = () => {
-    const now = Date.now();
-    const next: ExamTimerState = {
-      status: "running",
-      durationMs: timerState.durationMs || EXAM_DURATION_MS,
-      remainingMs: timerState.durationMs || EXAM_DURATION_MS,
-      startedAt: new Date(now).toISOString(),
-      endsAt: new Date(now + (timerState.durationMs || EXAM_DURATION_MS)).toISOString(),
-      finishedAt: null,
-    };
-    setTimerState(next);
-    persistTimerState(next);
-    setIsEditingTimer(false);
-  };
-
-  const handlePauseTimer = () => {
-    setTimerState((current) => {
-      const running = resolveExamTimerState(current, Date.now());
-      if (running.status !== "running") {
-        return current;
-      }
-
-      const next: ExamTimerState = {
-        ...running,
-        status: "paused",
-        endsAt: null,
-      };
-      persistTimerState(next);
-      syncTimerDraftFromState(next);
-      return next;
-    });
-  };
-
-  const handleResumeTimer = () => {
-    const now = Date.now();
-    setTimerState((current) => {
-      if (current.status !== "paused") {
-        return current;
-      }
-
-      const next: ExamTimerState = {
-        ...current,
-        status: "running",
-        endsAt: new Date(now + current.remainingMs).toISOString(),
-        startedAt: current.startedAt ?? new Date(now).toISOString(),
-        finishedAt: null,
-      };
-      persistTimerState(next);
-      setIsEditingTimer(false);
-      return next;
-    });
-  };
-
-  const handleResetTimer = () => {
-    const approved = window.confirm(
-      isEnglish
-        ? "Reset the timer for this exam simulation?"
-        : "Nullstille 2-timers timeren for denne eksamenen?"
-    );
-    if (!approved) {
-      return;
-    }
-
-    const next = defaultExamTimerState();
-    setTimerState(next);
-    persistTimerState(next);
-    syncTimerDraftFromState(next);
-    setIsEditingTimer(false);
-  };
-
-  const timerProgress = Math.max(
-    0,
-    Math.min(100, (timerState.remainingMs / timerState.durationMs) * 100)
-  );
   const timerToneClass =
     timerState.status === "finished"
       ? styles.timerFinished
