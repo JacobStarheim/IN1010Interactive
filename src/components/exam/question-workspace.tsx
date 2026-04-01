@@ -17,7 +17,6 @@ import {
   formatPageAlt,
   formatQuestionHeading,
 } from "@/lib/i18n";
-import { getQuestionExplanation } from "@/lib/question-explanations";
 import { getEffectivePageCrop, getPageCrop, mapRectToCroppedPage } from "@/lib/page-crops";
 import styles from "@/components/exam/question-workspace.module.css";
 
@@ -98,7 +97,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
   const [activeItemId, setActiveItemId] = useState<string | null>(null);
   const [manualNotes, setManualNotes] = useState("");
   const [notesOpen, setNotesOpen] = useState<boolean>(() => defaultNotesOpenForViewport());
-  const [explanationOpen, setExplanationOpen] = useState(false);
   const [codeText, setCodeText] = useState(question.interaction?.codeTemplate ?? "");
   const [feedback, setFeedback] = useState<string>("");
   const [zoneStatus, setZoneStatus] = useState<Record<string, ValidationStatus>>({});
@@ -308,10 +306,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     question.type === "drag-drop" &&
     normalizedTokenZones.length > 0 &&
     normalizedTokenZones.length === draggableItems.length;
-  const explanation = useMemo(
-    () => getQuestionExplanation(locale, examId, question),
-    [examId, locale, question]
-  );
 
   const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) => {
     return zones.reduce<ChoiceZoneValues>((acc, zone) => {
@@ -423,13 +417,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     } else {
       setNotesOpen(defaultNotesOpenForViewport());
     }
-    const savedExplainOpen = storage.getItem(storageKey("explain-open", examId, question.id));
-    if (savedExplainOpen === "1" || savedExplainOpen === "0") {
-      setExplanationOpen(savedExplainOpen === "1");
-    } else {
-      setExplanationOpen(false);
-    }
-
     setCodeText(question.interaction?.codeTemplate ?? "");
     const savedCode = storage.getItem(storageKey("code", examId, question.id));
     if (savedCode) {
@@ -536,14 +523,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
     }
     storage.setItem(storageKey("notes-open", examId, question.id), notesOpen ? "1" : "0");
   }, [notesOpen, examId, isHydratedFromStorage, question.id]);
-
-  useEffect(() => {
-    const storage = getStorage();
-    if (!storage || !isHydratedFromStorage) {
-      return;
-    }
-    storage.setItem(storageKey("explain-open", examId, question.id), explanationOpen ? "1" : "0");
-  }, [explanationOpen, examId, isHydratedFromStorage, question.id]);
 
   useEffect(() => {
     const storage = getStorage();
@@ -1657,31 +1636,6 @@ export function QuestionWorkspace({ examId, question, resetToken = 0 }: Props) {
                   {isEnglish ? "Clear notes" : "Tøm notater"}
                 </button>
               </div>
-            </div>
-          ) : null}
-          <div className={styles.notesToggleRow}>
-            <button
-              type="button"
-              className={styles.secondaryButton}
-              onClick={() => setExplanationOpen((current) => !current)}
-            >
-              {explanationOpen
-                ? isEnglish
-                  ? "Hide explanation"
-                  : "Skjul forklaring"
-                : isEnglish
-                  ? "Explain this question"
-                  : "Forklar oppgaven"}
-            </button>
-          </div>
-          {explanationOpen ? (
-            <div className={styles.explainPanel}>
-              <h3 className={styles.explainTitle}>{explanation.title}</h3>
-              <ol className={styles.explainList}>
-                {explanation.steps.map((step) => (
-                  <li key={step}>{step}</li>
-                ))}
-              </ol>
             </div>
           ) : null}
           {feedback ? <p className={styles.feedback}>{feedback}</p> : null}
