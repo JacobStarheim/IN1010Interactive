@@ -18,6 +18,12 @@ export type ChoiceZoneValues = Record<string, string | boolean>;
 
 export type ValidationStatus = "correct" | "wrong" | "empty";
 
+export const buildDefaultChoiceZoneValues = (zones: ChoiceZone[]) =>
+  zones.reduce<ChoiceZoneValues>((acc, zone) => {
+    acc[zone.id] = zone.kind === "text" ? "" : false;
+    return acc;
+  }, {});
+
 export const isNumericChoiceZone = (zone: ChoiceZone) => {
   const answers = [zone.answer, ...(zone.answers ?? [])].filter(
     (value): value is string => typeof value === "string" && value.trim().length > 0
