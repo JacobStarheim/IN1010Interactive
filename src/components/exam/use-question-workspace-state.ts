@@ -66,6 +66,28 @@ const sanitizeChoiceMarks = (raw: ChoiceMark[]) => {
   return { sanitized, maxId };
 };
 
+const sanitizeValidationStatusMap = (
+  raw: unknown,
+  validIds: Set<string>
+): Record<string, ValidationStatus> => {
+  if (!raw || typeof raw !== "object") {
+    return {};
+  }
+
+  const result: Record<string, ValidationStatus> = {};
+  Object.entries(raw as Record<string, unknown>).forEach(([id, value]) => {
+    if (!validIds.has(id)) {
+      return;
+    }
+
+    if (value === "correct" || value === "wrong" || value === "empty") {
+      result[id] = value;
+    }
+  });
+
+  return result;
+};
+
 export function useQuestionWorkspaceState({
   examId,
   questionId,
@@ -130,9 +152,8 @@ export function useQuestionWorkspaceState({
       setSelectedChoices([]);
     }
 
-    setFeedback("");
-    setZoneStatus({});
-    setChoiceZoneStatus({});
+    const savedFeedback = storage.getItem(storageKey("feedback", examId, questionId));
+    setFeedback(savedFeedback ?? "");
 
     if (dropZones.length > 0) {
       const emptyState = Object.fromEntries(dropZones.map((zone) => [zone.id, null])) as DragAssignments;
@@ -156,8 +177,26 @@ export function useQuestionWorkspaceState({
       } else {
         setAssignments(emptyState);
       }
+
+      const savedZoneStatus = storage.getItem(storageKey("zone-status", examId, questionId));
+      if (savedZoneStatus) {
+        try {
+          const parsed = JSON.parse(savedZoneStatus) as Record<string, unknown>;
+          setZoneStatus(
+            sanitizeValidationStatusMap(
+              parsed,
+              new Set(dropZones.map((zone) => zone.id))
+            )
+          );
+        } catch {
+          setZoneStatus({});
+        }
+      } else {
+        setZoneStatus({});
+      }
     } else {
       setAssignments({});
+      setZoneStatus({});
     }
 
     const savedManual = storage.getItem(storageKey("manual", examId, questionId));
@@ -197,6 +236,7 @@ export function useQuestionWorkspaceState({
     const defaultChoiceZoneValues = buildDefaultChoiceZoneValues(choiceZones);
     if (choiceZones.length === 0) {
       setChoiceZoneValues({});
+      setChoiceZoneStatus({});
     } else {
       const savedChoiceZoneValues = storage.getItem(storageKey("choice-zones", examId, questionId));
       if (savedChoiceZoneValues) {
@@ -218,6 +258,25 @@ export function useQuestionWorkspaceState({
         }
       } else {
         setChoiceZoneValues(defaultChoiceZoneValues);
+      }
+
+      const savedChoiceZoneStatus = storage.getItem(
+        storageKey("choice-zone-status", examId, questionId)
+      );
+      if (savedChoiceZoneStatus) {
+        try {
+          const parsed = JSON.parse(savedChoiceZoneStatus) as Record<string, unknown>;
+          setChoiceZoneStatus(
+            sanitizeValidationStatusMap(
+              parsed,
+              new Set(choiceZones.map((zone) => zone.id))
+            )
+          );
+        } catch {
+          setChoiceZoneStatus({});
+        }
+      } else {
+        setChoiceZoneStatus({});
       }
     }
 
@@ -263,6 +322,20 @@ export function useQuestionWorkspaceState({
     if (!storage || !isHydratedFromStorage) {
       return;
     }
+
+    if (feedback.length === 0) {
+      storage.removeItem(storageKey("feedback", examId, questionId));
+      return;
+    }
+
+    storage.setItem(storageKey("feedback", examId, questionId), feedback);
+  }, [examId, feedback, isHydratedFromStorage, questionId]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage || !isHydratedFromStorage) {
+      return;
+    }
     storage.setItem(storageKey("notes-open", examId, questionId), notesOpen ? "1" : "0");
   }, [examId, isHydratedFromStorage, notesOpen, questionId]);
 
@@ -284,6 +357,37 @@ export function useQuestionWorkspaceState({
       JSON.stringify(choiceZoneValues)
     );
   }, [choiceZoneValues, choiceZones.length, examId, isHydratedFromStorage, questionId]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage || !isHydratedFromStorage) {
+      return;
+    }
+
+    if (Object.keys(zoneStatus).length === 0) {
+      storage.removeItem(storageKey("zone-status", examId, questionId));
+      return;
+    }
+
+    storage.setItem(storageKey("zone-status", examId, questionId), JSON.stringify(zoneStatus));
+  }, [examId, isHydratedFromStorage, questionId, zoneStatus]);
+
+  useEffect(() => {
+    const storage = getStorage();
+    if (!storage || !isHydratedFromStorage) {
+      return;
+    }
+
+    if (Object.keys(choiceZoneStatus).length === 0) {
+      storage.removeItem(storageKey("choice-zone-status", examId, questionId));
+      return;
+    }
+
+    storage.setItem(
+      storageKey("choice-zone-status", examId, questionId),
+      JSON.stringify(choiceZoneStatus)
+    );
+  }, [choiceZoneStatus, examId, isHydratedFromStorage, questionId]);
 
   useEffect(() => {
     const storage = getStorage();
