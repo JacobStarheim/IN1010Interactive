@@ -293,6 +293,10 @@
         "instructions": "Dra kodebitene på plass i enkeltlenket liste.",
         "draggableItems": [
           {
+            "id": "q2_bad_link",
+            "label": "erlLista.neste = ny.neste"
+          },
+          {
             "id": "q2_next",
             "label": "Bil neste"
           },
@@ -311,6 +315,10 @@
           {
             "id": "q2_store",
             "label": "ny.neste = erILista.neste"
+          },
+          {
+            "id": "q2_bad_tail",
+            "label": "ny.neste = siste"
           },
           {
             "id": "q2_link",
@@ -406,10 +414,10 @@
         "tokenZones": [
           {
             "id": "q02-token-1",
-            "itemId": "q2_next",
+            "itemId": "q2_bad_link",
             "pageIndex": 0,
             "rect": {
-              "x": 0.5618,
+              "x": 0.1001,
               "y": 0.5163,
               "w": 0.2187,
               "h": 0.0291
@@ -420,8 +428,8 @@
             "itemId": "q2_last",
             "pageIndex": 0,
             "rect": {
-              "x": 0.1001,
-              "y": 0.5538,
+              "x": 0.3305,
+              "y": 0.5163,
               "w": 0.2187,
               "h": 0.0291
             }
@@ -431,6 +439,28 @@
             "itemId": "q2_init",
             "pageIndex": 0,
             "rect": {
+              "x": 0.5618,
+              "y": 0.5163,
+              "w": 0.2187,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q02-token-4",
+            "itemId": "q2_link",
+            "pageIndex": 0,
+            "rect": {
+              "x": 0.1001,
+              "y": 0.5538,
+              "w": 0.2187,
+              "h": 0.0291
+            }
+          },
+          {
+            "id": "q02-token-5",
+            "itemId": "q2_param",
+            "pageIndex": 0,
+            "rect": {
               "x": 0.3305,
               "y": 0.5538,
               "w": 0.2187,
@@ -438,8 +468,8 @@
             }
           },
           {
-            "id": "q02-token-4",
-            "itemId": "q2_param",
+            "id": "q02-token-6",
+            "itemId": "q2_next",
             "pageIndex": 0,
             "rect": {
               "x": 0.5618,
@@ -449,7 +479,7 @@
             }
           },
           {
-            "id": "q02-token-5",
+            "id": "q02-token-7",
             "itemId": "q2_store",
             "pageIndex": 0,
             "rect": {
@@ -460,8 +490,8 @@
             }
           },
           {
-            "id": "q02-token-6",
-            "itemId": "q2_link",
+            "id": "q02-token-8",
+            "itemId": "q2_bad_tail",
             "pageIndex": 0,
             "rect": {
               "x": 0.3305,
