@@ -36,6 +36,8 @@ export function useAuthBarController(isEnglish: boolean) {
   const [message, setMessage] = useState<AuthMessage>(null);
   const syncTimeoutRef = useRef<number | null>(null);
   const bootstrappedUserRef = useRef<string | null>(null);
+  const hasPendingLocalChangesRef = useRef(false);
+  const isPushingSnapshotRef = useRef(false);
 
   const refreshSession = useCallback(async () => {
     const response = await fetch("/api/auth/session", {
@@ -47,23 +49,47 @@ export function useAuthBarController(isEnglish: boolean) {
     return payload;
   }, []);
 
+  const fetchRemoteSnapshot = useCallback(async () => {
+    const response = await fetch("/api/progress", {
+      credentials: "include",
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+      throw new Error(
+        payload?.error ??
+          (isEnglish
+            ? "Could not fetch saved progress."
+            : "Kunne ikke hente lagret progresjon.")
+      );
+    }
+
+    return (await response.json()) as ProgressSnapshot;
+  }, [isEnglish]);
+
   const pushSnapshot = useCallback(
     async (snapshot: ProgressSnapshot) => {
-      const response = await fetch("/api/progress", {
-        method: "PUT",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(snapshot),
-      });
+      isPushingSnapshotRef.current = true;
+      try {
+        const response = await fetch("/api/progress", {
+          method: "PUT",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(snapshot),
+        });
 
-      if (!response.ok) {
-        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(
-          payload?.error ??
-            (isEnglish
-              ? "Could not save progress to the cloud."
-              : "Kunne ikke lagre skyprogresjon.")
-        );
+        if (!response.ok) {
+          const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+          throw new Error(
+            payload?.error ??
+              (isEnglish
+                ? "Could not save progress to the cloud."
+                : "Kunne ikke lagre skyprogresjon.")
+          );
+        }
+      } finally {
+        isPushingSnapshotRef.current = false;
       }
     },
     [isEnglish]
@@ -90,26 +116,7 @@ export function useAuthBarController(isEnglish: boolean) {
       }
 
       setSyncState("bootstrapping");
-      const response = await fetch("/api/progress", {
-        credentials: "include",
-        cache: "no-store",
-      });
-
-      if (!response.ok) {
-        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-        setSyncState("error");
-        setMessage({
-          text:
-            payload?.error ??
-            (isEnglish
-              ? "Could not fetch saved progress."
-              : "Kunne ikke hente lagret progresjon."),
-          kind: "error",
-        });
-        return;
-      }
-
-      const remoteSnapshot = (await response.json()) as ProgressSnapshot;
+      const remoteSnapshot = await fetchRemoteSnapshot();
       const localSnapshot = createLocalProgressSnapshot(storage);
       const localOwner = storage.getItem(CLOUD_OWNER_STORAGE_KEY);
       const remoteHasData = Object.keys(remoteSnapshot.entries ?? {}).length > 0;
@@ -144,12 +151,13 @@ export function useAuthBarController(isEnglish: boolean) {
         });
       }
 
+      hasPendingLocalChangesRef.current = false;
       setSyncState("saved");
       if (changed) {
         window.location.reload();
       }
     },
-    [isEnglish, pushSnapshot]
+    [fetchRemoteSnapshot, pushSnapshot]
   );
 
   useEffect(() => {
@@ -231,6 +239,7 @@ export function useAuthBarController(isEnglish: boolean) {
         return;
       }
 
+      hasPendingLocalChangesRef.current = true;
       if (syncTimeoutRef.current) {
         window.clearTimeout(syncTimeoutRef.current);
       }
@@ -239,8 +248,10 @@ export function useAuthBarController(isEnglish: boolean) {
         try {
           setSyncState("saving");
           await pushSnapshot(createLocalProgressSnapshot(window.localStorage));
+          hasPendingLocalChangesRef.current = false;
           setSyncState("saved");
         } catch (error) {
+          hasPendingLocalChangesRef.current = true;
           setSyncState("error");
           setMessage({
             text:
@@ -263,6 +274,72 @@ export function useAuthBarController(isEnglish: boolean) {
       }
     };
   }, [isEnglish, pushSnapshot, session]);
+
+  const refreshFromCloud = useCallback(
+    async (currentSession: SessionPayload) => {
+      if (
+        !currentSession.enabled ||
+        !currentSession.authenticated ||
+        !currentSession.user ||
+        typeof window === "undefined"
+      ) {
+        return;
+      }
+
+      if (
+        bootstrappedUserRef.current !== currentSession.user.username ||
+        hasPendingLocalChangesRef.current ||
+        isPushingSnapshotRef.current
+      ) {
+        return;
+      }
+
+      const storage = window.localStorage;
+      const remoteSnapshot = await fetchRemoteSnapshot();
+      const changed = applyProgressSnapshot(storage, remoteSnapshot);
+      storage.setItem(CLOUD_OWNER_STORAGE_KEY, currentSession.user.username);
+
+      if (changed) {
+        window.location.reload();
+      }
+    },
+    [fetchRemoteSnapshot]
+  );
+
+  useEffect(() => {
+    if (!session?.authenticated || !session.user) {
+      return;
+    }
+
+    const handleForegroundSync = () => {
+      refreshFromCloud(session).catch((error) => {
+        setSyncState("error");
+        setMessage({
+          text:
+            error instanceof Error
+              ? error.message
+              : isEnglish
+                ? "Cloud sync failed."
+                : "Sky-synk feilet.",
+          kind: "error",
+        });
+      });
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        handleForegroundSync();
+      }
+    };
+
+    window.addEventListener("focus", handleForegroundSync);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("focus", handleForegroundSync);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isEnglish, refreshFromCloud, session]);
 
   const authenticate = useCallback(
     async (mode: "login" | "register") => {
@@ -362,6 +439,8 @@ export function useAuthBarController(isEnglish: boolean) {
     }
 
     bootstrappedUserRef.current = null;
+    hasPendingLocalChangesRef.current = false;
+    isPushingSnapshotRef.current = false;
     setSyncState("idle");
     setPassword("");
     setMessage({
